@@ -1,32 +1,88 @@
-package schiffeversenken;
+package ch.zhaw.schiffeversenken.guicomponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Testclass {
+public class PlayingFieldSetupTest {
 	public static void main (String[] args) {
 		JFrame frame = new JFrame("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Container contentPane = frame.getContentPane();
-		final JPanel drawPanel = new drawPanel();
-		drawPanel.setSize(200, 400);
-		contentPane.add(drawPanel, BorderLayout.CENTER);
+		final PlayingFieldPanel playerField = new PlayingFieldPanel();
+		final PlayingFieldPanel computerField = new PlayingFieldPanel();
+		GridLayout gridLayout = new GridLayout(1,2);
+		gridLayout.setHgap(50);
+		contentPane.setLayout(gridLayout);
+		
+		contentPane.setBackground(Color.WHITE);
+		
+		contentPane.add(playerField);
+		contentPane.add(computerField);
 		
 		frame.setVisible(true);
-		frame.setSize(200, 200);
+		frame.setSize(800, 800);
 		
-		drawPanel.addMouseListener(new MouseListener() {
+		final int rowCount = 10;
+		final int columnCount = 10;
+		
+		
+		//draw lines for player field
+		//first loop: horizontal lines
+		for(int i = 0; i<=rowCount; i++) {
+
+			Shape line = new Line(50, i*100/rowCount, 100, 0, Color.GRAY);
+			playerField.addShape(line);
+		}
+		
+		//second loop: vertical lines
+		for(int i = 0; i<=columnCount; i++) {
+			Shape line = new Line(i*100/columnCount, 50, 0, 100, Color.GRAY);
+			playerField.addShape(line);
+		}
+		
+		//draw lines for player field
+		//first loop: horizontal lines
+		for(int i = 0; i<=rowCount; i++) {
+
+			Shape line = new Line(50, i*100/rowCount, 100, 0, Color.GRAY);
+			computerField.addShape(line);
+		}
+		
+		//second loop: vertical lines
+		for(int i = 0; i<=columnCount; i++) {
+			Shape line = new Line(i*100/columnCount, 50, 0, 100, Color.GRAY);
+			computerField.addShape(line);
+		}
+		
+		//draw ship
+		Shape intactShip = new ShipIntact(15, 15, 8, 8, Color.RED);
+		playerField.addShape(intactShip);
+		
+		playerField.addMouseListener(new MouseListener() {
 
 			public void mouseClicked(MouseEvent e) {
-				int width = drawPanel.getWidth();
-				System.out.println((double)e.getX()/width*100);
+				int size = playerField.getSquareSize();
 				
+				
+				int posX = (int)((double)e.getX()/size * columnCount);
+				int posY = (int)((double)e.getY()/size * rowCount);
+				System.out.print(posX);
+				System.out.println(", " + posY);
 			}
 
 			public void mousePressed(MouseEvent e) {

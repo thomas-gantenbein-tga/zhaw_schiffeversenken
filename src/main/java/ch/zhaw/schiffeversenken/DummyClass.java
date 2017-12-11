@@ -1,4 +1,4 @@
-package schiffeversenken;
+package ch.zhaw.schiffeversenken;
 
 public class DummyClass {
 

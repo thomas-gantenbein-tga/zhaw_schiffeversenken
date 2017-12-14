@@ -69,9 +69,12 @@ public class PlayingFieldSetupTest {
 			computerField.addShape(line);
 		}
 		
-		//draw ship
+		//draw ships
 		Shape intactShip = ShapeFactory.createShipIntact(new Coordinate(3,3,null), rowCount, columnCount);
 		playerField.addShape(intactShip);
+		
+		Shape hitShip = ShapeFactory.createShipHit(new Coordinate(4,4,null), rowCount, columnCount);
+		playerField.addShape(hitShip);
 		
 		playerField.addMouseListener(new MouseListener() {
 

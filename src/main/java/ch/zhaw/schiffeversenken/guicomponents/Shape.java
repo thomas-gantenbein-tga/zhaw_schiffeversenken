@@ -44,8 +44,6 @@ public abstract class Shape {
 		return color;
 	}
 
-	public void draw(int playingFieldSize, Graphics g){
-		
-	}
+	public abstract void draw(int playingFieldSize, Graphics g);
 	
 }

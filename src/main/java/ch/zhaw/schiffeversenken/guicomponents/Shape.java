@@ -7,17 +7,18 @@ public abstract class Shape {
 
 	protected int centerX;
 	protected int centerY;
-	protected int width;
-	protected int height;
+	protected double width;
+	protected double height;
 	protected Color color;
 	
 	
 	
-	public Shape(int centerX, int centerY, int width, int height, Color color) {
+	public Shape(int centerX, int centerY, double width, double height, Color color) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.width = width;
 		this.height = height;
+		this.color = color;
 	}
 	
 	
@@ -29,12 +30,12 @@ public abstract class Shape {
 	}
 
 
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
 
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 

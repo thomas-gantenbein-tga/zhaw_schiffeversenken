@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ch.zhaw.schiffeversenken.Coordinate;
+
 public class PlayingFieldSetupTest {
 	public static void main (String[] args) {
 		JFrame frame = new JFrame("Test");
@@ -44,33 +46,31 @@ public class PlayingFieldSetupTest {
 		//draw lines for player field
 		//first loop: horizontal lines
 		for(int i = 0; i<=rowCount; i++) {
-
-			Shape line = new Line(50, i*100/rowCount, 100, 0, Color.GRAY);
+			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 100, 0);
 			playerField.addShape(line);
 		}
 		
 		//second loop: vertical lines
 		for(int i = 0; i<=columnCount; i++) {
-			Shape line = new Line(i*100/columnCount, 50, 0, 100, Color.GRAY);
+			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 0, 100);
 			playerField.addShape(line);
 		}
 		
 		//draw lines for player field
 		//first loop: horizontal lines
 		for(int i = 0; i<=rowCount; i++) {
-
-			Shape line = new Line(50, i*100/rowCount, 100, 0, Color.GRAY);
+			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 100, 0);
 			computerField.addShape(line);
 		}
 		
 		//second loop: vertical lines
 		for(int i = 0; i<=columnCount; i++) {
-			Shape line = new Line(i*100/columnCount, 50, 0, 100, Color.GRAY);
+			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 0, 100);
 			computerField.addShape(line);
 		}
 		
 		//draw ship
-		Shape intactShip = new ShipIntact(15, 15, 8, 8, Color.RED);
+		Shape intactShip = ShapeFactory.createShipIntact(new Coordinate(3,3,null), rowCount, columnCount);
 		playerField.addShape(intactShip);
 		
 		playerField.addMouseListener(new MouseListener() {

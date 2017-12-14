@@ -20,54 +20,15 @@ import javax.swing.JPanel;
 import ch.zhaw.schiffeversenken.Coordinate;
 
 public class PlayingFieldSetupTest {
-	public static void main (String[] args) {
-		JFrame frame = new JFrame("Test");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		Container contentPane = frame.getContentPane();
-		final PlayingFieldPanel playerField = new PlayingFieldPanel();
-		final PlayingFieldPanel computerField = new PlayingFieldPanel();
-		GridLayout gridLayout = new GridLayout(1,2);
-		gridLayout.setHgap(50);
-		contentPane.setLayout(gridLayout);
+	
+		public static void main(String[] args) {
 		
-		contentPane.setBackground(Color.WHITE);
-		
-		contentPane.add(playerField);
-		contentPane.add(computerField);
-		
-		frame.setVisible(true);
-		frame.setSize(800, 800);
-		
-		final int rowCount = 10;
-		final int columnCount = 10;
-		
-		
-		//draw lines for player field
-		//first loop: horizontal lines
-		for(int i = 0; i<=rowCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 100, 0);
-			playerField.addShape(line);
-		}
-		
-		//second loop: vertical lines
-		for(int i = 0; i<=columnCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 0, 100);
-			playerField.addShape(line);
-		}
-		
-		//draw lines for player field
-		//first loop: horizontal lines
-		for(int i = 0; i<=rowCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 100, 0);
-			computerField.addShape(line);
-		}
-		
-		//second loop: vertical lines
-		for(int i = 0; i<=columnCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 0, 100);
-			computerField.addShape(line);
-		}
+		int rowCount = 10;
+		int columnCount = 10;
+			
+		Maingui gui = new Maingui(rowCount, columnCount);
+		PlayingFieldPanel playerField = gui.getPlayerField();
+		PlayingFieldPanel computerField = gui.getComputerField();
 		
 		//draw ships
 		Shape intactShip = ShapeFactory.createShipIntact(new Coordinate(3,3,null), rowCount, columnCount);
@@ -76,39 +37,8 @@ public class PlayingFieldSetupTest {
 		Shape hitShip = ShapeFactory.createShipHit(new Coordinate(4,4,null), rowCount, columnCount);
 		playerField.addShape(hitShip);
 		
-		playerField.addMouseListener(new MouseListener() {
-
-			public void mouseClicked(MouseEvent e) {
-				int size = playerField.getSquareSize();
-				
-				
-				int posX = (int)((double)e.getX()/size * columnCount);
-				int posY = (int)((double)e.getY()/size * rowCount);
-				System.out.print(posX);
-				System.out.println(", " + posY);
-			}
-
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		
 		
 	}
 }
+

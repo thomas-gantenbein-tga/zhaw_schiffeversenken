@@ -37,6 +37,9 @@ public class PlayingFieldSetupTest {
 		Shape hitShip = ShapeFactory.createShipHit(new Coordinate(4,4,null), rowCount, columnCount);
 		playerField.addShape(hitShip);
 		
+		Shape hitSea = ShapeFactory.createSeaHit(new Coordinate(5,5,null), rowCount, columnCount);
+		playerField.addShape(hitSea);
+		
 		
 		
 	}

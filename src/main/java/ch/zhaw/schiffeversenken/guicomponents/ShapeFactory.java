@@ -49,5 +49,13 @@ public class ShapeFactory {
 		Shape shipHit= new ShipHit(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount*0.8, 100/columnCount*0.8, Color.BLACK);
 		return shipHit;
 	}
+	
+	public static Shape createSeaHit (Coordinate coordinate, int rowCount, int columnCount) {
+		int xCoordinate = coordinate.getxPosition();
+		int yCoordinate = coordinate.getyPosition();
+		
+		Shape seaHit = new SeaHit(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount*0.2, 100/columnCount*0.2, Color.BLACK);
+		return seaHit;
+	}
 
 }

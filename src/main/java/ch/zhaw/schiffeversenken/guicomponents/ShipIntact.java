@@ -17,7 +17,7 @@ public class ShipIntact extends Shape {
 		int width = (int) (playingFieldSize * this.width/100);
 		int height = (int) (playingFieldSize * this.height/100);
 		g.setColor(color);
-		g.drawOval(xPosition, yPosition, width, height);
+		g.fillOval(xPosition, yPosition, width, height);
 		
 	}
 	

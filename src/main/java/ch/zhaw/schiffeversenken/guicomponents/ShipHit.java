@@ -17,7 +17,7 @@ public class ShipHit extends Shape {
 		int width = (int) (playingFieldSize * this.width/100);
 		int height = (int) (playingFieldSize * this.height/100);
 		g.setColor(color);
-		g.drawOval(xPosition, yPosition, width, height);
+		g.fillOval(xPosition, yPosition, width, height);
 		
 		double resizeFactor = 0.6;
 		xPosition = (int) (playingFieldSize*centerX/100.0 - this.width*resizeFactor/100.0*playingFieldSize/2);

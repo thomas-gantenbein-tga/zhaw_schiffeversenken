@@ -26,6 +26,7 @@ public class Maingui {
 	private int columnCount;
 
 	public Maingui (int rowCount, int columnCount) {
+		//TODO: comments for this class
 		JFrame frame = new JFrame("Schiffe versenken");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.rowCount = rowCount;
@@ -69,7 +70,7 @@ public class Maingui {
 		contentPane.add(menuBar, BorderLayout.NORTH);
 		
 		frame.setVisible(true);
-		frame.setSize(800, 800);
+		frame.setSize(1200, 600);
 		
 		//draw lines for player field
 		//first loop: horizontal lines

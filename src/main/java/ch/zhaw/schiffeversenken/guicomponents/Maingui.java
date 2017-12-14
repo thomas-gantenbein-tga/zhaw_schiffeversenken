@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -111,7 +112,7 @@ public class Maingui {
 		return computerField;
 	}
 	
-	private class ShootListener implements MouseListener {
+	private class ShootListener extends MouseAdapter {
 
 		public void mouseClicked(MouseEvent e) {
 			int size = playerField.getSquareSize();
@@ -120,24 +121,9 @@ public class Maingui {
 			System.out.print(posX);
 			System.out.println(", " + posY);
 		}
-
-		public void mousePressed(MouseEvent e) {			
-		}
-
-		public void mouseReleased(MouseEvent e) {
-			
-		}
-
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		public void mouseExited(MouseEvent e) {
-		}
-		
-		
 	}
 	
-	private class HoverListener implements MouseMotionListener {
+	private class HoverListener extends MouseAdapter {
 		//TODO: comments for this inner class
 		int posX = -1;
 		int posY = -1;
@@ -146,8 +132,6 @@ public class Maingui {
 
 		public HoverListener(PlayingFieldPanel panel) {
 			this.panel = panel;
-		}
-		public void mouseDragged(MouseEvent e) {
 		}
 
 		public void mouseMoved(MouseEvent e) {

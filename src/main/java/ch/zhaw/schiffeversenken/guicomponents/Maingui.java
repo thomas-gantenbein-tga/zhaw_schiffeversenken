@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import ch.zhaw.schiffeversenken.Coordinate;
 
 public class Maingui {
 	private PlayingFieldPanel playerField;
@@ -95,6 +98,7 @@ public class Maingui {
 		
 		playerField.addMouseListener(new ShootListener());
 		computerField.addMouseListener(new ShootListener());
+		computerField.addMouseMotionListener(new HoverListener(computerField));
 		
 		
 	}
@@ -108,34 +112,59 @@ public class Maingui {
 	}
 	
 	private class ShootListener implements MouseListener {
+
 		public void mouseClicked(MouseEvent e) {
 			int size = playerField.getSquareSize();
-			
-			
 			int posX = (int)((double)e.getX()/size * columnCount);
 			int posY = (int)((double)e.getY()/size * rowCount);
 			System.out.print(posX);
 			System.out.println(", " + posY);
 		}
 
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+		public void mousePressed(MouseEvent e) {			
 		}
 
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
+		
+		
+	}
+	
+	private class HoverListener implements MouseMotionListener {
+		//TODO: comments for this inner class
+		int posX = -1;
+		int posY = -1;
+		Shape previousHoverShape = null;
+		PlayingFieldPanel panel;
+
+		public HoverListener(PlayingFieldPanel panel) {
+			this.panel = panel;
+		}
+		public void mouseDragged(MouseEvent e) {
+		}
+
+		public void mouseMoved(MouseEvent e) {
+			int size = panel.getSquareSize();
+			int posX = (int)((double)e.getX()/size * columnCount);
+			int posY = (int)((double)e.getY()/size * rowCount);
+			
+			if(posX < columnCount && posY < rowCount && (posX != this.posX || posY != this.posY)) {
+				this.posX = posX;
+				this.posY = posY;
+				panel.getShapes().remove(previousHoverShape);
+				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY,null), rowCount, columnCount);
+				panel.addShape(hoverShape);
+				previousHoverShape = hoverShape;
+				panel.repaint();
+			}
+		}
+		
 	}
 }

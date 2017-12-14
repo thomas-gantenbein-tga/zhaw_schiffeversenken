@@ -57,5 +57,13 @@ public class ShapeFactory {
 		Shape seaHit = new SeaHit(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount*0.2, 100/columnCount*0.2, Color.BLACK);
 		return seaHit;
 	}
+	
+	public static Shape createHoverShape (Coordinate coordinate, int rowCount, int columnCount) {
+		int xCoordinate = coordinate.getxPosition();
+		int yCoordinate = coordinate.getyPosition();
+		
+		Shape hoverShape = new HoverShape(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount, 100/columnCount, Color.LIGHT_GRAY);
+		return hoverShape;
+	}
 
 }

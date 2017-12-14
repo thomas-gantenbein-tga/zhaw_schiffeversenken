@@ -42,6 +42,10 @@ public class PlayingFieldPanel extends JPanel{
 	public int getSquareSize() {
 		return playingFieldSize;
 	}
+
+	public List<Shape> getShapes() {
+		return shapes;
+	}
 	
 	
 	

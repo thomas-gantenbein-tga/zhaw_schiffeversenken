@@ -18,13 +18,15 @@ import javax.swing.JPanel;
 public class Maingui {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
+	private int rowCount;
+	private int columnCount;
 
-	public Maingui (int rows, int columns) {
+	public Maingui (int rowCount, int columnCount) {
 		JFrame frame = new JFrame("Schiffe versenken");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		final int rowCount = rows;
-		final int columnCount = columns;
+		this.rowCount = rowCount;
+		this.columnCount = columnCount;
+		
 		
 		JPanel fieldsPanel = new JPanel();
 		JPanel labelsPanel = new JPanel();
@@ -91,39 +93,8 @@ public class Maingui {
 			computerField.addShape(line);
 		}
 		
-		playerField.addMouseListener(new MouseListener() {
-
-			public void mouseClicked(MouseEvent e) {
-				int size = playerField.getSquareSize();
-				
-				
-				int posX = (int)((double)e.getX()/size * columnCount);
-				int posY = (int)((double)e.getY()/size * rowCount);
-				System.out.print(posX);
-				System.out.println(", " + posY);
-			}
-
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		playerField.addMouseListener(new ShootListener());
+		computerField.addMouseListener(new ShootListener());
 		
 		
 	}
@@ -134,5 +105,37 @@ public class Maingui {
 
 	public PlayingFieldPanel getComputerField() {
 		return computerField;
+	}
+	
+	private class ShootListener implements MouseListener {
+		public void mouseClicked(MouseEvent e) {
+			int size = playerField.getSquareSize();
+			
+			
+			int posX = (int)((double)e.getX()/size * columnCount);
+			int posY = (int)((double)e.getY()/size * rowCount);
+			System.out.print(posX);
+			System.out.println(", " + posY);
+		}
+
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }

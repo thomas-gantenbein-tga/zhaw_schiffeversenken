@@ -22,18 +22,30 @@ public class TestingLayoutManagers {
 		
 		PlayingFieldPanel playerField = new PlayingFieldPanel();
 		playerField.setBackground(Color.RED);
+		playerField.setPreferredSize(new Dimension(50, 50));
+		playerField.setMinimumSize(new Dimension(50,50));
+
 		
 		PlayingFieldPanel computerField = new PlayingFieldPanel();
 		computerField.setBackground(Color.BLACK);
-		computerField.setMinimumSize(new Dimension(200,200));
+		computerField.setPreferredSize(new Dimension(100, 100));
+		computerField.setMinimumSize(new Dimension(50,50));
+
 		
-		LayoutManager gridLayout = new GridBagLayout();
+		LayoutManager gridBagLayout = new GridBagLayout();
 		GridBagConstraints gconstr = new GridBagConstraints();
-	
+		gconstr.fill = GridBagConstraints.BOTH;
+		gconstr.gridx = 0;
+		gconstr.weightx = 0.5;
+		gconstr.weighty = 0.5;
+		gconstr.anchor = GridBagConstraints.FIRST_LINE_START;
 		
-		mainContainer.setLayout(gridLayout);
-		mainContainer.add(playerField);
-		mainContainer.add(computerField);
+		
+		mainContainer.setLayout(gridBagLayout);
+		mainContainer.setBackground(Color.GRAY);
+		mainContainer.add(playerField, gconstr);
+		gconstr.gridx=1;
+		mainContainer.add(computerField, gconstr);
 		frame.setSize(400, 400);
 		frame.setVisible(true);
 	}

@@ -34,32 +34,32 @@ public class TestingLayoutManagers {
 
 		
 		LayoutManager gridBagLayout = new GridBagLayout();
-		GridBagConstraints gconstr = new GridBagConstraints();
-		gconstr.fill = GridBagConstraints.BOTH;
-		gconstr.gridx = 0;
-		gconstr.insets = new Insets(10,10,10,10);
-		gconstr.weightx = 1;
-		gconstr.weighty = 1;
+		GridBagConstraints gbConstraints = new GridBagConstraints();
+		gbConstraints.fill = GridBagConstraints.BOTH;
+		gbConstraints.gridx = 0;
+		gbConstraints.insets = new Insets(10,10,10,10);
+		gbConstraints.weightx = 1;
+		gbConstraints.weighty = 1;
 		
 		
 		mainContainer.setLayout(gridBagLayout);
 		mainContainer.setBackground(Color.GRAY);
-		mainContainer.add(playerField, gconstr);
-		gconstr.gridx=1;
-		mainContainer.add(computerField, gconstr);
-		gconstr.gridy = 1;
-		gconstr.gridx = 0;
-		gconstr.weightx = 0;
-		gconstr.weighty = 0;
-		gconstr.anchor = GridBagConstraints.FIRST_LINE_START;
-		gconstr.fill = GridBagConstraints.NONE;
+		mainContainer.add(playerField, gbConstraints);
+		gbConstraints.gridx=1;
+		mainContainer.add(computerField, gbConstraints);
+		gbConstraints.gridy = 1;
+		gbConstraints.gridx = 0;
+		gbConstraints.weightx = 0;
+		gbConstraints.weighty = 0;
+		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		gbConstraints.fill = GridBagConstraints.NONE;
 		JLabel label1 = new JLabel("TestTest1");
-		mainContainer.add(label1, gconstr);
+		mainContainer.add(label1, gbConstraints);
 		JLabel label2 = new JLabel("TestTest2");
-		gconstr.gridy = 1;
-		gconstr.gridx = 1;
-		gconstr.anchor = GridBagConstraints.FIRST_LINE_START;
-		mainContainer.add(label2, gconstr);
+		gbConstraints.gridy = 1;
+		gbConstraints.gridx = 1;
+		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		mainContainer.add(label2, gbConstraints);
 		frame.setSize(1000, 500);
 		frame.setVisible(true);
 	}

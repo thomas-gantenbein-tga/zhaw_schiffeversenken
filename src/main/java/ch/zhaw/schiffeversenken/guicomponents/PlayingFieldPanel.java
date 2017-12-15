@@ -18,7 +18,6 @@ public class PlayingFieldPanel extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.setBackground(Color.WHITE);
 		Graphics2D g2 = (Graphics2D) g;
 	    g2.setStroke(new BasicStroke(2));
 		

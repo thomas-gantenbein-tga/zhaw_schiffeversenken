@@ -48,7 +48,9 @@ public class Maingui {
 		menuBar.add(fileMenu);
 		
 		playerField = new PlayingFieldPanel();
+		playerField.setBackground(Color.WHITE);
 		computerField = new PlayingFieldPanel();
+		computerField.setBackground(Color.WHITE);
 
 		//set up layout for computer and player field
 		GridLayout gridLayoutFields = new GridLayout(1,2);

@@ -5,4 +5,21 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Schiffeversenken</name>
   <description>Einfaches Schifferversenken-Spiel</description>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>ch.zhaw.schiffeversenken.guicomponents.PlayingFieldSetupTest</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+  
 </project>

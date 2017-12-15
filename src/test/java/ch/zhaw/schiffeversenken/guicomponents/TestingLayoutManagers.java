@@ -23,7 +23,7 @@ public class TestingLayoutManagers {
 		PlayingFieldPanel playerField = new PlayingFieldPanel();
 		playerField.setBackground(Color.RED);
 		playerField.setPreferredSize(new Dimension(50, 50));
-		playerField.setMinimumSize(new Dimension(50,50));
+		playerField.setMinimumSize(new Dimension(50,50));  
 
 		
 		PlayingFieldPanel computerField = new PlayingFieldPanel();

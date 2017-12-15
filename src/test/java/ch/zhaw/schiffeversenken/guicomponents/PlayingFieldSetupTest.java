@@ -23,8 +23,8 @@ public class PlayingFieldSetupTest {
 	
 		public static void main(String[] args) {
 		
-		int rowCount = 10;
-		int columnCount = 10;
+		int rowCount = 20;
+		int columnCount = 20;
 			
 		Maingui gui = new Maingui(rowCount, columnCount);
 		PlayingFieldPanel playerField = gui.getPlayerField();

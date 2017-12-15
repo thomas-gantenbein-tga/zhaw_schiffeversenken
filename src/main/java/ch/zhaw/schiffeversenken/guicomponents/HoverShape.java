@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class HoverShape extends Shape {
 	
-	public HoverShape(int centerX, int centerY, double width, double height, Color color) {
+	public HoverShape(double centerX, double centerY, double width, double height, Color color) {
 		super(centerX, centerY, width, height, color);
 	}
 

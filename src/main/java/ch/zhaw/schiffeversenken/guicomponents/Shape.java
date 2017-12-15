@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public abstract class Shape {
 
-	protected int centerX;
-	protected int centerY;
+	protected double centerX;
+	protected double centerY;
 	protected double width;
 	protected double height;
 	protected Color color;
@@ -23,7 +23,7 @@ public abstract class Shape {
 	 * @param height
 	 * @param color
 	 */
-	public Shape(int centerX, int centerY, double width, double height, Color color) {
+	public Shape(double centerX, double centerY, double width, double height, Color color) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.width = width;
@@ -32,10 +32,10 @@ public abstract class Shape {
 	}
 	
 	
-	public int getCenterX() {
+	public double getCenterX() {
 		return centerX;
 	}
-	public int getCenterY() {
+	public double getCenterY() {
 		return centerY;
 	}
 

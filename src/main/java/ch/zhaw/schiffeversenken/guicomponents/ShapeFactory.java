@@ -19,14 +19,14 @@ public class ShapeFactory {
 	 * @return
 	 */
 	public static Shape createGridLine(int index, int rowCount, int columnCount, int width, int height) {
-		int xPosition;
-		int yPosition;
+		double xPosition;
+		double yPosition;
 		
 		if(height == 0) {
 			xPosition = 50;
-			yPosition = index*100/rowCount;
+			yPosition = index*100.0/rowCount;
 		} else {
-			xPosition = index*100/columnCount;
+			xPosition = index*100.0/columnCount;
 			yPosition = 50;
 		}
 		
@@ -38,7 +38,7 @@ public class ShapeFactory {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
-		Shape intactShip = new ShipIntact(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount*0.8, 100/columnCount*0.8, Color.BLACK);
+		Shape intactShip = new ShipIntact(xCoordinate*100.0/columnCount+100.0/columnCount/2, yCoordinate*100.0/rowCount+100.0/rowCount/2, 100.0/columnCount*0.8, 100.0/columnCount*0.8, Color.BLACK);
 		return intactShip;
 	}
 	
@@ -46,7 +46,7 @@ public class ShapeFactory {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
-		Shape shipHit= new ShipHit(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount*0.8, 100/columnCount*0.8, Color.BLACK);
+		Shape shipHit= new ShipHit(xCoordinate*100.0/columnCount+100.0/columnCount/2, yCoordinate*100.0/rowCount+100.0/rowCount/2, 100.0/columnCount*0.8, 100.0/columnCount*0.8, Color.BLACK);
 		return shipHit;
 	}
 	
@@ -54,7 +54,7 @@ public class ShapeFactory {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
-		Shape seaHit = new SeaHit(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount*0.2, 100/columnCount*0.2, Color.BLACK);
+		Shape seaHit = new SeaHit(xCoordinate*100.0/columnCount+100.0/columnCount/2, yCoordinate*100.0/rowCount+100.0/rowCount/2, 100.0/columnCount*0.2, 100.0/columnCount*0.2, Color.BLACK);
 		return seaHit;
 	}
 	
@@ -62,7 +62,7 @@ public class ShapeFactory {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
-		Shape hoverShape = new HoverShape(xCoordinate*100/columnCount+100/columnCount/2, yCoordinate*100/rowCount+100/rowCount/2, 100/columnCount, 100/columnCount, Color.LIGHT_GRAY);
+		Shape hoverShape = new HoverShape(xCoordinate*100.0/columnCount+100.0/columnCount/2, yCoordinate*100.0/rowCount+100.0/rowCount/2, 100.0/columnCount, 100.0/columnCount, Color.LIGHT_GRAY);
 		return hoverShape;
 	}
 

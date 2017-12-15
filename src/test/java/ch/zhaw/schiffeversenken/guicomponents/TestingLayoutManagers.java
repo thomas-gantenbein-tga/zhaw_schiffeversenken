@@ -1,6 +1,6 @@
 package ch.zhaw.schiffeversenken.guicomponents;
 <<<<<<< HEAD
-//jhkjhkjjjgadfdafddafdfdfadfsdfadfaadfadfadfaadfaf
+//jhkjhkjjjgadfdafddafdfdfadfsdfadfaadfadfadfaadfafadfadf
 =======
 >>>>>>> branch 'develop' of https://github.com/thomas-gantenbein-tga/zhaw_schiffeversenken.git
 import java.awt.BorderLayout;

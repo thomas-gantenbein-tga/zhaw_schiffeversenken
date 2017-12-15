@@ -1,5 +1,5 @@
 package ch.zhaw.schiffeversenken.guicomponents;
-//jhkjhkjjjgadf
+//jhkjhkjjjgadfdafd
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;

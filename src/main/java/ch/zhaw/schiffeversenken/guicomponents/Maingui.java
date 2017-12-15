@@ -27,17 +27,20 @@ public class Maingui {
 
 	public Maingui (int rowCount, int columnCount) {
 		//TODO: comments for this class
-		JFrame frame = new JFrame("Schiffe versenken");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.rowCount = rowCount;
 		this.columnCount = columnCount;
 		
+		JFrame frame = new JFrame("Schiffe versenken");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel fieldsPanel = new JPanel();
 		JPanel labelsPanel = new JPanel();
 		JPanel gamePanel = new JPanel();
-		
 		Container contentPane = frame.getContentPane();
+
+		JLabel labelPlayer = new JLabel("Player");
+		JLabel labelComputer = new JLabel("Computer");
+		
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		JMenuItem fileMenuOpen = new JMenuItem("Open");
@@ -46,26 +49,31 @@ public class Maingui {
 		
 		playerField = new PlayingFieldPanel();
 		computerField = new PlayingFieldPanel();
+
+		//set up layout for computer and player field
 		GridLayout gridLayoutFields = new GridLayout(1,2);
-		JLabel labelPlayer = new JLabel("Player");
-		JLabel labelComputer = new JLabel("Computer");
-		
 		gridLayoutFields.setHgap(50);
 		fieldsPanel.setLayout(gridLayoutFields);
-		gamePanel.setLayout(new BorderLayout());
+		fieldsPanel.setBackground(Color.WHITE);
+
+		//set up layout for labels above computer and player fields
 		GridLayout gridLayoutLabels = new GridLayout();
 		gridLayoutLabels.setHgap(50);
 		labelsPanel.setLayout(gridLayoutLabels);
 		
-		fieldsPanel.setBackground(Color.WHITE);
-		
 		labelsPanel.add(labelPlayer);
 		labelsPanel.add(labelComputer);
+		
+		//gamePanel contains player/computer fields and labels
+		gamePanel.setLayout(new BorderLayout());
 		gamePanel.add(labelsPanel, BorderLayout.NORTH);
-		gamePanel.add(fieldsPanel);
+		gamePanel.add(fieldsPanel, BorderLayout.CENTER);
+		
+		//fieldsPanel contains player/computer field
 		fieldsPanel.add(playerField);
 		fieldsPanel.add(computerField);
 		
+		//contentPane contains game panel (computer/player + labels) and menu
 		contentPane.add(gamePanel, BorderLayout.CENTER);
 		contentPane.add(menuBar, BorderLayout.NORTH);
 		

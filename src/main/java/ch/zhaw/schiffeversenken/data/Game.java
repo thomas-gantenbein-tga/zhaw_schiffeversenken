@@ -1,5 +1,6 @@
 package ch.zhaw.schiffeversenken.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.zhaw.schiffeversenken.Coordinate;
@@ -13,6 +14,7 @@ public class Game {
 	public Game(PlayField playerField, PlayField computerField) {
 		this.playerField = playerField;
 		this.computerField = computerField;
+		displayList = new ArrayList<Display>();
 	}
 	
 	public void processShot(PlayField playField, Coordinate shotCoordinate) {

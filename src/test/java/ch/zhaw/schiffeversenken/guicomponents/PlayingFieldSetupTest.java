@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ch.zhaw.schiffeversenken.Coordinate;
+import ch.zhaw.schiffeversenken.data.Game;
 
 public class PlayingFieldSetupTest {
 	
@@ -26,7 +27,7 @@ public class PlayingFieldSetupTest {
 		int rowCount = 20;
 		int columnCount = 20;
 			
-		Maingui gui = new Maingui(rowCount, columnCount);
+		Maingui gui = new Maingui(rowCount, columnCount, new Game(null, null));
 		PlayingFieldPanel playerField = gui.getPlayerField();
 		PlayingFieldPanel computerField = gui.getComputerField();
 		

@@ -22,10 +22,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import ch.zhaw.schiffeversenken.Coordinate;
+import ch.zhaw.schiffeversenken.data.Game;
+import ch.zhaw.schiffeversenken.data.PlayField;
 
-public class Maingui {
+public class Maingui implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
+	private Game game;
 	private int rowCount;
 	private int columnCount;
 
@@ -173,4 +176,47 @@ public class Maingui {
 		}
 		
 	}
+
+	public void update() {
+		//update computer field
+		int rowCountComputer = game.getComputerField().getRowCount();
+		int columnCountComputer = game.getComputerField().getColumnCount();
+		for(Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
+			if(coordinate.isHit()) {
+				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
+				computerField.addShape(hitShip);
+			}
+		}
+		
+		for(Coordinate coordinate : game.getComputerField().getFreeSea()) {
+			if(coordinate.isHit()) {
+				Shape hitSea = ShapeFactory.createSeaHit(coordinate, rowCountComputer, columnCountComputer);
+				computerField.addShape(hitSea);
+			}
+		}
+		computerField.repaint();
+		
+		//update player field
+		int rowCountPlayer = game.getPlayerField().getRowCount();
+		int columnCountPlayer = game.getPlayerField().getColumnCount();
+		for(Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
+			if(coordinate.isHit()) {
+				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountPlayer, columnCountPlayer);
+				playerField.addShape(hitShip);
+			} else {
+				Shape intactShip = ShapeFactory.createShipIntact(coordinate, rowCountPlayer, columnCountPlayer);
+				playerField.addShape(intactShip);
+			}
+		}
+		
+		for(Coordinate coordinate : game.getPlayerField().getFreeSea()) {
+			if(coordinate.isHit()) {
+				Shape hitSea = ShapeFactory.createSeaHit(coordinate, rowCountPlayer, columnCountPlayer);
+				playerField.addShape(hitSea);
+			}
+		}
+		playerField.repaint();
+	}
+
+	
 }

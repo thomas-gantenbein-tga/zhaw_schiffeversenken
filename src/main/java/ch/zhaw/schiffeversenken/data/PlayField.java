@@ -14,9 +14,11 @@ public class PlayField {
 	public PlayField(int columnCount, int rowCount) {
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
+		freeSea = new ArrayList<Coordinate>();
+		ships = new ArrayList<Ship>();
 
 		for (int i = 0; i < rowCount; i++) {
-			for (int j = 0; i < columnCount; j++) {
+			for (int j = 0; j < columnCount; j++) {
 				Coordinate coordinate = new Coordinate(i, j, false);
 				freeSea.add(coordinate);
 			}

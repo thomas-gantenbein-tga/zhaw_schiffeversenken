@@ -9,7 +9,7 @@ import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
 import ch.zhaw.schiffeversenken.guicomponents.Maingui;
 
-public class GameStarter {
+public class GameStarterTest {
 	public static void main(String[] args) {
 		int columnCount = 20;
 		int rowCount = 20;

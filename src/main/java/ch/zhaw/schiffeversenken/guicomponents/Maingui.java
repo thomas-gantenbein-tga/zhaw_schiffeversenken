@@ -29,14 +29,18 @@ public class Maingui implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
 	private Game game;
-	private int rowCount;
-	private int columnCount;
+	int rowCountComputer;
+	int columnCountComputer; 
+	int rowCountPlayer;
+	int columnCountPlayer;
 
 	public Maingui (int rowCount, int columnCount, Game game) {
 		//TODO: comments for this class
-		this.rowCount = rowCount;
-		this.columnCount = columnCount;
 		this.game = game;
+		rowCountComputer = game.getComputerField().getRowCount();
+		columnCountComputer = game.getComputerField().getColumnCount();
+		rowCountPlayer = game.getPlayerField().getRowCount();
+		columnCountPlayer = game.getPlayerField().getColumnCount();
 		
 		JFrame frame = new JFrame("Schiffe versenken");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,9 +63,7 @@ public class Maingui implements Display {
 		computerField = new PlayingFieldPanel();
 		computerField.setBackground(Color.WHITE);
 		computerField.setPreferredSize(new Dimension(300, 300));
-
-
-		
+	
 		//set up layout for computer and player field
 		LayoutManager gridBagLayout = new GridBagLayout();
 		GridBagConstraints gbConstraints = new GridBagConstraints();
@@ -78,8 +80,7 @@ public class Maingui implements Display {
 		gbConstraints.insets = new Insets(10,10,0,10);
 		contentPane.add(labelPlayer, gbConstraints);
 		gbConstraints.gridx = 1;
-		contentPane.add(labelComputer, gbConstraints);
-		
+		contentPane.add(labelComputer, gbConstraints);	
 		
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 2;
@@ -89,8 +90,6 @@ public class Maingui implements Display {
 		contentPane.add(playerField, gbConstraints);
 		gbConstraints.gridx = 1;
 		contentPane.add(computerField, gbConstraints);
-		
-		//contentPane contains game panel (computer/player + labels) and menu
 		
 		frame.setVisible(true);
 		frame.setSize(1200, 600);
@@ -124,8 +123,6 @@ public class Maingui implements Display {
 		playerField.addMouseListener(new ShootListener());
 		computerField.addMouseListener(new ShootListener());
 		computerField.addMouseMotionListener(new HoverListener(computerField));
-		
-		
 	}
 
 	public PlayingFieldPanel getPlayerField() {
@@ -140,9 +137,9 @@ public class Maingui implements Display {
 
 		public void mouseClicked(MouseEvent e) {
 			int size = playerField.getSquareSize();
-			int posX = (int)((double)e.getX()/size * columnCount);
-			int posY = (int)((double)e.getY()/size * rowCount);
-			if (posX <= columnCount-1 && posY <= rowCount-1) {	
+			int posX = (int)((double)e.getX()/size * columnCountComputer);
+			int posY = (int)((double)e.getY()/size * rowCountComputer);
+			if (posX <= columnCountComputer-1 && posY <= rowCountComputer-1) {	
 				Coordinate coordinate = new Coordinate(posX, posY, null);
 				game.processShot(game.getComputerField(), coordinate);
 			}
@@ -162,14 +159,14 @@ public class Maingui implements Display {
 
 		public void mouseMoved(MouseEvent e) {
 			int size = panel.getSquareSize();
-			int posX = (int)((double)e.getX()/size * columnCount);
-			int posY = (int)((double)e.getY()/size * rowCount);
+			int posX = (int)((double)e.getX()/size * columnCountComputer);
+			int posY = (int)((double)e.getY()/size * rowCountComputer);
 			
-			if(posX < columnCount && posY < rowCount && (posX != this.posX || posY != this.posY)) {
+			if(posX < columnCountComputer && posY < rowCountComputer && (posX != this.posX || posY != this.posY)) {
 				this.posX = posX;
 				this.posY = posY;
 				panel.getShapes().remove(previousHoverShape);
-				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY,null), rowCount, columnCount);
+				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY,null), rowCountComputer, columnCountComputer);
 				panel.addShape(hoverShape);
 				previousHoverShape = hoverShape;
 				panel.repaint();
@@ -180,8 +177,7 @@ public class Maingui implements Display {
 
 	public void update() {
 		//update computer field
-		int rowCountComputer = game.getComputerField().getRowCount();
-		int columnCountComputer = game.getComputerField().getColumnCount();
+		
 		for(Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
 			if(coordinate.isHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
@@ -198,8 +194,7 @@ public class Maingui implements Display {
 		computerField.repaint();
 		
 		//update player field
-		int rowCountPlayer = game.getPlayerField().getRowCount();
-		int columnCountPlayer = game.getPlayerField().getColumnCount();
+		
 		for(Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
 			if(coordinate.isHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountPlayer, columnCountPlayer);

@@ -21,9 +21,10 @@ public class Game {
 	}
 	
 	public void processShot(PlayField playField, Coordinate shotCoordinate) {
-		playField.processShot(shotCoordinate);
-		playerField.processShot(computerPlayer.makeRandomShot());
-		alertDisplays();
+		if(playField.processShot(shotCoordinate)) {		
+			playerField.processShot(computerPlayer.makeRandomShot());
+			alertDisplays();
+		}
 	}
 
 	public void registerDisplay(Display display) {

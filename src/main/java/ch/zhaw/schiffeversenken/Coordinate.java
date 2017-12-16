@@ -23,5 +23,14 @@ public class Coordinate {
 		return isHit;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Coordinate) {
+			Coordinate coordinate = (Coordinate) obj;
+			if (this.yPosition == coordinate.yPosition && this.xPosition == coordinate.xPosition) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

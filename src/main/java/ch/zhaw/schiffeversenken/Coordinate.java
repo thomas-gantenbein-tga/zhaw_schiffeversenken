@@ -5,6 +5,8 @@ public class Coordinate {
 	private int yPosition;
 	private Boolean isHit;
 	
+	
+
 	public Coordinate(int xPosition, int yPosition, Boolean isHit) {
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
@@ -21,6 +23,10 @@ public class Coordinate {
 
 	public boolean isHit() {
 		return isHit;
+	}
+	
+	public void setIsHit(Boolean isHit) {
+		this.isHit = isHit;
 	}
 	
 	@Override

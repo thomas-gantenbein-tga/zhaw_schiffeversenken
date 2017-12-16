@@ -9,7 +9,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-public class PlayingFieldPanel extends JPanel{
+import ch.zhaw.schiffeversenken.data.PlayField;
+
+public class PlayingFieldPanel extends JPanel {
 	
 	private List<Shape> shapes = new ArrayList<Shape>();
 	private int playingFieldSize;
@@ -45,6 +47,8 @@ public class PlayingFieldPanel extends JPanel{
 	public List<Shape> getShapes() {
 		return shapes;
 	}
+
+	
 	
 	
 	

@@ -34,7 +34,7 @@ public class Maingui implements Display {
 	int rowCountPlayer;
 	int columnCountPlayer;
 
-	public Maingui (int rowCount, int columnCount, Game game) {
+	public Maingui (Game game) {
 		//TODO: comments for this class
 		this.game = game;
 		rowCountComputer = game.getComputerField().getRowCount();
@@ -96,27 +96,27 @@ public class Maingui implements Display {
 		
 		//draw lines for player field
 		//first loop: horizontal lines
-		for(int i = 0; i<=rowCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 100, 0);
+		for(int i = 0; i<=rowCountPlayer; i++) {
+			Shape line = ShapeFactory.createGridLine(i, rowCountPlayer, columnCountPlayer, 100, 0);
 			playerField.addShape(line);
 		}
 		
 		//second loop: vertical lines
-		for(int i = 0; i<=columnCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 0, 100);
+		for(int i = 0; i<=columnCountPlayer; i++) {
+			Shape line = ShapeFactory.createGridLine(i, rowCountPlayer, columnCountPlayer, 0, 100);
 			playerField.addShape(line);
 		}
 		
-		//draw lines for player field
+		//draw lines for computer field
 		//first loop: horizontal lines
-		for(int i = 0; i<=rowCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 100, 0);
+		for(int i = 0; i<=rowCountComputer; i++) {
+			Shape line = ShapeFactory.createGridLine(i, rowCountComputer, columnCountComputer, 100, 0);
 			computerField.addShape(line);
 		}
 		
 		//second loop: vertical lines
-		for(int i = 0; i<=columnCount; i++) {
-			Shape line = ShapeFactory.createGridLine(i, rowCount, columnCount, 0, 100);
+		for(int i = 0; i<=columnCountComputer; i++) {
+			Shape line = ShapeFactory.createGridLine(i, rowCountComputer, columnCountComputer, 0, 100);
 			computerField.addShape(line);
 		}
 		
@@ -194,7 +194,6 @@ public class Maingui implements Display {
 		computerField.repaint();
 		
 		//update player field
-		
 		for(Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
 			if(coordinate.isHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountPlayer, columnCountPlayer);

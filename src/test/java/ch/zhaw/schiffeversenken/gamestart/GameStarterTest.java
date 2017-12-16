@@ -12,8 +12,8 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 public class GameStarterTest {
 	public static void main(String[] args) {
-		int columnCount = 20;
-		int rowCount = 20;
+		int columnCount = 10;
+		int rowCount = 10;
 		
 		PlayField playerField = new PlayField(columnCount, rowCount);
 		PlayField computerField = new PlayField(columnCount, rowCount);

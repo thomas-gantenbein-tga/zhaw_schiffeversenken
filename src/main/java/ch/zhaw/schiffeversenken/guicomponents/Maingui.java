@@ -142,8 +142,8 @@ public class Maingui implements Display {
 			int posX = (int)((double)e.getX()/size * columnCount);
 			int posY = (int)((double)e.getY()/size * rowCount);
 			if (posX <= columnCount-1 && posY <= rowCount-1) {	
-				System.out.print(posX);
-				System.out.println(", " + posY);
+				Coordinate coordinate = new Coordinate(posX, posY, null);
+				game.processShot(game.getComputerField(), coordinate);
 			}
 		}
 	}

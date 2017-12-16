@@ -2,7 +2,7 @@ package ch.zhaw.schiffeversenken.guicomponents;
 
 import java.awt.Color;
 
-import ch.zhaw.schiffeversenken.Coordinate;
+import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 public class ShapeFactory {
 	/**

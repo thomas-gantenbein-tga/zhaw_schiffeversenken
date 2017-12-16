@@ -21,9 +21,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import ch.zhaw.schiffeversenken.Coordinate;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
+import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 public class Maingui implements Display {
 	private PlayingFieldPanel playerField;

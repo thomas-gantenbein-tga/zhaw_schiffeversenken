@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken;
+package ch.zhaw.schiffeversenken.helpers;
 
 public class Coordinate {
 	private int xPosition;

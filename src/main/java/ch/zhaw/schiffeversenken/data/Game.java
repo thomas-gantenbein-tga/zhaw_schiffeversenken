@@ -3,8 +3,8 @@ package ch.zhaw.schiffeversenken.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zhaw.schiffeversenken.Coordinate;
 import ch.zhaw.schiffeversenken.guicomponents.Display;
+import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 public class Game {
 	private PlayField playerField;

@@ -17,8 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import ch.zhaw.schiffeversenken.Coordinate;
 import ch.zhaw.schiffeversenken.data.Game;
+import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 public class PlayingFieldSetupTest {
 	

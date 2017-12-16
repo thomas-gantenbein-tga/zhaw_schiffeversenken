@@ -26,10 +26,15 @@ public class PlayField {
 	}
 
 	public void processShot(Coordinate coordinate) {
-		for (Ship ship : ships) {
-			if (ship.isHit(coordinate)) {
-				int indexOfHit = ship.getShipPositions().indexOf(coordinate);
-				ship.getShipPositions().get(indexOfHit).setIsHit(true);
+		if(freeSea.contains(coordinate)) {
+			int indexOfHit = freeSea.indexOf(coordinate);
+			freeSea.get(indexOfHit).setIsHit(true);
+		} else {
+			for (Ship ship : ships) {
+				if (ship.isHit(coordinate)) {
+					int indexOfHit = ship.getShipPositions().indexOf(coordinate);
+					ship.getShipPositions().get(indexOfHit).setIsHit(true);
+				}
 			}
 		}
 	}

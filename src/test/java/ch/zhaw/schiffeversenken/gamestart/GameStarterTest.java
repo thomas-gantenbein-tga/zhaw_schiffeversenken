@@ -14,20 +14,33 @@ public class GameStarterTest {
 	public static void main(String[] args) {
 		int columnCount = 20;
 		int rowCount = 20;
+		
 		PlayField playerField = new PlayField(columnCount, rowCount);
 		PlayField computerField = new PlayField(columnCount, rowCount);
+		
 		ComputerPlayer computerPlayer = new ComputerPlayer(columnCount, rowCount);
-		List<Coordinate> coordinates = new ArrayList<Coordinate>();
+		
+		List<Coordinate> coordinates1 = new ArrayList<Coordinate>();
 		Coordinate coordinate = new Coordinate(0,0,false);
-		coordinates.add(coordinate);
-		coordinate = new Coordinate(5,6,false);
-		coordinates.add(coordinate);
-
-		computerField.addShip(new Ship(coordinates));
+		coordinates1.add(coordinate);
+		coordinate = new Coordinate(0,1,false);
+		coordinates1.add(coordinate);
+		
+		List<Coordinate> coordinates2 = new ArrayList<Coordinate>();
+		coordinate = new Coordinate(1,0,false);
+		coordinates2.add(coordinate);
+		coordinate = new Coordinate(1,1,false);
+		coordinates2.add(coordinate);
+		
+		
+		computerField.addShip(new Ship(coordinates1));
+		playerField.addShip(new Ship(coordinates2));
+		
 		Game game = new Game(playerField, computerField, computerPlayer);
 		
-		Maingui gui = new Maingui(rowCount, columnCount, game);
+		Maingui gui = new Maingui(game);
 		game.registerDisplay(gui);
+		gui.update();
 		
 	}
 }

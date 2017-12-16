@@ -30,32 +30,32 @@ public class Maingui implements Display {
 	private PlayingFieldPanel computerField;
 	private Game game;
 	int rowCountComputer;
-	int columnCountComputer; 
+	int columnCountComputer;
 	int rowCountPlayer;
 	int columnCountPlayer;
 
-	public Maingui (Game game) {
-		//TODO: comments for this class
+	public Maingui(Game game) {
+		// TODO: comments for this class
 		this.game = game;
 		rowCountComputer = game.getComputerField().getRowCount();
 		columnCountComputer = game.getComputerField().getColumnCount();
 		rowCountPlayer = game.getPlayerField().getRowCount();
 		columnCountPlayer = game.getPlayerField().getColumnCount();
-		
+
 		JFrame frame = new JFrame("Schiffe versenken");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		Container contentPane = frame.getContentPane();
 
 		JLabel labelPlayer = new JLabel("Player");
 		JLabel labelComputer = new JLabel("Computer");
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		JMenuItem fileMenuOpen = new JMenuItem("Open");
 		fileMenu.add(fileMenuOpen);
 		menuBar.add(fileMenu);
-		
+
 		playerField = new PlayingFieldPanel();
 		playerField.setBackground(Color.WHITE);
 		playerField.setPreferredSize(new Dimension(300, 300));
@@ -63,8 +63,8 @@ public class Maingui implements Display {
 		computerField = new PlayingFieldPanel();
 		computerField.setBackground(Color.WHITE);
 		computerField.setPreferredSize(new Dimension(300, 300));
-	
-		//set up layout for computer and player field
+
+		// set up layout for computer and player field
 		LayoutManager gridBagLayout = new GridBagLayout();
 		GridBagConstraints gbConstraints = new GridBagConstraints();
 		gbConstraints.fill = GridBagConstraints.NONE;
@@ -73,53 +73,53 @@ public class Maingui implements Display {
 		gbConstraints.weighty = 0;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		contentPane.setLayout(gridBagLayout);
-		
+
 		contentPane.add(menuBar, gbConstraints);
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 1;
-		gbConstraints.insets = new Insets(10,10,0,10);
+		gbConstraints.insets = new Insets(10, 10, 0, 10);
 		contentPane.add(labelPlayer, gbConstraints);
 		gbConstraints.gridx = 1;
-		contentPane.add(labelComputer, gbConstraints);	
-		
+		contentPane.add(labelComputer, gbConstraints);
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 2;
 		gbConstraints.weighty = 1;
-		
+
 		gbConstraints.fill = GridBagConstraints.BOTH;
 		contentPane.add(playerField, gbConstraints);
 		gbConstraints.gridx = 1;
 		contentPane.add(computerField, gbConstraints);
-		
+
 		frame.setVisible(true);
 		frame.setSize(1200, 600);
-		
-		//draw lines for player field
-		//first loop: horizontal lines
-		for(int i = 0; i<=rowCountPlayer; i++) {
+
+		// draw lines for player field
+		// first loop: horizontal lines
+		for (int i = 0; i <= rowCountPlayer; i++) {
 			Shape line = ShapeFactory.createGridLine(i, rowCountPlayer, columnCountPlayer, 100, 0);
 			playerField.addShape(line);
 		}
-		
-		//second loop: vertical lines
-		for(int i = 0; i<=columnCountPlayer; i++) {
+
+		// second loop: vertical lines
+		for (int i = 0; i <= columnCountPlayer; i++) {
 			Shape line = ShapeFactory.createGridLine(i, rowCountPlayer, columnCountPlayer, 0, 100);
 			playerField.addShape(line);
 		}
-		
-		//draw lines for computer field
-		//first loop: horizontal lines
-		for(int i = 0; i<=rowCountComputer; i++) {
+
+		// draw lines for computer field
+		// first loop: horizontal lines
+		for (int i = 0; i <= rowCountComputer; i++) {
 			Shape line = ShapeFactory.createGridLine(i, rowCountComputer, columnCountComputer, 100, 0);
 			computerField.addShape(line);
 		}
-		
-		//second loop: vertical lines
-		for(int i = 0; i<=columnCountComputer; i++) {
+
+		// second loop: vertical lines
+		for (int i = 0; i <= columnCountComputer; i++) {
 			Shape line = ShapeFactory.createGridLine(i, rowCountComputer, columnCountComputer, 0, 100);
 			computerField.addShape(line);
 		}
-		
+
 		playerField.addMouseListener(new ShootListener());
 		computerField.addMouseListener(new ShootListener());
 		computerField.addMouseMotionListener(new HoverListener(computerField));
@@ -132,22 +132,22 @@ public class Maingui implements Display {
 	public PlayingFieldPanel getComputerField() {
 		return computerField;
 	}
-	
+
 	private class ShootListener extends MouseAdapter {
 
 		public void mouseClicked(MouseEvent e) {
 			int size = playerField.getSquareSize();
-			int posX = (int)((double)e.getX()/size * columnCountComputer);
-			int posY = (int)((double)e.getY()/size * rowCountComputer);
-			if (posX <= columnCountComputer-1 && posY <= rowCountComputer-1) {	
+			int posX = (int) ((double) e.getX() / size * columnCountComputer);
+			int posY = (int) ((double) e.getY() / size * rowCountComputer);
+			if (posX <= columnCountComputer - 1 && posY <= rowCountComputer - 1) {
 				Coordinate coordinate = new Coordinate(posX, posY, null);
 				game.processShot(game.getComputerField(), coordinate);
 			}
 		}
 	}
-	
+
 	private class HoverListener extends MouseAdapter {
-		//TODO: comments for this inner class
+		// TODO: comments for this inner class
 		int posX = -1;
 		int posY = -1;
 		Shape previousHoverShape = null;
@@ -159,43 +159,44 @@ public class Maingui implements Display {
 
 		public void mouseMoved(MouseEvent e) {
 			int size = panel.getSquareSize();
-			int posX = (int)((double)e.getX()/size * columnCountComputer);
-			int posY = (int)((double)e.getY()/size * rowCountComputer);
-			
-			if(posX < columnCountComputer && posY < rowCountComputer && (posX != this.posX || posY != this.posY)) {
+			int posX = (int) ((double) e.getX() / size * columnCountComputer);
+			int posY = (int) ((double) e.getY() / size * rowCountComputer);
+
+			if (posX < columnCountComputer && posY < rowCountComputer && (posX != this.posX || posY != this.posY)) {
 				this.posX = posX;
 				this.posY = posY;
 				panel.getShapes().remove(previousHoverShape);
-				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY,null), rowCountComputer, columnCountComputer);
+				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY, null), rowCountComputer,
+						columnCountComputer);
 				panel.addShape(hoverShape);
 				previousHoverShape = hoverShape;
 				panel.repaint();
 			}
 		}
-		
+
 	}
 
 	public void update() {
-		//update computer field
-		
-		for(Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
-			if(coordinate.isHit()) {
+		// update computer field
+
+		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
+			if (coordinate.isHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitShip);
 			}
 		}
-		
-		for(Coordinate coordinate : game.getComputerField().getFreeSea()) {
-			if(coordinate.isHit()) {
+
+		for (Coordinate coordinate : game.getComputerField().getFreeSea()) {
+			if (coordinate.isHit()) {
 				Shape hitSea = ShapeFactory.createSeaHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitSea);
 			}
 		}
 		computerField.repaint();
-		
-		//update player field
-		for(Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
-			if(coordinate.isHit()) {
+
+		// update player field
+		for (Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
+			if (coordinate.isHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountPlayer, columnCountPlayer);
 				playerField.addShape(hitShip);
 			} else {
@@ -203,9 +204,9 @@ public class Maingui implements Display {
 				playerField.addShape(intactShip);
 			}
 		}
-		
-		for(Coordinate coordinate : game.getPlayerField().getFreeSea()) {
-			if(coordinate.isHit()) {
+
+		for (Coordinate coordinate : game.getPlayerField().getFreeSea()) {
+			if (coordinate.isHit()) {
 				Shape hitSea = ShapeFactory.createSeaHit(coordinate, rowCountPlayer, columnCountPlayer);
 				playerField.addShape(hitSea);
 			}
@@ -213,5 +214,4 @@ public class Maingui implements Display {
 		playerField.repaint();
 	}
 
-	
 }

@@ -25,18 +25,30 @@ public class PlayField {
 		}
 	}
 
-	public void processShot(Coordinate coordinate) {
+	public boolean processShot(Coordinate coordinate) {
 		if(freeSea.contains(coordinate)) {
 			int indexOfHit = freeSea.indexOf(coordinate);
-			freeSea.get(indexOfHit).setIsHit(true);
+			if(freeSea.get(indexOfHit).isHit()) {
+				return false;
+			} else {
+				freeSea.get(indexOfHit).setIsHit(true);
+				return true;
+			}
+			
 		} else {
 			for (Ship ship : ships) {
 				if (ship.isHit(coordinate)) {
 					int indexOfHit = ship.getShipPositions().indexOf(coordinate);
-					ship.getShipPositions().get(indexOfHit).setIsHit(true);
+					if(ship.getShipPositions().get(indexOfHit).isHit()) {
+						return false;
+					} else {
+						ship.getShipPositions().get(indexOfHit).setIsHit(true);
+						return true;
+					}
 				}
 			}
 		}
+		return false;
 	}
 
 	public List<Coordinate> getShipsCoordinates() {
@@ -67,5 +79,7 @@ public class PlayField {
 	public int getRowCount() {
 		return rowCount;
 	}
+	
+	
 
 }

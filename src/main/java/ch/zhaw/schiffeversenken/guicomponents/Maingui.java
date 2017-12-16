@@ -32,10 +32,11 @@ public class Maingui implements Display {
 	private int rowCount;
 	private int columnCount;
 
-	public Maingui (int rowCount, int columnCount) {
+	public Maingui (int rowCount, int columnCount, Game game) {
 		//TODO: comments for this class
 		this.rowCount = rowCount;
 		this.columnCount = columnCount;
+		this.game = game;
 		
 		JFrame frame = new JFrame("Schiffe versenken");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

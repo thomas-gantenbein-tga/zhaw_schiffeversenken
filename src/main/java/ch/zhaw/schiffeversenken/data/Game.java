@@ -10,6 +10,11 @@ public class Game {
 	private PlayField computerField;
 	private List<Display> displayList;
 
+	public Game(PlayField playerField, PlayField computerField) {
+		this.playerField = playerField;
+		this.computerField = computerField;
+	}
+	
 	public void processShot(PlayField playField, Coordinate shotCoordinate) {
 		playField.processShot(shotCoordinate);
 		alertDisplays();

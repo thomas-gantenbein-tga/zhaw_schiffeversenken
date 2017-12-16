@@ -22,7 +22,7 @@ public class Game {
 	
 	public void processShot(PlayField playField, Coordinate shotCoordinate) {
 		playField.processShot(shotCoordinate);
-		computerField.processShot(computerPlayer.makeRandomShot());
+		playerField.processShot(computerPlayer.makeRandomShot());
 		alertDisplays();
 	}
 

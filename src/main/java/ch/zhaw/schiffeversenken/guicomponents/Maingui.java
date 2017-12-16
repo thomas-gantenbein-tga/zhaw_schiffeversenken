@@ -4,7 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -33,9 +37,6 @@ public class Maingui {
 		JFrame frame = new JFrame("Schiffe versenken");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel fieldsPanel = new JPanel();
-		JPanel labelsPanel = new JPanel();
-		JPanel gamePanel = new JPanel();
 		Container contentPane = frame.getContentPane();
 
 		JLabel labelPlayer = new JLabel("Player");
@@ -49,35 +50,43 @@ public class Maingui {
 		
 		playerField = new PlayingFieldPanel();
 		playerField.setBackground(Color.WHITE);
+		playerField.setPreferredSize(new Dimension(300, 300));
+
 		computerField = new PlayingFieldPanel();
 		computerField.setBackground(Color.WHITE);
+		computerField.setPreferredSize(new Dimension(300, 300));
 
+
+		
 		//set up layout for computer and player field
-		GridLayout gridLayoutFields = new GridLayout(1,2);
-		gridLayoutFields.setHgap(50);
-		fieldsPanel.setLayout(gridLayoutFields);
-		fieldsPanel.setBackground(Color.WHITE);
-
-		//set up layout for labels above computer and player fields
-		GridLayout gridLayoutLabels = new GridLayout();
-		gridLayoutLabels.setHgap(50);
-		labelsPanel.setLayout(gridLayoutLabels);
+		LayoutManager gridBagLayout = new GridBagLayout();
+		GridBagConstraints gbConstraints = new GridBagConstraints();
+		gbConstraints.fill = GridBagConstraints.NONE;
+		gbConstraints.gridx = 0;
+		gbConstraints.weightx = 1;
+		gbConstraints.weighty = 0;
+		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		contentPane.setLayout(gridBagLayout);
 		
-		labelsPanel.add(labelPlayer);
-		labelsPanel.add(labelComputer);
+		contentPane.add(menuBar, gbConstraints);
+		gbConstraints.gridx = 0;
+		gbConstraints.gridy = 1;
+		gbConstraints.insets = new Insets(10,10,0,10);
+		contentPane.add(labelPlayer, gbConstraints);
+		gbConstraints.gridx = 1;
+		contentPane.add(labelComputer, gbConstraints);
 		
-		//gamePanel contains player/computer fields and labels
-		gamePanel.setLayout(new BorderLayout());
-		gamePanel.add(labelsPanel, BorderLayout.NORTH);
-		gamePanel.add(fieldsPanel, BorderLayout.CENTER);
 		
-		//fieldsPanel contains player/computer field
-		fieldsPanel.add(playerField);
-		fieldsPanel.add(computerField);
+		gbConstraints.gridx = 0;
+		gbConstraints.gridy = 2;
+		gbConstraints.weighty = 1;
+		
+		gbConstraints.fill = GridBagConstraints.BOTH;
+		contentPane.add(playerField, gbConstraints);
+		gbConstraints.gridx = 1;
+		contentPane.add(computerField, gbConstraints);
 		
 		//contentPane contains game panel (computer/player + labels) and menu
-		contentPane.add(gamePanel, BorderLayout.CENTER);
-		contentPane.add(menuBar, BorderLayout.NORTH);
 		
 		frame.setVisible(true);
 		frame.setSize(1200, 600);
@@ -129,8 +138,10 @@ public class Maingui {
 			int size = playerField.getSquareSize();
 			int posX = (int)((double)e.getX()/size * columnCount);
 			int posY = (int)((double)e.getY()/size * rowCount);
-			System.out.print(posX);
-			System.out.println(", " + posY);
+			if (posX <= columnCount-1 && posY <= rowCount-1) {	
+				System.out.print(posX);
+				System.out.println(", " + posY);
+			}
 		}
 	}
 	

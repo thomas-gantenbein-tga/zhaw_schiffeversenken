@@ -27,7 +27,7 @@ public class PlayingFieldSetupTest {
 		int rowCount = 20;
 		int columnCount = 20;
 			
-		Maingui gui = new Maingui(rowCount, columnCount, new Game(null, null));
+		Maingui gui = new Maingui(rowCount, columnCount, new Game(null, null, null));
 		PlayingFieldPanel playerField = gui.getPlayerField();
 		PlayingFieldPanel computerField = gui.getComputerField();
 		

@@ -65,5 +65,13 @@ public class ShapeFactory {
 		Shape hoverShape = new HoverShape(xCoordinate*100.0/columnCount+100.0/columnCount/2, yCoordinate*100.0/rowCount+100.0/rowCount/2, 100.0/columnCount, 100.0/columnCount, Color.LIGHT_GRAY);
 		return hoverShape;
 	}
+	
+	public static Shape createShipSunk(Coordinate coordinate, int rowCount, int columnCount) {
+		int xCoordinate = coordinate.getxPosition();
+		int yCoordinate = coordinate.getyPosition();
+		
+		Shape shipSunk= new ShipSunk(xCoordinate*100.0/columnCount+100.0/columnCount/2, yCoordinate*100.0/rowCount+100.0/rowCount/2, 100.0/columnCount*0.8, 100.0/columnCount*0.8, Color.BLACK);
+		return shipSunk;
+	}
 
 }

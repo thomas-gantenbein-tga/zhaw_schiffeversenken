@@ -4,6 +4,7 @@ public class Coordinate {
 	private int xPosition;
 	private int yPosition;
 	private Boolean isHit;
+	private Boolean isSunk;
 	
 	
 
@@ -29,6 +30,14 @@ public class Coordinate {
 		this.isHit = isHit;
 	}
 	
+	public Boolean getIsSunk() {
+		return isSunk;
+	}
+
+	public void setIsSunk(Boolean isSunk) {
+		this.isSunk = isSunk;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Coordinate) {

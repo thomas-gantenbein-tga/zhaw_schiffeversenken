@@ -18,12 +18,8 @@ public class Ship {
 		return false;
 	}
 
-	public List<Coordinate> getShipPositions() {
+	protected List<Coordinate> getShipPositions() {
 		return shipPositions;
-	}
-
-	public void setShipPositions(List<Coordinate> shipPositions) {
-		this.shipPositions = shipPositions;
 	}
 	
 	public boolean isSunk() {

@@ -10,7 +10,7 @@ public class Line extends Shape {
 	}
 	
 	@Override
-	public void draw(int playingFieldSize, Graphics g) {
+	protected void draw(int playingFieldSize, Graphics g) {
 		
 		int x1Position = (int) (playingFieldSize*(centerX/100.0) - (width/100.0)/2 * playingFieldSize);
 		int y1Position = (int) (playingFieldSize*(centerY/100.0) - (height/100.0)/2 * playingFieldSize);

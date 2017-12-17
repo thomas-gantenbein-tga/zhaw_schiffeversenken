@@ -10,7 +10,7 @@ public class ShipSunk extends Shape {
 	}
 
 	@Override
-	public void draw(int playingFieldSize, Graphics g) {
+	protected void draw(int playingFieldSize, Graphics g) {
 
 		//draw outer circle of ship
 		int xPosition = (int) (playingFieldSize * centerX / 100.0 - this.width / 100.0 * playingFieldSize / 2);

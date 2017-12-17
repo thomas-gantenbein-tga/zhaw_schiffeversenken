@@ -1,15 +1,12 @@
 package ch.zhaw.schiffeversenken.guicomponents;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-
-import ch.zhaw.schiffeversenken.data.PlayField;
 
 public class PlayingFieldPanel extends JPanel {
 	

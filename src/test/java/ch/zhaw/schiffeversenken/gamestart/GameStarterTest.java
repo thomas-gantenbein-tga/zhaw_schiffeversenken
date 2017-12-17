@@ -12,13 +12,15 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 public class GameStarterTest {
 	public static void main(String[] args) {
-		int columnCount = 10;
-		int rowCount = 10;
+		int columnCountComputer = 10;
+		int rowCountComputer = 10;
+		int columnCountPlayer = 3;
+		int rowCountPlayer = 3;
 		
-		PlayField playerField = new PlayField(3, 3);
-		PlayField computerField = new PlayField(columnCount, rowCount);
+		PlayField playerField = new PlayField(columnCountPlayer, rowCountPlayer);
+		PlayField computerField = new PlayField(columnCountComputer, rowCountComputer);
 		
-		ComputerPlayer computerPlayer = new ComputerPlayer(3, 3);
+		ComputerPlayer computerPlayer = new ComputerPlayer(rowCountPlayer, columnCountPlayer);
 		
 		List<Coordinate> coordinates1 = new ArrayList<Coordinate>();
 		Coordinate coordinate = new Coordinate(0,0,false,false);

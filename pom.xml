@@ -14,7 +14,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>ch.zhaw.schiffeversenken.guicomponents.PlayingFieldSetupTest</mainClass>
+							<mainClass>ch.zhaw.schiffeversenken.gamestart.GameStarterTest</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

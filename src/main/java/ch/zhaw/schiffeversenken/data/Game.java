@@ -19,9 +19,9 @@ public class Game {
 		this.computerPlayer = computerPlayer;
 		displayList = new ArrayList<Display>();
 	}
-	
+
 	public void processShot(PlayField playField, Coordinate shotCoordinate) {
-		if(playField.processShot(shotCoordinate)) {		
+		if (playField.processShot(shotCoordinate)) {
 			playerField.processShot(computerPlayer.makeRandomShot());
 			alertDisplays();
 		}

@@ -231,7 +231,7 @@ public class Maingui implements Display {
 		}
 		playerField.repaint();
 		
-
+		//update labels
 		int remainingShips = getSwimmingShips(game.getComputerField());
 		labelShipsComputer.setText("Remaining ships: " + remainingShips);
 		

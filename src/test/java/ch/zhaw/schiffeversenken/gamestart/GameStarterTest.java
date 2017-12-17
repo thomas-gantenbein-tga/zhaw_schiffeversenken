@@ -32,9 +32,15 @@ public class GameStarterTest {
 		coordinate = new Coordinate(1,1,false);
 		coordinates2.add(coordinate);
 		
+		List<Coordinate> coordinates3 = new ArrayList<Coordinate>();
+		coordinate = new Coordinate(3,0,false);
+		coordinates3.add(coordinate);
+		coordinate = new Coordinate(3,1,false);
+		coordinates3.add(coordinate);
 		
 		computerField.addShip(new Ship(coordinates1));
 		playerField.addShip(new Ship(coordinates2));
+		computerField.addShip(new Ship(coordinates3));
 		
 		Game game = new Game(playerField, computerField, computerPlayer);
 		

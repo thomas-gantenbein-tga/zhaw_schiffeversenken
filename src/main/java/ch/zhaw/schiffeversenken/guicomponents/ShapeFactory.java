@@ -18,7 +18,7 @@ public class ShapeFactory {
 	 * @param height
 	 * @return
 	 */
-	public static Shape createGridLine(int index, int rowCount, int columnCount, int width, int height) {
+	protected static Shape createGridLine(int index, int rowCount, int columnCount, int width, int height) {
 		double xPosition;
 		double yPosition;
 		
@@ -34,7 +34,7 @@ public class ShapeFactory {
 		return line;
 	}
 	
-	public static Shape createShipIntact(Coordinate coordinate, int rowCount, int columnCount) {
+	protected static Shape createShipIntact(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
@@ -42,7 +42,7 @@ public class ShapeFactory {
 		return intactShip;
 	}
 	
-	public static Shape createShipHit(Coordinate coordinate, int rowCount, int columnCount) {
+	protected static Shape createShipHit(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
@@ -50,7 +50,7 @@ public class ShapeFactory {
 		return shipHit;
 	}
 	
-	public static Shape createSeaHit (Coordinate coordinate, int rowCount, int columnCount) {
+	protected static Shape createSeaHit (Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
@@ -58,7 +58,7 @@ public class ShapeFactory {
 		return seaHit;
 	}
 	
-	public static Shape createHoverShape (Coordinate coordinate, int rowCount, int columnCount) {
+	protected static Shape createHoverShape (Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		
@@ -66,7 +66,7 @@ public class ShapeFactory {
 		return hoverShape;
 	}
 	
-	public static Shape createShipSunk(Coordinate coordinate, int rowCount, int columnCount) {
+	protected static Shape createShipSunk(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 		

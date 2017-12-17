@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class ShipIntact extends Shape {
 
-	public ShipIntact(double centerX, double centerY, double width, double height, Color color) {
+	protected ShipIntact(double centerX, double centerY, double width, double height, Color color) {
 		super(centerX, centerY, width, height, color);
 	}
 	

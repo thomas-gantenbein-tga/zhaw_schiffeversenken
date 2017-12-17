@@ -23,7 +23,7 @@ public abstract class Shape {
 	 * @param height
 	 * @param color
 	 */
-	public Shape(double centerX, double centerY, double width, double height, Color color) {
+	protected Shape(double centerX, double centerY, double width, double height, Color color) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.width = width;

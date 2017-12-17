@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class Line extends Shape {
 
-	public Line(double centerX, double centerY, int width, int height, Color color) {
+	protected Line(double centerX, double centerY, int width, int height, Color color) {
 		super(centerX, centerY, width, height, color);
 	}
 	

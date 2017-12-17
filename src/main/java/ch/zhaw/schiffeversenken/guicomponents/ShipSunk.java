@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class ShipSunk extends Shape {
 	
-	public ShipSunk(double centerX, double centerY, double width, double height, Color color) {
+	protected ShipSunk(double centerX, double centerY, double width, double height, Color color) {
 		super(centerX, centerY, width, height, color);
 	}
 

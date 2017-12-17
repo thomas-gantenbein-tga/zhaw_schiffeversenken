@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class SeaHit extends Shape {
 	
-	public SeaHit(double centerX, double centerY, double width, double height, Color color) {
+	protected SeaHit(double centerX, double centerY, double width, double height, Color color) {
 		super(centerX, centerY, width, height, color);
 	}
 

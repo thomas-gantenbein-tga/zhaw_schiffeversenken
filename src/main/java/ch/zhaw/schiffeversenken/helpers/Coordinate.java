@@ -22,7 +22,7 @@ public class Coordinate {
 		return xPosition;
 	}
 
-	public boolean isHit() {
+	public boolean getIsHit() {
 		return isHit;
 	}
 	
@@ -31,6 +31,9 @@ public class Coordinate {
 	}
 	
 	public Boolean getIsSunk() {
+		if(isSunk == null) {
+			return false;
+		}
 		return isSunk;
 	}
 

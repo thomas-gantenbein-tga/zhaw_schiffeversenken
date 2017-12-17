@@ -28,7 +28,7 @@ public class Ship {
 	
 	public boolean isSunk() {
 		for(Coordinate coordinate : shipPositions) {
-			if(!coordinate.isHit()) {
+			if(!coordinate.getIsHit()) {
 				return false;
 			}
 		}

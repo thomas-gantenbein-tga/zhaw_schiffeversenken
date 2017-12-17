@@ -25,10 +25,16 @@ public class PlayField {
 		}
 	}
 
+	//TODO: maybe completely move this method to game level
+	//returns false if this field has already been hit 
+	//if false is returned, Game object knows how to deal with this event
+	//(which means, so far: do nothing and wait for next shot from player)
 	public boolean processShot(Coordinate coordinate) {
+		
 		if(freeSea.contains(coordinate)) {
 			int indexOfHit = freeSea.indexOf(coordinate);
-			if(freeSea.get(indexOfHit).isHit()) {
+
+			if(freeSea.get(indexOfHit).getIsHit()) {
 				return false;
 			} else {
 				freeSea.get(indexOfHit).setIsHit(true);
@@ -39,10 +45,15 @@ public class PlayField {
 			for (Ship ship : ships) {
 				if (ship.isHit(coordinate)) {
 					int indexOfHit = ship.getShipPositions().indexOf(coordinate);
-					if(ship.getShipPositions().get(indexOfHit).isHit()) {
+					if(ship.getShipPositions().get(indexOfHit).getIsHit()) {
 						return false;
 					} else {
 						ship.getShipPositions().get(indexOfHit).setIsHit(true);
+						if(ship.isSunk()) {
+							for(Coordinate sunkCoordinate : ship.getShipPositions()) {
+								sunkCoordinate.setIsSunk(true);
+							}
+						}
 						return true;
 					}
 				}

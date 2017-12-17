@@ -15,10 +15,10 @@ public class GameStarterTest {
 		int columnCount = 10;
 		int rowCount = 10;
 		
-		PlayField playerField = new PlayField(columnCount, rowCount);
+		PlayField playerField = new PlayField(3, 3);
 		PlayField computerField = new PlayField(columnCount, rowCount);
 		
-		ComputerPlayer computerPlayer = new ComputerPlayer(columnCount, rowCount);
+		ComputerPlayer computerPlayer = new ComputerPlayer(3, 3);
 		
 		List<Coordinate> coordinates1 = new ArrayList<Coordinate>();
 		Coordinate coordinate = new Coordinate(0,0,false);

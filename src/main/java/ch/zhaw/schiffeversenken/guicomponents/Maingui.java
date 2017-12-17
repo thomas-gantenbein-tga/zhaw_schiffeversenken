@@ -180,14 +180,17 @@ public class Maingui implements Display {
 		// update computer field
 
 		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
-			if (coordinate.isHit()) {
+			if (coordinate.getIsSunk()) {
+				Shape sunkShip = ShapeFactory.createShipSunk(coordinate, rowCountComputer, columnCountComputer);
+				computerField.addShape(sunkShip);
+			} else if (coordinate.getIsHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitShip);
 			}
 		}
 
 		for (Coordinate coordinate : game.getComputerField().getFreeSea()) {
-			if (coordinate.isHit()) {
+			if (coordinate.getIsHit()) {
 				Shape hitSea = ShapeFactory.createSeaHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitSea);
 			}
@@ -196,7 +199,10 @@ public class Maingui implements Display {
 
 		// update player field
 		for (Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
-			if (coordinate.isHit()) {
+			if (coordinate.getIsSunk()) {
+				Shape sunkShip = ShapeFactory.createShipSunk(coordinate, rowCountPlayer, columnCountPlayer);
+				playerField.addShape(sunkShip);
+			} else if (coordinate.getIsHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountPlayer, columnCountPlayer);
 				playerField.addShape(hitShip);
 			} else {
@@ -206,7 +212,7 @@ public class Maingui implements Display {
 		}
 
 		for (Coordinate coordinate : game.getPlayerField().getFreeSea()) {
-			if (coordinate.isHit()) {
+			if (coordinate.getIsHit()) {
 				Shape hitSea = ShapeFactory.createSeaHit(coordinate, rowCountPlayer, columnCountPlayer);
 				playerField.addShape(hitSea);
 			}

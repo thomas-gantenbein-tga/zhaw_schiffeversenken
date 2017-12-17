@@ -25,4 +25,13 @@ public class Ship {
 	public void setShipPositions(List<Coordinate> shipPositions) {
 		this.shipPositions = shipPositions;
 	}
+	
+	public boolean isSunk() {
+		for(Coordinate coordinate : shipPositions) {
+			if(!coordinate.isHit()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

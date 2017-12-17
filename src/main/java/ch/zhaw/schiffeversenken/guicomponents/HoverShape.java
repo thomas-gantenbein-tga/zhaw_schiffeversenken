@@ -3,6 +3,10 @@ package ch.zhaw.schiffeversenken.guicomponents;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * The shape to be drawn when the player hovers over a coordinate of the computer field.
+ *
+ */
 public class HoverShape extends Shape {
 	
 	protected HoverShape(double centerX, double centerY, double width, double height, Color color) {

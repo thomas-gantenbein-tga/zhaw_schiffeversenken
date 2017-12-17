@@ -2,6 +2,10 @@ package ch.zhaw.schiffeversenken.helpers;
 
 import java.util.Random;
 
+/**
+ * A very, very stupid computer player. Is even allowed to shoot several times at the same field.
+ *
+ */
 public class ComputerPlayer {
 	private Random randomGenerator = new Random();
 	private int rowCount;
@@ -15,7 +19,7 @@ public class ComputerPlayer {
 	public Coordinate makeRandomShot() {
 		int xCoordinate = randomGenerator.nextInt(rowCount);
 		int yCoordinate = randomGenerator.nextInt(columnCount);
-		Coordinate coordinate = new Coordinate(xCoordinate, yCoordinate, null);
+		Coordinate coordinate = new Coordinate(xCoordinate, yCoordinate, null, null);
 		return coordinate;
 	}
 }

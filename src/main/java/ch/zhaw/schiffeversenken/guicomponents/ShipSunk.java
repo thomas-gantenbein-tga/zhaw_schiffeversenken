@@ -3,6 +3,10 @@ package ch.zhaw.schiffeversenken.guicomponents;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Represents the position of a fully destroyed ship.
+ *
+ */
 public class ShipSunk extends Shape {
 	
 	protected ShipSunk(double centerX, double centerY, double width, double height, Color color) {

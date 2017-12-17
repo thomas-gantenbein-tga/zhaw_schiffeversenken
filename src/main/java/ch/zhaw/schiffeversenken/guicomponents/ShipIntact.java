@@ -3,6 +3,10 @@ package ch.zhaw.schiffeversenken.guicomponents;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Represents an intact position of a ship.
+ *
+ */
 public class ShipIntact extends Shape {
 
 	protected ShipIntact(double centerX, double centerY, double width, double height, Color color) {

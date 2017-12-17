@@ -3,6 +3,10 @@ package ch.zhaw.schiffeversenken.guicomponents;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Represents a hit position of a ship.
+ *
+ */
 public class ShipHit extends Shape {
 
 	protected ShipHit(double centerX, double centerY, double width, double height, Color color) {

@@ -22,6 +22,11 @@ import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
+/**
+ * GUI to interact with the Game object. Should be registered as an observer of
+ * the Game object.
+ *
+ */
 public class Maingui implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
@@ -33,6 +38,12 @@ public class Maingui implements Display {
 	private JLabel labelShipsPlayer;
 	private JLabel labelShipsComputer;
 
+	/**
+	 * Expects a Game object, since this is the key component of the GUI.
+	 * 
+	 * @param game
+	 *            The game that should be displayed by the GUI.
+	 */
 	public Maingui(Game game) {
 		// TODO: comments for this class and breaking apart a little
 		this.game = game;
@@ -91,7 +102,7 @@ public class Maingui implements Display {
 		contentPane.add(playerField, gbConstraints);
 		gbConstraints.gridx = 1;
 		contentPane.add(computerField, gbConstraints);
-		
+
 		gbConstraints.fill = GridBagConstraints.NONE;
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 3;
@@ -141,6 +152,11 @@ public class Maingui implements Display {
 		return computerField;
 	}
 
+	/**
+	 * Does accept shots at coordinates that have been shot at before. The Game
+	 * object is responsible for dealing with such a double shot.
+	 *
+	 */
 	private class ShootListener extends MouseAdapter {
 
 		public void mouseClicked(MouseEvent e) {
@@ -148,12 +164,17 @@ public class Maingui implements Display {
 			int posX = (int) ((double) e.getX() / size * columnCountComputer);
 			int posY = (int) ((double) e.getY() / size * rowCountComputer);
 			if (posX <= columnCountComputer - 1 && posY <= rowCountComputer - 1) {
-				Coordinate coordinate = new Coordinate(posX, posY, null);
+				Coordinate coordinate = new Coordinate(posX, posY, null, null);
 				game.processShot(game.getComputerField(), coordinate);
 			}
 		}
 	}
 
+	/**
+	 * Draws a rectangular at the current position of the mouse over the
+	 * computer field.
+	 *
+	 */
 	private class HoverListener extends MouseAdapter {
 		// TODO: comments for this inner class
 		int posX = -1;
@@ -174,7 +195,7 @@ public class Maingui implements Display {
 				this.posX = posX;
 				this.posY = posY;
 				panel.getShapes().remove(previousHoverShape);
-				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY, null), rowCountComputer,
+				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY, null, null), rowCountComputer,
 						columnCountComputer);
 				panel.addShape(hoverShape);
 				previousHoverShape = hoverShape;
@@ -184,6 +205,12 @@ public class Maingui implements Display {
 
 	}
 
+	/**
+	 * Is called after a shot was made and processed by the Game object. Gets
+	 * the status of the PlayField of both computer and human player,
+	 * re-computes and redraws their graphical representation and any other
+	 * objects on the GUI related to their status.
+	 */
 	public void update() {
 		// update computer field
 		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
@@ -225,24 +252,23 @@ public class Maingui implements Display {
 			}
 		}
 		playerField.repaint();
-		
-		//update labels
+
+		// update labels
 		int remainingShips = getSwimmingShips(game.getComputerField());
 		labelShipsComputer.setText("Remaining ships: " + remainingShips);
-		
+
 		remainingShips = getSwimmingShips(game.getPlayerField());
 		labelShipsPlayer.setText("Remaining ships: " + remainingShips);
 	}
-	
+
 	private int getSwimmingShips(PlayField playField) {
 		int remainingShips = 0;
 		List<Ship> ships = playField.getShips();
-		for(Ship ship : ships) {
-			if(!ship.isSunk()) {
+		for (Ship ship : ships) {
+			if (!ship.isSunk()) {
 				remainingShips++;
 			}
 		}
 		return remainingShips;
 	}
-
 }

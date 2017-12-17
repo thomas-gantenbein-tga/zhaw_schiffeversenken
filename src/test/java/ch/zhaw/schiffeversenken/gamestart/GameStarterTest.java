@@ -21,21 +21,21 @@ public class GameStarterTest {
 		ComputerPlayer computerPlayer = new ComputerPlayer(3, 3);
 		
 		List<Coordinate> coordinates1 = new ArrayList<Coordinate>();
-		Coordinate coordinate = new Coordinate(0,0,false);
+		Coordinate coordinate = new Coordinate(0,0,false,false);
 		coordinates1.add(coordinate);
-		coordinate = new Coordinate(0,1,false);
+		coordinate = new Coordinate(0,1,false,false);
 		coordinates1.add(coordinate);
 		
 		List<Coordinate> coordinates2 = new ArrayList<Coordinate>();
-		coordinate = new Coordinate(1,0,false);
+		coordinate = new Coordinate(1,0,false,false);
 		coordinates2.add(coordinate);
-		coordinate = new Coordinate(1,1,false);
+		coordinate = new Coordinate(1,1,false,false);
 		coordinates2.add(coordinate);
 		
 		List<Coordinate> coordinates3 = new ArrayList<Coordinate>();
-		coordinate = new Coordinate(3,0,false);
+		coordinate = new Coordinate(3,0,false,false);
 		coordinates3.add(coordinate);
-		coordinate = new Coordinate(3,1,false);
+		coordinate = new Coordinate(3,1,false,false);
 		coordinates3.add(coordinate);
 		
 		computerField.addShip(new Ship(coordinates1));

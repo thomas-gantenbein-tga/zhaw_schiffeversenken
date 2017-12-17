@@ -42,6 +42,8 @@ public class Game {
 	 * the player did not already shoot at the same coordinate), the computer player
 	 * is asked to make its turn.  Finally, the registered observers are alerted.
 	 * <p>
+	 * If the human player just won, the computer is not allowed to shoot anymore.
+	 * <p>
 	 * The method could be extended with some "extra" behaviour, such as randomly giving the player a second
 	 * shot before the computer.
 	 * 
@@ -50,7 +52,9 @@ public class Game {
 	 */
 	public void processShot(PlayField playField, Coordinate shotCoordinate) {
 		if (playField.processShot(shotCoordinate)) {
-			playerField.processShot(computerPlayer.makeRandomShot());
+			if(getSwimmingShips(computerField) != 0) {
+				playerField.processShot(computerPlayer.makeRandomShot());
+			}
 			alertDisplays();
 		}
 	}
@@ -83,6 +87,17 @@ public class Game {
 	 */
 	public PlayField getComputerField() {
 		return computerField;
+	}
+	
+	private int getSwimmingShips(PlayField playField) {
+		int remainingShips = 0;
+		List<Ship> ships = playField.getShips();
+		for (Ship ship : ships) {
+			if (!ship.isSunk()) {
+				remainingShips++;
+			}
+		}
+		return remainingShips;
 	}
 
 }

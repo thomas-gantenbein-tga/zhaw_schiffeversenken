@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
@@ -30,6 +32,7 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
 public class Maingui implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
+	private JFrame frame;
 	private Game game;
 	private int rowCountComputer;
 	private int columnCountComputer;
@@ -37,6 +40,7 @@ public class Maingui implements Display {
 	private int columnCountPlayer;
 	private JLabel labelShipsPlayer;
 	private JLabel labelShipsComputer;
+	private MouseListener mouseListener;
 
 	/**
 	 * Expects a Game object, since this is the key component of the GUI.
@@ -52,7 +56,7 @@ public class Maingui implements Display {
 		rowCountPlayer = game.getPlayerField().getRowCount();
 		columnCountPlayer = game.getPlayerField().getColumnCount();
 
-		JFrame frame = new JFrame("Schiffe versenken");
+		frame = new JFrame("Schiffe versenken");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Container contentPane = frame.getContentPane();
@@ -139,8 +143,8 @@ public class Maingui implements Display {
 			computerField.addShape(line);
 		}
 
-		playerField.addMouseListener(new ShootListener());
-		computerField.addMouseListener(new ShootListener());
+		mouseListener = new ShootListener();
+		computerField.addMouseListener(mouseListener);
 		computerField.addMouseMotionListener(new HoverListener(computerField));
 	}
 
@@ -255,9 +259,17 @@ public class Maingui implements Display {
 
 		// update labels
 		int remainingShips = getSwimmingShips(game.getComputerField());
+		if(remainingShips == 0) {
+			showVictory();
+			computerField.removeMouseListener(mouseListener);
+		}
 		labelShipsComputer.setText("Remaining ships: " + remainingShips);
 
 		remainingShips = getSwimmingShips(game.getPlayerField());
+		if(remainingShips == 0) {
+			showDefeat();
+			computerField.removeMouseListener(mouseListener);
+		}
 		labelShipsPlayer.setText("Remaining ships: " + remainingShips);
 	}
 
@@ -270,5 +282,13 @@ public class Maingui implements Display {
 			}
 		}
 		return remainingShips;
+	}
+	
+	private void showVictory() {
+		JOptionPane.showMessageDialog(this.frame, "You won!", "Victory", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	private void showDefeat() {
+		JOptionPane.showMessageDialog(this.frame, "You lost!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

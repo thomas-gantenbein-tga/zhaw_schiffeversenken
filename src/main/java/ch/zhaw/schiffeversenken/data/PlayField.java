@@ -90,6 +90,10 @@ public class PlayField {
 	public int getRowCount() {
 		return rowCount;
 	}
+
+	public List<Ship> getShips() {
+		return ships;
+	}
 	
 	
 

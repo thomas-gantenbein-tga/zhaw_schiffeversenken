@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,19 +24,22 @@ import javax.swing.JPanel;
 
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
+import ch.zhaw.schiffeversenken.data.Ship;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 public class Maingui implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
 	private Game game;
-	int rowCountComputer;
-	int columnCountComputer;
-	int rowCountPlayer;
-	int columnCountPlayer;
+	private int rowCountComputer;
+	private int columnCountComputer;
+	private int rowCountPlayer;
+	private int columnCountPlayer;
+	private JLabel labelShipsPlayer;
+	private JLabel labelShipsComputer;
 
 	public Maingui(Game game) {
-		// TODO: comments for this class
+		// TODO: comments for this class and breaking apart a little
 		this.game = game;
 		rowCountComputer = game.getComputerField().getRowCount();
 		columnCountComputer = game.getComputerField().getColumnCount();
@@ -49,6 +53,8 @@ public class Maingui implements Display {
 
 		JLabel labelPlayer = new JLabel("Player");
 		JLabel labelComputer = new JLabel("Computer");
+		labelShipsPlayer = new JLabel("lkj");
+		labelShipsComputer = new JLabel("lkjsss");
 
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
@@ -90,6 +96,13 @@ public class Maingui implements Display {
 		contentPane.add(playerField, gbConstraints);
 		gbConstraints.gridx = 1;
 		contentPane.add(computerField, gbConstraints);
+		
+		gbConstraints.fill = GridBagConstraints.NONE;
+		gbConstraints.gridx = 0;
+		gbConstraints.gridy = 3;
+		contentPane.add(labelShipsPlayer, gbConstraints);
+		gbConstraints.gridx = 1;
+		contentPane.add(labelShipsComputer, gbConstraints);
 
 		frame.setVisible(true);
 		frame.setSize(1200, 600);
@@ -178,7 +191,6 @@ public class Maingui implements Display {
 
 	public void update() {
 		// update computer field
-
 		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
 			if (coordinate.getIsSunk()) {
 				Shape sunkShip = ShapeFactory.createShipSunk(coordinate, rowCountComputer, columnCountComputer);
@@ -218,6 +230,24 @@ public class Maingui implements Display {
 			}
 		}
 		playerField.repaint();
+		
+
+		int remainingShips = getSwimmingShips(game.getComputerField());
+		labelShipsComputer.setText("Remaining ships: " + remainingShips);
+		
+		remainingShips = getSwimmingShips(game.getPlayerField());
+		labelShipsPlayer.setText("Remaining ships: " + remainingShips);
+	}
+	
+	private int getSwimmingShips(PlayField playField) {
+		int remainingShips = 0;
+		List<Ship> ships = playField.getShips();
+		for(Ship ship : ships) {
+			if(!ship.isSunk()) {
+				remainingShips++;
+			}
+		}
+		return remainingShips;
 	}
 
 }

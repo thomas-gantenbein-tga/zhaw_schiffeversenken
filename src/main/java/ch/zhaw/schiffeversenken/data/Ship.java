@@ -13,13 +13,19 @@ public class Ship {
 	List<Coordinate> shipPositions;
 
 	/**
-	 * Sets the coordinates of this ship. The list of coordinates and the fields
-	 * of the Coordinate objects define the ship's status (intact, hit, sunk).
+	 * Creates a ship with the given coordinates. isHit and isSunk fields of the
+	 * Coordinate objects are set to false by default. The list of coordinates
+	 * and the fields of the Coordinate objects define the ship's status
+	 * (intact, hit, sunk).
 	 * 
 	 * @param coordinates
 	 *            The coordinates of the ship
 	 */
 	public Ship(List<Coordinate> coordinates) {
+		for(Coordinate coordinate : coordinates) {
+			coordinate.setIsHit(false);
+			coordinate.setIsSunk(false);
+		}
 		shipPositions = coordinates;
 	}
 

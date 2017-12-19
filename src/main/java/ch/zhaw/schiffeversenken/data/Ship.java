@@ -13,7 +13,7 @@ public class Ship {
 	List<Coordinate> shipPositions;
 
 	/**
-	 * Gets the coordinates of this ship. The list of coordinates and the fields
+	 * Sets the coordinates of this ship. The list of coordinates and the fields
 	 * of the Coordinate objects define the ship's status (intact, hit, sunk).
 	 * 
 	 * @param coordinates

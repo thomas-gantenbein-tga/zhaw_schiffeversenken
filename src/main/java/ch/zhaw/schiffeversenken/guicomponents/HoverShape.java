@@ -22,5 +22,4 @@ public class HoverShape extends Shape {
 		g.setColor(color);
 		g.fillRect(xPosition, yPosition, width, height);		
 	}
-
 }

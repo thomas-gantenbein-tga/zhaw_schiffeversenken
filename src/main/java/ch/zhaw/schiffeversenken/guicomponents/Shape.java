@@ -3,7 +3,7 @@ package ch.zhaw.schiffeversenken.guicomponents;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public abstract class Shape {
+public abstract class Shape implements Comparable<Shape> {
 
 	protected double centerX;
 	protected double centerY;
@@ -47,4 +47,8 @@ public abstract class Shape {
 
 	protected abstract void draw(int playingFieldSize, Graphics g);
 
+	public int compareTo(Shape otherShape) {
+		return (int) (otherShape.width - this.width);
+	}
+	
 }

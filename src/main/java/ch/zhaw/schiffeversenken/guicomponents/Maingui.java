@@ -10,6 +10,7 @@ import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -202,6 +203,8 @@ public class Maingui implements Display {
 				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY, null, null), rowCountComputer,
 						columnCountComputer);
 				panel.addShape(hoverShape);
+				//Shapes are sorted z-a by their width; makes the hover shape appear behind other shapes
+				Collections.sort(panel.getShapes());
 				previousHoverShape = hoverShape;
 				panel.repaint();
 			}

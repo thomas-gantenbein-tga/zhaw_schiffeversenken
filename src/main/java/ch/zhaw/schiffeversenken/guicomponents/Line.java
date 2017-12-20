@@ -2,6 +2,7 @@ package ch.zhaw.schiffeversenken.guicomponents;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  * Used to draw the horizontal and vertical lines of the playing field of the
@@ -15,7 +16,7 @@ public class Line extends Shape {
 	}
 
 	@Override
-	protected void draw(int playingFieldSize, Graphics g) {
+	protected void draw(int playingFieldSize, Graphics2D g) {
 
 		int x1Position = (int) (playingFieldSize * (centerX / 100.0) - (width / 100.0) / 2 * playingFieldSize);
 		int y1Position = (int) (playingFieldSize * (centerY / 100.0) - (height / 100.0) / 2 * playingFieldSize);

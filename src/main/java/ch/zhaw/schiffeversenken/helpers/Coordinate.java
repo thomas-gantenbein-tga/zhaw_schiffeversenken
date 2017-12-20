@@ -23,9 +23,9 @@ public class Coordinate {
 	 * @param yPosition
 	 *            position on y-axis
 	 * @param isHit
-	 *            was this position shot at before?
+	 *            Was this position shot at before? Can be null.
 	 * @param isSunk
-	 *            does this position contain a fully destroyed ship?
+	 *            Does this position contain a fully destroyed ship? Can be null.
 	 */
 	public Coordinate(int xPosition, int yPosition, Boolean isHit, Boolean isSunk) {
 		this.xPosition = xPosition;

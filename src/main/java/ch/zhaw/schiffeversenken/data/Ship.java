@@ -1,5 +1,6 @@
 package ch.zhaw.schiffeversenken.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
@@ -11,6 +12,22 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
  */
 public class Ship {
 	List<Coordinate> shipPositions;
+	
+	/**
+	 * Creates a ship with random coordinates. isHit and isSunk fields of the
+	 * Coordinate objects are set to false by default. The list of coordinates
+	 * and the fields of the Coordinate objects define the ship's status
+	 * (intact, hit, sunk).
+	 * 
+	 * @param colCount, rowCount
+	 *            The size of the PlayField
+	 */
+	public Ship (int colCount, int rowCount) {
+		shipPositions = new ArrayList<Coordinate>();
+		Coordinate coordinate = new Coordinate((int)(Math.random()*colCount), (int)(Math.random()*rowCount), false, false);
+		shipPositions.add(coordinate);
+		System.out.println(coordinate.getxPosition() + " , "+ coordinate.getyPosition());
+	}
 
 	/**
 	 * Creates a ship with the given coordinates. isHit and isSunk fields of the

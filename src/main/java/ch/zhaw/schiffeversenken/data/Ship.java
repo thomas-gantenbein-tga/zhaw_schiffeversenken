@@ -22,7 +22,7 @@ public class Ship {
 	 * @param colCount, rowCount
 	 *            The size of the PlayField
 	 */
-	public Ship (int colCount, int rowCount) {
+	public Ship (int colCount, int rowCount ) {
 		shipPositions = new ArrayList<Coordinate>();
 		Coordinate coordinate = new Coordinate((int)(Math.random()*colCount), (int)(Math.random()*rowCount), false, false);
 		shipPositions.add(coordinate);

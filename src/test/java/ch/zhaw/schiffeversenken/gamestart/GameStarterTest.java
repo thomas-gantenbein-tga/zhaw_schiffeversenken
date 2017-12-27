@@ -46,10 +46,10 @@ public class GameStarterTest {
 		computerField.addShip(new Ship(coordinates1));
 		playerField.addShip(new Ship(coordinates2));
 		computerField.addShip(new Ship(coordinates3));
-		computerField.addShip(new Ship(columnCountComputer, rowCountComputer));
+		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 2));
 		
-	    	Directions dir = Directions.getRandom();
-	    	System.out.println(dir);
+	    Directions dir = Directions.getRandom();
+	    System.out.println(dir);
 
 		Game game = new Game(playerField, computerField, computerPlayer);
 

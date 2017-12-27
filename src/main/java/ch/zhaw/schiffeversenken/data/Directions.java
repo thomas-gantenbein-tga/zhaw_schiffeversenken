@@ -12,7 +12,7 @@ public enum Directions{
 	 /**
 	 * Creates a random direction
 	 */
-	  public static Directions getRandom() {
+	  public static Directions getRandom() {	
 	      return values()[(int) (Math.random() * values().length)];
 	  }
 }

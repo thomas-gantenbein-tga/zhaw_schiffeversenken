@@ -14,7 +14,7 @@ public class Ship {
 	List<Coordinate> shipPositions;
 	
 	/**
-	 * Creates a ship with random coordinates. isHit and isSunk fields of the
+	 * Creates a ship with random coordinates and random directions with a given size. isHit and isSunk fields of the
 	 * Coordinate objects are set to false by default. The list of coordinates
 	 * and the fields of the Coordinate objects define the ship's status
 	 * (intact, hit, sunk).
@@ -22,11 +22,41 @@ public class Ship {
 	 * @param colCount, rowCount
 	 *            The size of the PlayField
 	 */
-	public Ship (int colCount, int rowCount ) {
+	public Ship (int colCount, int rowCount ,int shipSize) {
 		shipPositions = new ArrayList<Coordinate>();
-		Coordinate coordinate = new Coordinate((int)(Math.random()*colCount), (int)(Math.random()*rowCount), false, false);
-		shipPositions.add(coordinate);
-		System.out.println(coordinate.getxPosition() + " , "+ coordinate.getyPosition());
+		Coordinate[] coordinates = new Coordinate[shipSize];
+		//Random Startpoint of Ship
+		coordinates[0] = new Coordinate((int)(Math.random()*colCount), (int)(Math.random()*rowCount), false, false);
+		// Get a random Direction
+		Directions dir = Directions.getRandom();
+		
+		//shipPositions.add(coordinates[0]);
+		System.out.println(coordinates[0].getxPosition() + " , "+ coordinates[0].getyPosition());
+
+		for(int i = 1; i < shipSize; i++) {
+			switch (dir) {
+			case NORTH:
+				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition(), coordinates[i-1].getyPosition() + 1, false, false);
+				break;
+			case SOUTH:
+				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition(), coordinates[i-1].getyPosition() - 1, false, false);
+				break;
+			case EAST:
+				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition() + 1, coordinates[i-1].getyPosition(), false, false);
+				break;
+			case WEST:
+				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition() - 1, coordinates[i-1].getyPosition() - 1, false, false);
+				break;
+			default:
+				System.out.println("Richtung nicht programmiert!");
+				break;
+			}
+			coordinates[i] = new Coordinate(coordinates[i-1].getxPosition() + 1, coordinates[i-1].getyPosition(), false, false);
+			System.out.println(coordinates[i].getxPosition() + " , "+ coordinates[i].getyPosition());
+		}
+		for (Coordinate coordinate :coordinates)
+			shipPositions.add(coordinate);
+
 	}
 
 	/**

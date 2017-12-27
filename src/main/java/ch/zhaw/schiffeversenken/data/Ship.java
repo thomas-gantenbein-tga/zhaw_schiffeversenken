@@ -12,7 +12,8 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
  */
 public class Ship {
 	List<Coordinate> shipPositions;
-	
+	private Directions dir;
+	private int rowProposition1stPosition, colProposition1stPosition;
 	/**
 	 * Creates a ship with random coordinates and random directions with a given size. isHit and isSunk fields of the
 	 * Coordinate objects are set to false by default. The list of coordinates
@@ -25,11 +26,15 @@ public class Ship {
 	public Ship (int colCount, int rowCount ,int shipSize) {
 		shipPositions = new ArrayList<Coordinate>();
 		Coordinate[] coordinates = new Coordinate[shipSize];
-		//Random Startpoint of Ship
-		coordinates[0] = new Coordinate((int)(Math.random()*colCount), (int)(Math.random()*rowCount), false, false);
-		// Get a random Direction
-		Directions dir = Directions.getRandom();
 		
+		do{
+			rowProposition1stPosition = (int)(Math.random()*rowCount);
+			colProposition1stPosition = (int)(Math.random()*colCount);
+			dir = Directions.getRandom();	
+		}
+		while(isShipInPlayfield( colCount, rowCount, shipSize, dir));
+
+		coordinates[0] = new Coordinate(rowProposition1stPosition, colProposition1stPosition, false, false);
 		//shipPositions.add(coordinates[0]);
 		System.out.println(coordinates[0].getxPosition() + " , "+ coordinates[0].getyPosition());
 
@@ -57,6 +62,32 @@ public class Ship {
 		for (Coordinate coordinate :coordinates)
 			shipPositions.add(coordinate);
 
+	}
+	
+	/* checks if a proposed ship is in the given playfield
+	 * 	 @param colCount, rowCount => the size of the playfield
+	 * 			colPosition, rowPosition => the proposed first position of the ship
+	 * 			shipSize => the length of the ship
+	 * 			dir = the direction of the Ship
+	 * 
+	 * @return Returns true if the proposed ship fits in the given playfield. If it doesn't it returns false
+	 */
+	public boolean isShipInPlayfield(int colCount, int rowCount , int shipSize, Directions dir) {
+		switch (dir) {
+		case NORTH:
+			if (rowProposition1stPosition + shipSize <= colCount)
+			return true;
+		case SOUTH:
+			if(rowProposition1stPosition - shipSize >= 1)
+			return true;
+		case EAST:
+			if(colProposition1stPosition + shipSize <= rowCount)
+			return true;
+		case WEST:
+			if(colProposition1stPosition - shipSize >= 1)
+			return true;
+		}
+		return false;
 	}
 
 	/**

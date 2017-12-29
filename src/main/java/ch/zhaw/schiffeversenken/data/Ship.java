@@ -38,6 +38,7 @@ public class Ship {
 	 * 
 	 * @param colCount, rowCount
 	 *            The size of the PlayField
+	 * @author uelik
 	 */
 	public Ship (int colCount, int rowCount ,int shipSize) {
 		shipPositions = new ArrayList<Coordinate>();
@@ -72,25 +73,6 @@ public class Ship {
 			shipPositions.add(coordinate);
 
 	}
-	
-	/* checks if the ship in the given playfield
-	 * 	 @param colCount, rowCount => the size of the playfield
-	 * 
-	 * @return Returns true if the ship fits in the given playfield. If it doesn't it returns false
-	 */
-	public boolean isShipInPlayfield(int colCount, int rowCount) {
-		for (Coordinate shipPosition :shipPositions) {
-			if (shipPosition.getxPosition() > colCount)
-				return false;
-			else if (shipPosition.getxPosition() < 0)
-				return false;
-			else if (shipPosition.getyPosition() > rowCount)
-				return false;
-			else if (shipPosition.getyPosition() < 0)
-				return false;
-		}
-		return true;
-	}
 
 	/**
 	 * Checks whether a given coordinate corresponds to one of the ship's
@@ -116,7 +98,7 @@ public class Ship {
 	 * 
 	 * @return The positions of the ship, as coordinates.
 	 */
-	protected List<Coordinate> getShipPositions() {
+	public List<Coordinate> getShipPositions() {
 		return shipPositions;
 	}
 
@@ -132,5 +114,39 @@ public class Ship {
 			}
 		}
 		return true;
+	}
+
+	/** checks if the ship in the given PlayField
+	 * 	 @param colCount, rowCount => the size of the PlayField
+	 * 
+	 * @return Returns true if the ship fits in the given PlayField. If it doesn't it returns false
+	 * @author uelik
+	 */
+	public boolean isInPlayfield(int columnCount, int rowCount) {
+		for (Coordinate shipPosition :shipPositions) {
+			if (shipPosition.getxPosition() > columnCount)
+				return false;
+			else if (shipPosition.getxPosition() < 0)
+				return false;
+			else if (shipPosition.getyPosition() > rowCount)
+				return false;
+			else if (shipPosition.getyPosition() < 0)
+				return false;
+		}
+		return true;
+	}
+	
+	/** checks if the ship does not cross the one in the parameter
+	 * @param shipPositionsCollision, the ship to test the collision with 
+	 * 
+	 * @return Returns true if the two ships use same field(s), false if there is no collision
+	 * @author uelik
+	 */
+	public boolean isInCollision(List<Coordinate> shipPostionsCollision) {
+		for (Coordinate shipPosition : shipPositions)
+			for (Coordinate shipPositionCollision : shipPostionsCollision)
+				if(shipPosition.equals(shipPositionCollision))
+					return true;
+		return false;
 	}
 }

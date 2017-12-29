@@ -154,19 +154,55 @@ public class PlayField {
 	public List<Ship> getShips() {
 		return ships;
 	}
+	
+	/**
+	 * Gets a specific ship (index) on this PlayField. 
+	 * 
+	 * @return	the requested ship in the List<Ship>
+	 * @author uelik
+	 */
+	public Ship getShip(int shipIndex) {
+		return ships.get(shipIndex);
+	}
+	
 	/**
 	 * Gets the last ship on this PlayField. Used for different checks of the lastly added ship
 	 * 
 	 * @return	the last ship in the List<Ship>
+	 * @author uelik
 	 */
 	public Ship getLastShip() {
 		return ships.get(ships.size()-1);
 	}
+	
 	/**
 	 * Delete the last ship on this PlayField.
+	 * @author uelik
 	 * 
 	 */
 	public void deleteLastShip() {
 		ships.remove(ships.size()-1);
+	}
+	
+	/**Plausibility test of a new ship. If a ship fails it will be deleted
+	 * 
+	 * @author uelik
+	 * 
+	 */
+	public void shipPlausibilityTest(PlayField playfield, int columnCount, int rowCount) {
+		if(!playfield.getLastShip().isInPlayfield(columnCount, rowCount)) {
+			playfield.deleteLastShip();
+			System.out.println("Schiff geloescht, nicht im Spielfeld");
+		}
+		else {
+			
+			for(int i=0; i < playfield.getShips().size() - 1; i++) {
+				if (playfield.getLastShip().isInCollision(playfield.getShip(i).getShipPositions())) {
+					playfield.deleteLastShip();
+					System.out.println("Schiff geloescht, Feld(er) schon besetzt");
+				}
+
+			}
+		}
 	}
 }

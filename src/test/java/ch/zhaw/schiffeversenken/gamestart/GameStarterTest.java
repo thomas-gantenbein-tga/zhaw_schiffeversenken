@@ -2,8 +2,6 @@ package ch.zhaw.schiffeversenken.gamestart;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ch.zhaw.schiffeversenken.data.Directions;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
@@ -47,11 +45,12 @@ public class GameStarterTest {
 		playerField.addShip(new Ship(coordinates2));
 		computerField.addShip(new Ship(coordinates3));
 		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
-		System.out.println(computerField.getShips().size());
-		System.out.println(computerField.getLastShip().isShipInPlayfield(columnCountComputer, rowCountComputer));
-		if(!computerField.getLastShip().isShipInPlayfield(columnCountComputer, rowCountComputer))
-			computerField.deleteLastShip();
-		System.out.println(computerField.getShips().size());
+		computerField.shipPlausibilityTest(computerField, columnCountComputer, rowCountComputer);
+		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
+		computerField.shipPlausibilityTest(computerField, columnCountComputer, rowCountComputer);
+		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
+		computerField.shipPlausibilityTest(computerField, columnCountComputer, rowCountComputer);
+		
 		Game game = new Game(playerField, computerField, computerPlayer);
 
 		Maingui gui = new Maingui(game);

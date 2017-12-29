@@ -154,5 +154,19 @@ public class PlayField {
 	public List<Ship> getShips() {
 		return ships;
 	}
-
+	/**
+	 * Gets the last ship on this PlayField. Used for different checks of the lastly added ship
+	 * 
+	 * @return	the last ship in the List<Ship>
+	 */
+	public Ship getLastShip() {
+		return ships.get(ships.size()-1);
+	}
+	/**
+	 * Delete the last ship on this PlayField.
+	 * 
+	 */
+	public void deleteLastShip() {
+		ships.remove(ships.size()-1);
+	}
 }

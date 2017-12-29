@@ -12,8 +12,24 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
  */
 public class Ship {
 	List<Coordinate> shipPositions;
-	private Directions dir;
-	private int rowProposition1stPosition, colProposition1stPosition;
+	
+	/**
+	 * Creates a ship with the given coordinates. isHit and isSunk fields of the
+	 * Coordinate objects are set to false by default. The list of coordinates
+	 * and the fields of the Coordinate objects define the ship's status
+	 * (intact, hit, sunk).
+	 * 
+	 * @param coordinates
+	 *            The coordinates of the ship
+	 */
+	public Ship(List<Coordinate> coordinates) {
+		for(Coordinate coordinate : coordinates) {
+			coordinate.setIsHit(false);
+			coordinate.setIsSunk(false);
+		}
+		shipPositions = coordinates;
+	}
+	
 	/**
 	 * Creates a ship with random coordinates and random directions with a given size. isHit and isSunk fields of the
 	 * Coordinate objects are set to false by default. The list of coordinates
@@ -26,20 +42,13 @@ public class Ship {
 	public Ship (int colCount, int rowCount ,int shipSize) {
 		shipPositions = new ArrayList<Coordinate>();
 		Coordinate[] coordinates = new Coordinate[shipSize];
-		
-		do{
-			rowProposition1stPosition = (int)(Math.random()*rowCount);
-			colProposition1stPosition = (int)(Math.random()*colCount);
-			dir = Directions.getRandom();	
-		}
-		while(isShipInPlayfield( colCount, rowCount, shipSize, dir));
-
-		coordinates[0] = new Coordinate(rowProposition1stPosition, colProposition1stPosition, false, false);
-		//shipPositions.add(coordinates[0]);
+		//generate starting point of ship with random coordinates within the given playfield
+		coordinates[0] = new Coordinate((int)(Math.random()*rowCount), (int)(Math.random()*colCount), false, false);
 		System.out.println(coordinates[0].getxPosition() + " , "+ coordinates[0].getyPosition());
 
 		for(int i = 1; i < shipSize; i++) {
-			switch (dir) {
+			//orient the ship randomly within the directions in Enum Directions
+			switch (Directions.getRandom()) {
 			case NORTH:
 				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition(), coordinates[i-1].getyPosition() + 1, false, false);
 				break;
@@ -64,47 +73,23 @@ public class Ship {
 
 	}
 	
-	/* checks if a proposed ship is in the given playfield
+	/* checks if the ship in the given playfield
 	 * 	 @param colCount, rowCount => the size of the playfield
-	 * 			colPosition, rowPosition => the proposed first position of the ship
-	 * 			shipSize => the length of the ship
-	 * 			dir = the direction of the Ship
 	 * 
-	 * @return Returns true if the proposed ship fits in the given playfield. If it doesn't it returns false
+	 * @return Returns true if the ship fits in the given playfield. If it doesn't it returns false
 	 */
-	public boolean isShipInPlayfield(int colCount, int rowCount , int shipSize, Directions dir) {
-		switch (dir) {
-		case NORTH:
-			if (rowProposition1stPosition + shipSize <= colCount)
-			return true;
-		case SOUTH:
-			if(rowProposition1stPosition - shipSize >= 1)
-			return true;
-		case EAST:
-			if(colProposition1stPosition + shipSize <= rowCount)
-			return true;
-		case WEST:
-			if(colProposition1stPosition - shipSize >= 1)
-			return true;
+	public boolean isShipInPlayfield(int colCount, int rowCount) {
+		for (Coordinate shipPosition :shipPositions) {
+			if (shipPosition.getxPosition() > colCount)
+				return false;
+			else if (shipPosition.getxPosition() < 0)
+				return false;
+			else if (shipPosition.getyPosition() > rowCount)
+				return false;
+			else if (shipPosition.getyPosition() < 0)
+				return false;
 		}
-		return false;
-	}
-
-	/**
-	 * Creates a ship with the given coordinates. isHit and isSunk fields of the
-	 * Coordinate objects are set to false by default. The list of coordinates
-	 * and the fields of the Coordinate objects define the ship's status
-	 * (intact, hit, sunk).
-	 * 
-	 * @param coordinates
-	 *            The coordinates of the ship
-	 */
-	public Ship(List<Coordinate> coordinates) {
-		for(Coordinate coordinate : coordinates) {
-			coordinate.setIsHit(false);
-			coordinate.setIsSunk(false);
-		}
-		shipPositions = coordinates;
+		return true;
 	}
 
 	/**

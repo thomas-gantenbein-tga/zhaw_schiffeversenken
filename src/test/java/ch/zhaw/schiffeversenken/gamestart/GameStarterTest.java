@@ -46,11 +46,12 @@ public class GameStarterTest {
 		computerField.addShip(new Ship(coordinates1));
 		playerField.addShip(new Ship(coordinates2));
 		computerField.addShip(new Ship(coordinates3));
-		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 2));
-		
-	    Directions dir = Directions.getRandom();
-	    System.out.println(dir);
-
+		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
+		System.out.println(computerField.getShips().size());
+		System.out.println(computerField.getLastShip().isShipInPlayfield(columnCountComputer, rowCountComputer));
+		if(!computerField.getLastShip().isShipInPlayfield(columnCountComputer, rowCountComputer))
+			computerField.deleteLastShip();
+		System.out.println(computerField.getShips().size());
 		Game game = new Game(playerField, computerField, computerPlayer);
 
 		Maingui gui = new Maingui(game);

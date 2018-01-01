@@ -51,7 +51,7 @@ public class Coordinate {
 	public int getxPosition() {
 		return xPosition;
 	}
-
+	
 	/**
 	 * Was this position shot at before?
 	 * 

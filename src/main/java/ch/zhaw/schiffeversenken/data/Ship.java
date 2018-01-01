@@ -149,4 +149,38 @@ public class Ship {
 					return true;
 		return false;
 	}
+	/**
+	 * Get wound positions
+	 * 
+	 * @return The hit positions of the ship, as coordinates. No Coordinate if the ship is not hit
+	 * @author uelik
+	 */
+	public List<Coordinate> getWoundPositions() {
+		ArrayList<Coordinate> shipWoundPositions = new ArrayList<Coordinate>();
+		for (Coordinate shipPosition :shipPositions) {
+			if (shipPosition.getIsHit())
+				shipWoundPositions.add(shipPosition);
+		}
+		return shipWoundPositions;
+	}
+	
+	/**
+	 * Get the position of the first hit only
+	 * 
+	 * @return The first hit position of the ship, as coordinates if a ship is wounded only once. If it is hit more than once or fully intact return null 
+	 * @author uelik
+	 */
+	public Coordinate getOnlyOneWoundPosition() {
+		int hitCounter = 0;
+		Coordinate coordinate = null;
+		for (Coordinate shipPosition :shipPositions) {
+			if (shipPosition.getIsHit()) {
+				hitCounter++;
+				coordinate = shipPosition;
+			}
+		}
+		if (hitCounter == 1)
+			return coordinate;
+		return null;
+	}
 }

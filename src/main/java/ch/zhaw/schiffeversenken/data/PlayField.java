@@ -189,20 +189,43 @@ public class PlayField {
 	 * @author uelik
 	 * 
 	 */
-	public void shipPlausibilityTest(PlayField playfield, int columnCount, int rowCount) {
+	public void shipPlausibilityTestLastAddedShip(PlayField playfield, int columnCount, int rowCount) {
+		//Is the ship in the PlayField?
 		if(!playfield.getLastShip().isInPlayfield(columnCount, rowCount)) {
 			playfield.deleteLastShip();
 			System.out.println("Schiff geloescht, nicht im Spielfeld");
 		}
 		else {
-			
+			// Does the ship not cross an existing one?
 			for(int i=0; i < playfield.getShips().size() - 1; i++) {
 				if (playfield.getLastShip().isInCollision(playfield.getShip(i).getShipPositions())) {
 					playfield.deleteLastShip();
 					System.out.println("Schiff geloescht, Feld(er) schon besetzt");
 				}
-
 			}
 		}
+	}
+	
+	/**Find the next ship position after the first hit
+	 * 
+	 * @author uelik
+	 * 
+	 */
+	public boolean shootAround1stHit() {
+		Coordinate coordinate1stHit = null;
+		Coordinate coordinateShootPosition = null;
+		// loop through the ships until the first with one hit is found
+		for (Ship ship : ships)
+			if (ship.getOnlyOneWoundPosition() != null) {
+				coordinate1stHit = ship.getOnlyOneWoundPosition();
+				int xCoordinate = coordinate1stHit.getxPosition();
+				int yCoordinate = coordinate1stHit.getyPosition();
+				
+				coordinateShootPosition = new Coordinate(xCoordinate + 1, yCoordinate, null, null);
+				processShot(coordinateShootPosition);
+				
+				return true;
+			}
+		return false;
 	}
 }

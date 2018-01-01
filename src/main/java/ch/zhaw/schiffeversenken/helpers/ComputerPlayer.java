@@ -22,4 +22,10 @@ public class ComputerPlayer {
 		Coordinate coordinate = new Coordinate(xCoordinate, yCoordinate, null, null);
 		return coordinate;
 	}
+	
+	public Coordinate makeLogicShot() {
+		return null;
+		
+	}
+	
 }

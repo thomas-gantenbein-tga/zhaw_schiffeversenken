@@ -45,11 +45,11 @@ public class GameStarterTest {
 		playerField.addShip(new Ship(coordinates2));
 		computerField.addShip(new Ship(coordinates3));
 		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
-		computerField.shipPlausibilityTest(computerField, columnCountComputer, rowCountComputer);
+		computerField.shipPlausibilityTestLastAddedShip(computerField, columnCountComputer, rowCountComputer);
 		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
-		computerField.shipPlausibilityTest(computerField, columnCountComputer, rowCountComputer);
+		computerField.shipPlausibilityTestLastAddedShip(computerField, columnCountComputer, rowCountComputer);
 		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
-		computerField.shipPlausibilityTest(computerField, columnCountComputer, rowCountComputer);
+		computerField.shipPlausibilityTestLastAddedShip(computerField, columnCountComputer, rowCountComputer);
 		
 		Game game = new Game(playerField, computerField, computerPlayer);
 

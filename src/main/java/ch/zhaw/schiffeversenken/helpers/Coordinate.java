@@ -1,5 +1,7 @@
 package ch.zhaw.schiffeversenken.helpers;
 
+import ch.zhaw.schiffeversenken.data.PlayField;
+
 /**
  * Represents positions on a x- and y-axis and also holds other information: Was
  * this position shot at before and does this position contain a fully destroyed
@@ -102,5 +104,23 @@ public class Coordinate {
 			}
 		}
 		return false;
+	}
+	
+	/** Checks if the Coordinate is in the PlayField
+	 * 
+	 * @return	When in the PlayField return true, otherwise false
+	 * @author uelik
+	 * 
+	 */	
+	public boolean isCoordinateInPlayField(PlayField playField) {
+		if (getxPosition() > playField.getColumnCount())
+			return false;
+		else if (getxPosition() < 0)
+			return false;
+		else if (getyPosition() > playField.getRowCount())
+			return false;
+		else if (getyPosition() < 0)
+			return false;
+		return true;
 	}
 }

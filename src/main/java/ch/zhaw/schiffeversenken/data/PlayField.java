@@ -189,17 +189,17 @@ public class PlayField {
 	 * @author uelik
 	 * 
 	 */
-	public void shipPlausibilityTestLastAddedShip(PlayField playfield, int columnCount, int rowCount) {
+	public void shipPlausibilityTestLastAddedShip() {
 		//Is the ship in the PlayField?
-		if(!playfield.getLastShip().isInPlayfield(columnCount, rowCount)) {
-			playfield.deleteLastShip();
+		if(!getLastShip().isInPlayfield(columnCount, rowCount)) {
+			deleteLastShip();
 			System.out.println("Schiff geloescht, nicht im Spielfeld");
 		}
 		else {
 			// Does the ship not cross an existing one?
-			for(int i=0; i < playfield.getShips().size() - 1; i++) {
-				if (playfield.getLastShip().isInCollision(playfield.getShip(i).getShipPositions())) {
-					playfield.deleteLastShip();
+			for(int i=0; i < getShips().size() - 1; i++) {
+				if (getLastShip().isInCollision(getShip(i).getShipPositions())) {
+					deleteLastShip();
 					System.out.println("Schiff geloescht, Feld(er) schon besetzt");
 				}
 			}
@@ -208,24 +208,23 @@ public class PlayField {
 	
 	/**Find the next ship position after the first hit
 	 * 
+	 * @return	The next possible ship position around the first hit
 	 * @author uelik
 	 * 
 	 */
-	public boolean shootAround1stHit() {
+	public Coordinate possibleShipPositionsionsAround1stHit() {
 		Coordinate coordinate1stHit = null;
 		Coordinate coordinateShootPosition = null;
 		// loop through the ships until the first with one hit is found
 		for (Ship ship : ships)
 			if (ship.getOnlyOneWoundPosition() != null) {
 				coordinate1stHit = ship.getOnlyOneWoundPosition();
-				int xCoordinate = coordinate1stHit.getxPosition();
-				int yCoordinate = coordinate1stHit.getyPosition();
-				
-				coordinateShootPosition = new Coordinate(xCoordinate + 1, yCoordinate, null, null);
-				processShot(coordinateShootPosition);
-				
-				return true;
+				coordinateShootPosition = ship.getRandomCoordinateAround4Directions(coordinate1stHit);
+				if(coordinateShootPosition.isCoordinateInPlayField(this))
+					return coordinateShootPosition;
 			}
-		return false;
+		return null;
 	}
+	
+
 }

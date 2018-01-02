@@ -60,7 +60,7 @@ public class Ship {
 				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition() + 1, coordinates[i-1].getyPosition(), false, false);
 				break;
 			case WEST:
-				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition() - 1, coordinates[i-1].getyPosition() - 1, false, false);
+				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition() - 1, coordinates[i-1].getyPosition(), false, false);
 				break;
 			default:
 				System.out.println("Richtung nicht programmiert!");
@@ -182,5 +182,32 @@ public class Ship {
 		if (hitCounter == 1)
 			return coordinate;
 		return null;
+	}
+	
+	/**
+	 * Get a random Position around a given position according to the four Directions NORTH,SOUTH,EAST,WEST
+	 * 
+	 * @return Retruns a Coordinate with the random position around the given one
+	 * @author uelik
+	 */	
+	public Coordinate getRandomCoordinateAround4Directions(Coordinate firstHitPosition) {
+		Coordinate randomPositionAround1stHit= null;
+		switch (Directions.getRandom()) {
+		case NORTH:
+			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition(), firstHitPosition.getyPosition() + 1, false, false);
+			break;
+		case SOUTH:
+			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition(), firstHitPosition.getyPosition() - 1, false, false);
+			break;
+		case EAST:
+			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition() + 1, firstHitPosition.getyPosition(), false, false);
+			break;
+		case WEST:
+			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition() - 1, firstHitPosition.getyPosition(), false, false);
+			break;
+		default:
+			System.out.println("Richtung nicht programmiert!");
+		}
+		return randomPositionAround1stHit;
 	}
 }

@@ -16,7 +16,7 @@ public class ShapeFactory {
 	 * 
 	 * @param index
 	 *            Index: The position of the line from the top (horizontal
-	 *            lines) or from left (vertical lines).
+	 *            lines) or from left (vertical lines). Starts at 0.
 	 * @param rowCount
 	 *            The number of rows that should be represented by lines
 	 * @param columnCount

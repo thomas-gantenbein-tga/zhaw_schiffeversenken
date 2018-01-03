@@ -124,13 +124,13 @@ public class Ship {
 	 */
 	public boolean isInPlayfield(int columnCount, int rowCount) {
 		for (Coordinate shipPosition :shipPositions) {
-			if (shipPosition.getxPosition() > columnCount)
+			if (shipPosition.getxPosition() >= columnCount)
 				return false;
-			else if (shipPosition.getxPosition() < 0)
+			else if (shipPosition.getxPosition() <= 0)
 				return false;
-			else if (shipPosition.getyPosition() > rowCount)
+			else if (shipPosition.getyPosition() >= rowCount)
 				return false;
-			else if (shipPosition.getyPosition() < 0)
+			else if (shipPosition.getyPosition() <= 0)
 				return false;
 		}
 		return true;

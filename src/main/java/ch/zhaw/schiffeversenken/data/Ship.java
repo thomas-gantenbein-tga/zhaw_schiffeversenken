@@ -47,9 +47,11 @@ public class Ship {
 		coordinates[0] = new Coordinate((int)(Math.random()*rowCount), (int)(Math.random()*colCount), false, false);
 		System.out.println(coordinates[0].getxPosition() + " , "+ coordinates[0].getyPosition());
 
+		Directions direction = Directions.getRandom();
+		
 		for(int i = 1; i < shipSize; i++) {
 			//orient the ship randomly within the directions in Enum Directions
-			switch (Directions.getRandom()) {
+			switch (direction) {
 			case NORTH:
 				coordinates[i] = new Coordinate(coordinates[i-1].getxPosition(), coordinates[i-1].getyPosition() + 1, false, false);
 				break;
@@ -66,7 +68,6 @@ public class Ship {
 				System.out.println("Richtung nicht programmiert!");
 				break;
 			}
-			coordinates[i] = new Coordinate(coordinates[i-1].getxPosition() + 1, coordinates[i-1].getyPosition(), false, false);
 			System.out.println(coordinates[i].getxPosition() + " , "+ coordinates[i].getyPosition());
 		}
 		for (Coordinate coordinate :coordinates)

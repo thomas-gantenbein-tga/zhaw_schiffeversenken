@@ -24,17 +24,21 @@ public class ComputerPlayer {
 		Coordinate coordinate = new Coordinate(xCoordinate, yCoordinate, null, null);
 		return coordinate;
 	}
-
+	/**
+	 * 
+	 * @param display	Any object implementing the Display interface.
+	 */
 	public Coordinate makeLogicShot(PlayField playerField) {
 		Coordinate shootPosition = null;
 		int indexOfShoot = 0;
+		// check if a ship is only hit once
 		if( playerField.possibleShipPositionsionsAround1stHit() != null) {
+			//search around 1st hit position and check if the position was hit before
 			do{
 				shootPosition = playerField.possibleShipPositionsionsAround1stHit();
 				indexOfShoot = playerField.getFreeSea().indexOf(shootPosition);
-				System.out.println(shootPosition);
 			}
-			while(playerField.getFreeSea().get(indexOfShoot).getIsHit());
+			while(playerField.getFreeSea().get(indexOfShoot).getIsHit() || indexOfShoot != -1 );
 		}
 
 		if (shootPosition != null)

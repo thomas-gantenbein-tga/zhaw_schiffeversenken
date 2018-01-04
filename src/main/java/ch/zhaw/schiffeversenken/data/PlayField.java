@@ -189,7 +189,7 @@ public class PlayField {
 	 * @author uelik
 	 * 
 	 */
-	public void shipPlausibilityTestLastAddedShip() {
+	public void plausibilityTestLastAddedShip() {
 		//Is the ship in the PlayField?
 		if(!getLastShip().isInPlayfield(columnCount, rowCount)) {
 			deleteLastShip();

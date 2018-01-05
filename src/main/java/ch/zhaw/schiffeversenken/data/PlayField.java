@@ -219,11 +219,25 @@ public class PlayField {
 		for (Ship ship : ships)
 			if (ship.getOnlyOneWoundPosition() != null) {
 				coordinate1stHit = ship.getOnlyOneWoundPosition();
-				coordinateShootPosition = ship.getRandomCoordinateAround4Directions(coordinate1stHit);
-				if(coordinateShootPosition.isCoordinateInPlayField(this))
-					return coordinateShootPosition;
+				do {
+					coordinateShootPosition = ship.getRandomCoordinateAround4Directions(coordinate1stHit);
+				}
+				while(coordinateShootPosition.isCoordinateInPlayField(this));
+				return coordinateShootPosition;
 			}
 		return null;
+	}
+	
+	/**Checks if a Coordinate is in freeSea
+	 * 
+	 * @return	Return true when the Coordinate is in freeSea, otherwise return false
+	 * @author uelik
+	 * 
+	 */	public boolean isCoordinateInFreeSea(Coordinate coordinateFreeSea) {
+		int indexOfShoot = getFreeSea().indexOf(coordinateFreeSea);
+		if (indexOfShoot == -1)
+			return false;
+		return true;
 	}
 	
 

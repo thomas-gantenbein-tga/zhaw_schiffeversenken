@@ -26,19 +26,32 @@ public class ComputerPlayer {
 	}
 	/**
 	 * 
-	 * @param display	Any object implementing the Display interface.
+	 * 
 	 */
 	public Coordinate makeLogicShot(PlayField playerField) {
 		Coordinate shootPosition = null;
-		int indexOfShoot = 0;
+		int indexOfShootFreaSea = 0;
+		int indexOfShootShip = 0;
+		boolean shipOrFreeSeaIsHit = false;
 		// check if a ship is only hit once
 		if( playerField.possibleShipPositionsionsAround1stHit() != null) {
 			//search around 1st hit position and check if the position was hit before
 			do{
 				shootPosition = playerField.possibleShipPositionsionsAround1stHit();
-				indexOfShoot = playerField.getFreeSea().indexOf(shootPosition);
+				if (playerField.isCoordinateInFreeSea(shootPosition)) {
+					indexOfShootFreaSea = playerField.getFreeSea().indexOf(shootPosition);
+					shipOrFreeSeaIsHit = playerField.getFreeSea().get(indexOfShootFreaSea).getIsHit();
+				}
+				else if (playerField.getShipsCoordinates().contains(shootPosition)) {
+					indexOfShootShip = playerField.getShipsCoordinates().indexOf(shootPosition);
+					shipOrFreeSeaIsHit = playerField.getShipsCoordinates().get(indexOfShootShip).getIsHit();
+				}
+				else {
+					System.out.println("Dies sollte nicht passieren, da ist beim berechnen der Schussposition etwas schiefgelaufen");
+					shipOrFreeSeaIsHit = true;
+				}
 			}
-			while(playerField.getFreeSea().get(indexOfShoot).getIsHit() || indexOfShoot != -1 );
+			while (shipOrFreeSeaIsHit);
 		}
 
 		if (shootPosition != null)

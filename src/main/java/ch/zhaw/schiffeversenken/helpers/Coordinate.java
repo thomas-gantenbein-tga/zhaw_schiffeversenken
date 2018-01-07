@@ -118,11 +118,11 @@ public class Coordinate {
 	public boolean isCoordinateInPlayField(PlayField playField) {
 		if (getxPosition() >= playField.getColumnCount())
 			return false;
-		else if (getxPosition() <= 0)
+		else if (getxPosition() < 0)
 			return false;
 		else if (getyPosition() >= playField.getRowCount())
 			return false;
-		else if (getyPosition() <= 0)
+		else if (getyPosition() < 0)
 			return false;
 		return true;
 	}

@@ -32,31 +32,42 @@ public class ComputerPlayer {
 		Coordinate shootPosition = null;
 		int indexOfShootFreaSea = 0;
 		int indexOfShootShip = 0;
-		boolean shipOrFreeSeaIsHit = false;
+		boolean shipOrFreeSeaUnhit = false;
 		// check if a ship is only hit once
-		if( playerField.possibleShipPositionsionsAround1stHit() != null) {
+		shootPosition = playerField.possibleShipPositionsionsAround1stHit();
+		if (shootPosition != null) {
 			//search around 1st hit position and check if the position was hit before
-			do{
-				shootPosition = playerField.possibleShipPositionsionsAround1stHit();
+			do {
 				if (playerField.isCoordinateInFreeSea(shootPosition)) {
 					indexOfShootFreaSea = playerField.getFreeSea().indexOf(shootPosition);
-					shipOrFreeSeaIsHit = playerField.getFreeSea().get(indexOfShootFreaSea).getIsHit();
+					shipOrFreeSeaUnhit = !playerField.getFreeSea().get(indexOfShootFreaSea).getIsHit();
 				}
 				else if (playerField.getShipsCoordinates().contains(shootPosition)) {
 					indexOfShootShip = playerField.getShipsCoordinates().indexOf(shootPosition);
-					shipOrFreeSeaIsHit = playerField.getShipsCoordinates().get(indexOfShootShip).getIsHit();
+					shipOrFreeSeaUnhit = !playerField.getShipsCoordinates().get(indexOfShootShip).getIsHit();
 				}
-				else {
-					System.out.println("Dies sollte nicht passieren, da ist beim berechnen der Schussposition etwas schiefgelaufen");
-					shipOrFreeSeaIsHit = true;
-				}
+				//Generate new shootPosition if the first trial was a hitPosition
+				if (!shipOrFreeSeaUnhit)
+					shootPosition = playerField.possibleShipPositionsionsAround1stHit();
 			}
-			while (shipOrFreeSeaIsHit);
-		}
-
-		if (shootPosition != null)
+			while (!shipOrFreeSeaUnhit);
 			return shootPosition;
-		return makeRandomShot();
+		}
+		// Generate new random shootPosition with a check if it was hit before
+		shipOrFreeSeaUnhit = false;
+		do {
+			shootPosition = makeRandomShot();
+			if (playerField.isCoordinateInFreeSea(shootPosition)) {
+				indexOfShootFreaSea = playerField.getFreeSea().indexOf(shootPosition);
+				shipOrFreeSeaUnhit = !playerField.getFreeSea().get(indexOfShootFreaSea).getIsHit();
+			}
+			else if (playerField.getShipsCoordinates().contains(shootPosition)) {
+				indexOfShootShip = playerField.getShipsCoordinates().indexOf(shootPosition);
+				shipOrFreeSeaUnhit = !playerField.getShipsCoordinates().get(indexOfShootShip).getIsHit();
+			}
+		}
+		while (!shipOrFreeSeaUnhit);
+		return shootPosition;
 	}
 	
 }

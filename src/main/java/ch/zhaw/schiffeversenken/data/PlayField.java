@@ -206,9 +206,9 @@ public class PlayField {
 		}
 	}
 	
-	/**Find the next ship position after the first hit
+	/**Find the next ship position after the first hit. Only positions within the playField will be returned.
 	 * 
-	 * @return	The next possible ship position around the first hit
+	 * @return	The next possible ship position around the first hit. Return null if there is no ship with only one wound position
 	 * @author uelik
 	 * 
 	 */
@@ -219,10 +219,11 @@ public class PlayField {
 		for (Ship ship : ships)
 			if (ship.getOnlyOneWoundPosition() != null) {
 				coordinate1stHit = ship.getOnlyOneWoundPosition();
+				// generate coordinates around first hit until it is within the playField
 				do {
 					coordinateShootPosition = ship.getRandomCoordinateAround4Directions(coordinate1stHit);
 				}
-				while(coordinateShootPosition.isCoordinateInPlayField(this));
+				while(!coordinateShootPosition.isCoordinateInPlayField(this));
 				return coordinateShootPosition;
 			}
 		return null;

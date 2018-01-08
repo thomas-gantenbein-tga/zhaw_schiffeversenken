@@ -248,7 +248,19 @@ public class PlayField {
 	 * @author uelik
 	 * 
 	 */	
-	
+	public boolean isShipOrFreeSeaCoordinateHit(Coordinate shootPosition) {
+		int indexOfShootFreaSea = 0;
+		int indexOfShootShip = 0;
+		if (isCoordinateInFreeSea(shootPosition)) {
+			indexOfShootFreaSea = getFreeSea().indexOf(shootPosition);
+			return getFreeSea().get(indexOfShootFreaSea).getIsHit();
+		}
+		else if (getShipsCoordinates().contains(shootPosition)) {
+			indexOfShootShip = getShipsCoordinates().indexOf(shootPosition);
+			return getShipsCoordinates().get(indexOfShootShip).getIsHit();
+		}
+		return false;
+	}
 	
 
 }

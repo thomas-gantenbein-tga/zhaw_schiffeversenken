@@ -234,12 +234,21 @@ public class PlayField {
 	 * @return	Return true when the Coordinate is in freeSea, otherwise return false
 	 * @author uelik
 	 * 
-	 */	public boolean isCoordinateInFreeSea(Coordinate coordinateFreeSea) {
+	 */	
+	public boolean isCoordinateInFreeSea(Coordinate coordinateFreeSea) {
 		int indexOfShoot = getFreeSea().indexOf(coordinateFreeSea);
 		if (indexOfShoot == -1)
 			return false;
 		return true;
 	}
+	
+	/**Checks if a Coordinate of Ships or freeSea is hit
+	 * 
+	 * @return	Return true when the Coordinate of Ships or freeSea is hit, otherwise return false
+	 * @author uelik
+	 * 
+	 */	
+	
 	
 
 }

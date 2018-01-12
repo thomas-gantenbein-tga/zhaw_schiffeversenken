@@ -19,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
@@ -30,10 +31,10 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
  * the Game object.
  *
  */
-public class Maingui implements Display {
+public class ActiveGameDisplay implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
-	private JFrame frame;
+	private JPanel contentPane;
 	private Game game;
 	private int rowCountComputer;
 	private int columnCountComputer;
@@ -49,7 +50,7 @@ public class Maingui implements Display {
 	 * @param game
 	 *            The game that should be displayed by the GUI.
 	 */
-	public Maingui(Game game) {
+	public ActiveGameDisplay(Game game) {
 		// TODO: comments for this class and breaking apart a little
 		this.game = game;
 		rowCountComputer = game.getComputerField().getRowCount();
@@ -57,10 +58,7 @@ public class Maingui implements Display {
 		rowCountPlayer = game.getPlayerField().getRowCount();
 		columnCountPlayer = game.getPlayerField().getColumnCount();
 
-		frame = new JFrame("Schiffe versenken");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		Container contentPane = frame.getContentPane();
+		contentPane = new JPanel();
 
 		JLabel labelPlayer = new JLabel("Player");
 		JLabel labelComputer = new JLabel("Computer");
@@ -114,9 +112,6 @@ public class Maingui implements Display {
 		contentPane.add(labelShipsPlayer, gbConstraints);
 		gbConstraints.gridx = 1;
 		contentPane.add(labelShipsComputer, gbConstraints);
-
-		frame.setVisible(true);
-		frame.setSize(1200, 600);
 
 		// draw lines for player field
 		// first loop: horizontal lines
@@ -293,10 +288,14 @@ public class Maingui implements Display {
 	}
 	
 	private void showVictory() {
-		JOptionPane.showMessageDialog(this.frame, "You won!", "Victory", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this.contentPane, "You won!", "Victory", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void showDefeat() {
-		JOptionPane.showMessageDialog(this.frame, "You lost!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this.contentPane, "You lost!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public JPanel getContentPane() {
+		return contentPane;
 	}
 }

@@ -5,7 +5,8 @@ import java.util.List;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
-import ch.zhaw.schiffeversenken.guicomponents.Maingui;
+import ch.zhaw.schiffeversenken.guicomponents.GameWindow;
+import ch.zhaw.schiffeversenken.guicomponents.ActiveGameDisplay;
 import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
@@ -31,7 +32,10 @@ public class GameStarterTest {
 		
 		Game game = new Game(playerField, computerField, computerPlayer);
 
-		Maingui gui = new Maingui(game);
+		ActiveGameDisplay gui = new ActiveGameDisplay(game);
+		
+		GameWindow startScreen = new GameWindow(gui);
+		
 		game.registerDisplay(gui);
 		gui.update();
 

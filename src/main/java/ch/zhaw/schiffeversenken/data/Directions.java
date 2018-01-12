@@ -17,4 +17,5 @@ public enum Directions{
 	  public static Directions getRandom() {	
 	      return values()[(int) (Math.random() * values().length)];
 	  }
+	  
 }

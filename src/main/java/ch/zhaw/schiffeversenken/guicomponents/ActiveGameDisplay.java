@@ -10,6 +10,7 @@ import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
@@ -29,10 +31,10 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
  * the Game object.
  *
  */
-public class Maingui implements Display {
+public class ActiveGameDisplay implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
-	private JFrame frame;
+	private JPanel contentPane;
 	private Game game;
 	private int rowCountComputer;
 	private int columnCountComputer;
@@ -48,7 +50,7 @@ public class Maingui implements Display {
 	 * @param game
 	 *            The game that should be displayed by the GUI.
 	 */
-	public Maingui(Game game) {
+	public ActiveGameDisplay(Game game) {
 		// TODO: comments for this class and breaking apart a little
 		this.game = game;
 		rowCountComputer = game.getComputerField().getRowCount();
@@ -56,10 +58,7 @@ public class Maingui implements Display {
 		rowCountPlayer = game.getPlayerField().getRowCount();
 		columnCountPlayer = game.getPlayerField().getColumnCount();
 
-		frame = new JFrame("Schiffe versenken");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		Container contentPane = frame.getContentPane();
+		contentPane = new JPanel();
 
 		JLabel labelPlayer = new JLabel("Player");
 		JLabel labelComputer = new JLabel("Computer");
@@ -114,9 +113,6 @@ public class Maingui implements Display {
 		gbConstraints.gridx = 1;
 		contentPane.add(labelShipsComputer, gbConstraints);
 
-		frame.setVisible(true);
-		frame.setSize(1200, 600);
-
 		// draw lines for player field
 		// first loop: horizontal lines
 		for (int i = 0; i <= rowCountPlayer; i++) {
@@ -163,7 +159,7 @@ public class Maingui implements Display {
 	 */
 	private class ShootListener extends MouseAdapter {
 
-		public void mouseClicked(MouseEvent e) {
+		public void mousePressed(MouseEvent e) {
 			int size = playerField.getSquareSize();
 			int posX = (int) ((double) e.getX() / size * columnCountComputer);
 			int posY = (int) ((double) e.getY() / size * rowCountComputer);
@@ -202,6 +198,8 @@ public class Maingui implements Display {
 				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY, null, null), rowCountComputer,
 						columnCountComputer);
 				panel.addShape(hoverShape);
+				//Shapes are sorted z-a by their width; makes the hover shape appear behind other shapes
+				Collections.sort(panel.getShapes());
 				previousHoverShape = hoverShape;
 				panel.repaint();
 			}
@@ -224,6 +222,11 @@ public class Maingui implements Display {
 			} else if (coordinate.getIsHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitShip);
+			} 
+			//TODO: just for testing; remove this else-Block to hide computer ships again
+			else {
+				Shape intactShip = ShapeFactory.createShipIntact(coordinate, rowCountComputer, columnCountComputer);
+				computerField.addShape(intactShip);
 			}
 		}
 
@@ -285,10 +288,14 @@ public class Maingui implements Display {
 	}
 	
 	private void showVictory() {
-		JOptionPane.showMessageDialog(this.frame, "You won!", "Victory", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this.contentPane, "You won!", "Victory", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void showDefeat() {
-		JOptionPane.showMessageDialog(this.frame, "You lost!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this.contentPane, "You lost!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public JPanel getContentPane() {
+		return contentPane;
 	}
 }

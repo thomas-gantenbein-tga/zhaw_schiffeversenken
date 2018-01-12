@@ -2,6 +2,7 @@ package ch.zhaw.schiffeversenken.guicomponents;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  * Represents the position of a fully destroyed ship.
@@ -14,7 +15,7 @@ public class ShipSunk extends Shape {
 	}
 
 	@Override
-	protected void draw(int playingFieldSize, Graphics g) {
+	protected void draw(int playingFieldSize, Graphics2D g) {
 
 		//draw outer circle of ship
 		int xPosition = (int) (playingFieldSize * centerX / 100.0 - this.width / 100.0 * playingFieldSize / 2);

@@ -2,6 +2,7 @@ package ch.zhaw.schiffeversenken.guicomponents;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  * The shape to be drawn when the player hovers over a coordinate of the computer field.
@@ -14,7 +15,7 @@ public class HoverShape extends Shape {
 	}
 
 	@Override
-	protected void draw(int playingFieldSize, Graphics g) {
+	protected void draw(int playingFieldSize, Graphics2D g) {
 		int xPosition = (int) (playingFieldSize*centerX/100.0 - this.width/100.0*playingFieldSize/2);
 		int yPosition = (int) (playingFieldSize*centerY/100.0 - this.height/100.0*playingFieldSize/2);
 		int width = (int) (playingFieldSize * this.width/100);
@@ -22,5 +23,4 @@ public class HoverShape extends Shape {
 		g.setColor(color);
 		g.fillRect(xPosition, yPosition, width, height);		
 	}
-
 }

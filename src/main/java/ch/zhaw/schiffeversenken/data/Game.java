@@ -53,7 +53,7 @@ public class Game {
 	public void processShot(PlayField playField, Coordinate shotCoordinate) {
 		if (playField.processShot(shotCoordinate)) {
 			if(getSwimmingShips(computerField) != 0) {
-				playerField.processShot(computerPlayer.makeRandomShot());
+				playerField.processShot(computerPlayer.makeLogicShot(playerField));
 			}
 			alertDisplays();
 		}

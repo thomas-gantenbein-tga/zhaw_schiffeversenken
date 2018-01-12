@@ -1,5 +1,7 @@
 package ch.zhaw.schiffeversenken.helpers;
 
+import ch.zhaw.schiffeversenken.data.PlayField;
+
 /**
  * Represents positions on a x- and y-axis and also holds other information: Was
  * this position shot at before and does this position contain a fully destroyed
@@ -14,18 +16,20 @@ public class Coordinate {
 	private Boolean isSunk;
 
 	/**
-	 * Expects a position represented by a combination of x and y integers. If
-	 * the coordinate is only meant to give a position (e.g. when making a
-	 * shot), parameters isHit and isSunk should be null.
+	 * Expects a position represented by a combination of x and y integers.
+	 * xPosition and yPosition start at 0. If the coordinate is only meant to
+	 * give a position (e.g. when making a shot), parameters isHit and isSunk
+	 * should be null.
 	 * 
 	 * @param xPosition
-	 *            position on x-axis
+	 *            position on x-axis (top-left corner has xPosition 0)
 	 * @param yPosition
-	 *            position on y-axis
+	 *            position on y-axis (top-left corner has yPosition 0)
 	 * @param isHit
-	 *            was this position shot at before?
+	 *            Was this position shot at before? Can be null.
 	 * @param isSunk
-	 *            does this position contain a fully destroyed ship?
+	 *            Does this position contain a fully destroyed ship? Can be
+	 *            null.
 	 */
 	public Coordinate(int xPosition, int yPosition, Boolean isHit, Boolean isSunk) {
 		this.xPosition = xPosition;
@@ -35,7 +39,7 @@ public class Coordinate {
 	}
 
 	/**
-	 * Gets the y-position of this object.
+	 * Gets the y-position of this object (starting at 0).
 	 * 
 	 * @return y-position of this object
 	 */
@@ -44,7 +48,7 @@ public class Coordinate {
 	}
 
 	/**
-	 * Gets the x-position of this object.
+	 * Gets the x-position of this object (starting at 0).
 	 * 
 	 * @return x-position of this object
 	 */
@@ -102,5 +106,24 @@ public class Coordinate {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Checks if the Coordinate is in the PlayField
+	 * 
+	 * @return When in the PlayField return true, otherwise false
+	 * @author uelik
+	 * 
+	 */
+	public boolean isCoordinateInPlayField(PlayField playField) {
+		if (getxPosition() >= playField.getColumnCount())
+			return false;
+		else if (getxPosition() < 0)
+			return false;
+		else if (getyPosition() >= playField.getRowCount())
+			return false;
+		else if (getyPosition() < 0)
+			return false;
+		return true;
 	}
 }

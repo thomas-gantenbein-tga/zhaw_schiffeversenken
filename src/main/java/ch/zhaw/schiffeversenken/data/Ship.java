@@ -36,16 +36,15 @@ public class Ship {
 	 * and the fields of the Coordinate objects define the ship's status
 	 * (intact, hit, sunk).
 	 * 
-	 * @param colCount, rowCount
-	 *            The size of the PlayField
+	 * @param colCount, rowCount, shipSize
+	 *            The size of the PlayField and the size (= length) of the ship
 	 * @author uelik
 	 */
-	public Ship (int colCount, int rowCount ,int shipSize) {
+	public Ship (int colCount, int rowCount, int shipSize) {
 		shipPositions = new ArrayList<Coordinate>();
 		Coordinate[] coordinates = new Coordinate[shipSize];
 		//generate starting point of ship with random coordinates within the given playfield
 		coordinates[0] = new Coordinate((int)(Math.random()*rowCount), (int)(Math.random()*colCount), false, false);
-		System.out.println(coordinates[0].getxPosition() + " , "+ coordinates[0].getyPosition());
 
 		Directions direction = Directions.getRandom();
 		

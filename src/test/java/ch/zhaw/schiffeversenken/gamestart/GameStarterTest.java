@@ -5,7 +5,7 @@ import java.util.List;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
-import ch.zhaw.schiffeversenken.guicomponents.GameWindow;
+import ch.zhaw.schiffeversenken.guicomponents.StartScreen01;
 import ch.zhaw.schiffeversenken.guicomponents.ActiveGameDisplay;
 import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
@@ -14,30 +14,6 @@ public class GameStarterTest {
 	public static void main(String[] args) {
 		// TODO: current design does only work for squares, so we should remove
 		// the distinction between number of rows and number of columns
-		int columnCountComputer = 10;
-		int rowCountComputer = 10;
-		int columnCountPlayer = 3;
-		int rowCountPlayer = 3;
-
-		PlayField playerField = new PlayField(columnCountPlayer, rowCountPlayer);
-		PlayField computerField = new PlayField(columnCountComputer, rowCountComputer);
-
-		ComputerPlayer computerPlayer = new ComputerPlayer(rowCountPlayer, columnCountPlayer);
-		
-		computerField.addRandomShip(5);
-		computerField.addRandomShip(3);
-		computerField.addRandomShip(1);
-		
-		playerField.addRandomShip(2);
-		
-		Game game = new Game(playerField, computerField, computerPlayer);
-
-		ActiveGameDisplay gui = new ActiveGameDisplay(game);
-		
-		GameWindow startScreen = new GameWindow(gui);
-		
-		game.registerDisplay(gui);
-		gui.update();
-
+		new StartScreen01();
 	}
 }

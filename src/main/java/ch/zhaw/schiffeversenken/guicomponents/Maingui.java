@@ -164,7 +164,7 @@ public class Maingui implements Display {
 	 */
 	private class ShootListener extends MouseAdapter {
 
-		public void mouseClicked(MouseEvent e) {
+		public void mousePressed(MouseEvent e) {
 			int size = playerField.getSquareSize();
 			int posX = (int) ((double) e.getX() / size * columnCountComputer);
 			int posY = (int) ((double) e.getY() / size * rowCountComputer);

@@ -219,6 +219,7 @@ public class Ship {
 	 */	
 	public Directions getDirectionsOfHis(){
 		return null;
+		//test
 	}
 	
 }

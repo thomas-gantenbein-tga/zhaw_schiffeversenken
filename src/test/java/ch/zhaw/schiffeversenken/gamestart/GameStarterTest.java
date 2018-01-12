@@ -44,12 +44,10 @@ public class GameStarterTest {
 		computerField.addShip(new Ship(coordinates1));
 		playerField.addShip(new Ship(coordinates2));
 		computerField.addShip(new Ship(coordinates3));
-		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
-		computerField.plausibilityTestLastAddedShip();
-		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
-		computerField.plausibilityTestLastAddedShip();
-		computerField.addShip(new Ship(columnCountComputer, rowCountComputer, 7));
-		computerField.plausibilityTestLastAddedShip();
+		
+		computerField.addRandomShip(7);
+		
+		
 		
 		Game game = new Game(playerField, computerField, computerPlayer);
 

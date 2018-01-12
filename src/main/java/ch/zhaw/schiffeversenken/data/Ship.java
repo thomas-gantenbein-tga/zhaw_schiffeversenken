@@ -210,4 +210,15 @@ public class Ship {
 		}
 		return randomPositionAround1stHit;
 	}
+	
+	/**
+	 * Get direction of the hits
+	 * 
+	 * @return Retruns the direction of the hit points
+	 * @author uelik
+	 */	
+	public Directions getDirectionsOfHis(){
+		return null;
+	}
+	
 }

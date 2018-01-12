@@ -228,7 +228,6 @@ public class PlayField {
 		// Is the ship in the PlayField?
 		if (!getLastShip().isInPlayfield(columnCount, rowCount)) {
 			deleteLastShip();
-			System.out.println("Schiff geloescht, nicht im Spielfeld");
 			return true;
 		}
 
@@ -236,7 +235,6 @@ public class PlayField {
 		for (int i = 0; i < getShips().size() - 1; i++) {
 			if (getLastShip().isInCollision(getShip(i).getShipPositions())) {
 				deleteLastShip();
-				System.out.println("Schiff geloescht, Feld(er) schon besetzt");
 				return true;
 			}
 		}

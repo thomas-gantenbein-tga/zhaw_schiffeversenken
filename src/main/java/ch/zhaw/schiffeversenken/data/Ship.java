@@ -67,7 +67,6 @@ public class Ship {
 				System.out.println("Richtung nicht programmiert!");
 				break;
 			}
-			System.out.println(coordinates[i].getxPosition() + " , "+ coordinates[i].getyPosition());
 		}
 		for (Coordinate coordinate :coordinates)
 			shipPositions.add(coordinate);
@@ -217,9 +216,11 @@ public class Ship {
 	 * @return Retruns the direction of the hit points
 	 * @author uelik
 	 */	
-	public Directions getDirectionsOfHis(){
-		return null;
-		//test
+	public Directions getDirectionsOfHits(){
+		List <Coordinate> woundPositions = getWoundPositions();
+		if(woundPositions.get(0).getxPosition() == woundPositions.get(1).getxPosition())
+			return Directions.NORTH;
+		else
+			return Directions.WEST;
 	}
-	
 }

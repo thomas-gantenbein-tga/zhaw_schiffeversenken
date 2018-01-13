@@ -103,7 +103,7 @@ public class StartScreen01 {
 				StartScreen02 nextScreen = new StartScreen02(sizeComputerField, sizePlayerField, frame);
 
 				frame.setContentPane(nextScreen.getContentPane());
-				SwingUtilities.updateComponentTreeUI(frame);
+				frame.validate();
 			}
 		}
 

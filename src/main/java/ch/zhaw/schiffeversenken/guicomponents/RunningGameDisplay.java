@@ -115,6 +115,15 @@ public class RunningGameDisplay implements Display {
 		gbConstraints.gridx = 1;
 		contentPane.add(labelShipsComputer, gbConstraints);
 
+		drawPlayingFields();
+		
+
+		mouseListener = new ShootListener();
+		computerField.addMouseListener(mouseListener);
+		computerField.addMouseMotionListener(new HoverListener(computerField));
+	}
+
+	private void drawPlayingFields() {
 		// draw lines for player field
 		// first loop: horizontal lines
 		for (int i = 0; i <= rowCountPlayer; i++) {
@@ -139,11 +148,7 @@ public class RunningGameDisplay implements Display {
 		for (int i = 0; i <= columnCountComputer; i++) {
 			Shape line = ShapeFactory.createGridLine(i, rowCountComputer, columnCountComputer, 0, 100);
 			computerField.addShape(line);
-		}
-
-		mouseListener = new ShootListener();
-		computerField.addMouseListener(mouseListener);
-		computerField.addMouseMotionListener(new HoverListener(computerField));
+		}		
 	}
 
 	public PlayingFieldPanel getPlayerField() {
@@ -299,5 +304,9 @@ public class RunningGameDisplay implements Display {
 
 	public JPanel getContentPane() {
 		return contentPane;
+	}
+
+	public Game getGame() {
+		return game;
 	}
 }

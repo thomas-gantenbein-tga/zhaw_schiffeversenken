@@ -120,7 +120,7 @@ public class RunningGameDisplay implements Display {
 
 		mouseListener = new ShootListener();
 		computerField.addMouseListener(mouseListener);
-		computerField.addMouseMotionListener(new HoverListener(computerField));
+		computerField.addMouseMotionListener(new HoverListener(computerField, columnCountComputer, rowCountComputer));
 	}
 
 	private void drawPlayingFields() {
@@ -177,42 +177,7 @@ public class RunningGameDisplay implements Display {
 		}
 	}
 
-	/**
-	 * Draws a rectangular at the current position of the mouse over the
-	 * computer field.
-	 *
-	 */
-	private class HoverListener extends MouseAdapter {
-		// TODO: comments for this inner class
-		int posX = -1;
-		int posY = -1;
-		Shape previousHoverShape = null;
-		PlayingFieldPanel panel;
-
-		public HoverListener(PlayingFieldPanel panel) {
-			this.panel = panel;
-		}
-
-		public void mouseMoved(MouseEvent e) {
-			int size = panel.getSquareSize();
-			int posX = (int) ((double) e.getX() / size * columnCountComputer);
-			int posY = (int) ((double) e.getY() / size * rowCountComputer);
-
-			if (posX < columnCountComputer && posY < rowCountComputer && (posX != this.posX || posY != this.posY)) {
-				this.posX = posX;
-				this.posY = posY;
-				panel.getShapes().remove(previousHoverShape);
-				Shape hoverShape = ShapeFactory.createHoverShape(new Coordinate(posX, posY, null, null), rowCountComputer,
-						columnCountComputer);
-				panel.addShape(hoverShape);
-				//Shapes are sorted z-a by their width; makes the hover shape appear behind other shapes
-				Collections.sort(panel.getShapes());
-				previousHoverShape = hoverShape;
-				panel.repaint();
-			}
-		}
-
-	}
+	
 
 	/**
 	 * Is called after a shot was made and processed by the Game object. Gets

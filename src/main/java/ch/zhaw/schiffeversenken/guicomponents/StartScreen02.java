@@ -9,16 +9,21 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ch.zhaw.schiffeversenken.data.Directions;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
+import ch.zhaw.schiffeversenken.data.Ship;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
 import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
@@ -30,8 +35,12 @@ public class StartScreen02 implements Display {
 	private RunningGameDisplay runningGameDisplay;
 	private int sizeComputerField;
 	private int sizePlayerField;
+	private JTextField shipTailPositionInput;
 	private PlayingFieldPanel playerPreview;
 	private Game game;
+	private Coordinate tailPositionNewShip;
+	private JComboBox shipOrientationDropDown;
+	private JTextField shipSizeInput;
 
 	public StartScreen02(int sizeComputerField, int sizePlayerField, JFrame frame) {
 		this.sizeComputerField = sizeComputerField;
@@ -43,21 +52,26 @@ public class StartScreen02 implements Display {
 		contentPane = new JPanel();
 		JLabel welcomeTextLabel = new JLabel(
 				"Add your ships here. The same number and size of ships will be added to the computer field.");
-		
+		Font settingsFontBold = new Font("Sans Serif", Font.BOLD, welcomeTextLabel.getFont().getSize());
+		Font settingsFontRegular = new Font("Sans Serif", Font.PLAIN, welcomeTextLabel.getFont().getSize());
+
+		welcomeTextLabel.setFont(settingsFontBold);
+
 		JLabel shipSizeLabel = new JLabel("Size of ship");
-		JTextField shipSizeInput = new JTextField(2);
-		
-		JLabel shipHeadPositionLabel = new JLabel("Where will the head of you ship be placed?");
-		JTextField shipHeadPositionInput = new JTextField(2);
+		shipSizeLabel.setFont(settingsFontRegular);
+		shipSizeInput = new JTextField(2);
+
+		JLabel shipTailPositionLabel = new JLabel("Click on the field below to pinpoint the tail of your ship.");
+		shipTailPositionLabel.setFont(settingsFontRegular);
+		shipTailPositionInput = new JTextField(20);
+		shipTailPositionInput.setEnabled(false);
 
 		JLabel shipOrientationLabel = new JLabel("In which direction is your ship heading?");
-		JComboBox shipOrientationDropDown = new JComboBox(new String[] {"North", "East", "South", "West"});
+		shipOrientationLabel.setFont(settingsFontRegular);
+		shipOrientationDropDown = new JComboBox(new String[] { "North", "East", "South", "West" });
 
 		JButton addShipButton = new JButton("Add ship");
 		JButton startButton = new JButton("Start game");
-
-		Font settingsFont = new Font("Sans Serif", Font.PLAIN, welcomeTextLabel.getFont().getSize());
-		welcomeTextLabel.setFont(settingsFont);
 
 		playerPreview = new PlayingFieldPanel();
 		playerPreview.setPreferredSize(new Dimension(300, 300));
@@ -78,7 +92,7 @@ public class StartScreen02 implements Display {
 		gbConstraints.weightx = 0;
 		gbConstraints.weighty = 0;
 		contentPane.add(welcomeTextLabel, gbConstraints);
-		
+
 		gbConstraints.gridwidth = 1;
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 1;
@@ -86,14 +100,14 @@ public class StartScreen02 implements Display {
 		gbConstraints.gridx = 1;
 		gbConstraints.gridy = 1;
 		contentPane.add(shipSizeInput, gbConstraints);
-		
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 2;
-		contentPane.add(shipHeadPositionLabel, gbConstraints);
+		contentPane.add(shipTailPositionLabel, gbConstraints);
 		gbConstraints.gridx = 1;
 		gbConstraints.gridy = 2;
-		contentPane.add(shipHeadPositionInput, gbConstraints);
-		
+		contentPane.add(shipTailPositionInput, gbConstraints);
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 3;
 		contentPane.add(shipOrientationLabel, gbConstraints);
@@ -104,15 +118,18 @@ public class StartScreen02 implements Display {
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 4;
 		contentPane.add(addShipButton, gbConstraints);
-		
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 5;
 		contentPane.add(startButton, gbConstraints);
-		
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridwidth = 2;
 		gbConstraints.gridy = 6;
 		contentPane.add(playerPreview, gbConstraints);
+		playerPreview.addMouseMotionListener(new HoverListener(playerPreview, sizePlayerField, sizePlayerField));
+		playerPreview.addMouseListener(new ShipPositioningListener());
+		addShipButton.addActionListener(new AddShipButtonListener());
 
 		startButton.addActionListener(new StartButtonListener());
 	}
@@ -126,12 +143,6 @@ public class StartScreen02 implements Display {
 		PlayField computerField = new PlayField(sizeComputerField, sizeComputerField);
 
 		ComputerPlayer computerPlayer = new ComputerPlayer(sizePlayerField, sizePlayerField);
-
-		computerField.addRandomShip(5);
-		computerField.addRandomShip(3);
-		computerField.addRandomShip(1);
-
-		playerField.addRandomShip(2);
 
 		game = new Game(playerField, computerField, computerPlayer);
 
@@ -159,10 +170,72 @@ public class StartScreen02 implements Display {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			runningGameDisplay.update();
-			frame.repaint();
-			frame.setContentPane(runningGameDisplay.getContentPane());
-			frame.validate();
+			if (game.getPlayerField().getShips().size() > 0) {
+				game.getComputerField().addRandomShip(5);
+				game.getComputerField().addRandomShip(3);
+				game.getComputerField().addRandomShip(1);
+				runningGameDisplay.update();
+				frame.repaint();
+				frame.setContentPane(runningGameDisplay.getContentPane());
+				frame.validate();
+			} else {
+				JOptionPane.showMessageDialog(frame,
+						"Funny. How about adding some ships so your enemy has something to shoot at?");
+			}
+		}
+	}
+
+	private class ShipPositioningListener extends MouseAdapter {
+		public void mousePressed(MouseEvent e) {
+			int size = playerPreview.getSquareSize();
+			int posX = (int) ((double) e.getX() / size * sizePlayerField);
+			int posY = (int) ((double) e.getY() / size * sizePlayerField);
+			if (posX <= sizePlayerField - 1 && posY <= sizePlayerField - 1) {
+				shipTailPositionInput.setText("x-Position: " + (posX + 1) + " | y-Position: " + (posY + 1));
+				tailPositionNewShip = new Coordinate(posX, posY, false, false);
+			}
+		}
+	}
+
+	private class AddShipButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (isInputValid()) {
+				update();
+				frame.repaint();
+			}
+		}
+
+		private boolean isInputValid() {
+			int shipSize;
+			try {
+				shipSize = Integer.parseInt(shipSizeInput.getText());
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(frame,
+						"Please enter a number (0-9) in the text field for the ship size.");
+				return false;
+			}
+
+			if (shipSize > sizePlayerField) {
+				JOptionPane.showMessageDialog(frame, "Your ship cannot be bigger than your playing field.");
+				return false;
+			}
+
+			if (tailPositionNewShip == null) {
+				JOptionPane.showMessageDialog(frame,
+						"Please click on the field below to pinpoint the tail of your ship.");
+			}
+
+			Directions direction = getDirectionFromDropdown();
+			Ship ship = new Ship(sizePlayerField, sizePlayerField, shipSize, direction, tailPositionNewShip);
+			game.getPlayerField().addShip(ship);
+			if (game.getPlayerField().deleteLastAddedShipIfUnviable()) {
+				JOptionPane.showMessageDialog(frame,
+						"Sorry, your ship does not fit in the playing field or is intersecting with another ship. Try again.");
+				return false;
+			}
+			return true;
 		}
 	}
 
@@ -172,6 +245,20 @@ public class StartScreen02 implements Display {
 			Shape intactShip = ShapeFactory.createShipIntact(coordinate, sizePlayerField, sizePlayerField);
 			playerPreview.addShape(intactShip);
 		}
+	}
+
+	private Directions getDirectionFromDropdown() {
+		switch (shipOrientationDropDown.getSelectedIndex()) {
+		case 0:
+			return Directions.NORTH;
+		case 1:
+			return Directions.EAST;
+		case 2:
+			return Directions.SOUTH;
+		case 3:
+			return Directions.WEST;
+		}
+		return null;
 	}
 
 }

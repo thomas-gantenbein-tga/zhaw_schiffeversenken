@@ -37,9 +37,10 @@ public class StartScreen01 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1600, 800);
 		Container contentPane = frame.getContentPane();
-		Insets settingsInset = new Insets(2,2,2,2);
-		
-		JLabel welcomeTextLabel = new JLabel("Enter your preferred size of your playing field and the one of your computer enemy.");
+		Insets settingsInset = new Insets(2, 2, 2, 2);
+
+		JLabel welcomeTextLabel = new JLabel(
+				"Enter your preferred size of your playing field and the one of your computer enemy.");
 		Font settingsFont = new Font("Sans Serif", Font.PLAIN, welcomeTextLabel.getFont().getSize());
 		welcomeTextLabel.setFont(settingsFont);
 
@@ -54,14 +55,14 @@ public class StartScreen01 {
 		sizeComputerFieldInput.setMargin(settingsInset);
 		JLabel sizeComputerFieldLabel = new JLabel("Size computer field");
 		sizeComputerFieldLabel.setFont(settingsFont);
-		
+
 		sizePlayerFieldInput = new JTextField(4);
 		sizePlayerFieldInput.setMargin(settingsInset);
 
 		JLabel sizePlayerFieldLabel = new JLabel("Size player field");
 		sizePlayerFieldLabel.setFont(settingsFont);
 
-		JButton startButton = new JButton("Start game");
+		JButton nextButton = new JButton("Go place your ships");
 
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 0;
@@ -69,7 +70,7 @@ public class StartScreen01 {
 		gbConstraints.weightx = 0;
 		gbConstraints.weighty = 0;
 		contentPane.add(welcomeTextLabel, gbConstraints);
-		
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 1;
 		gbConstraints.gridwidth = 1;
@@ -77,69 +78,51 @@ public class StartScreen01 {
 		contentPane.add(sizeComputerFieldLabel, gbConstraints);
 		gbConstraints.gridx = 1;
 		contentPane.add(sizeComputerFieldInput, gbConstraints);
-		
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 2;
 		contentPane.add(sizePlayerFieldLabel, gbConstraints);
 		gbConstraints.gridx = 1;
 		contentPane.add(sizePlayerFieldInput, gbConstraints);
-		
+
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 3;
-		contentPane.add(startButton, gbConstraints);
-		
-		startButton.addActionListener(new StartButtonListener());
-		
+		contentPane.add(nextButton, gbConstraints);
+
+		nextButton.addActionListener(new NextButtonListener());
+
 		frame.setVisible(true);
 	}
-	
 
-	private class StartButtonListener implements ActionListener {
+	private class NextButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			if (isInputValid()) {
-				PlayField playerField = new PlayField(sizePlayerField, sizePlayerField);
-				PlayField computerField = new PlayField(sizeComputerField, sizeComputerField);
+				StartScreen02 nextScreen = new StartScreen02(sizeComputerField, sizePlayerField, frame);
 
-				ComputerPlayer computerPlayer = new ComputerPlayer(sizePlayerField, sizePlayerField);
-				
-				computerField.addRandomShip(5);
-				computerField.addRandomShip(3);
-				computerField.addRandomShip(1);
-				
-				playerField.addRandomShip(2);
-				
-				Game game = new Game(playerField, computerField, computerPlayer);
-
-				RunningGameDisplay activeGameDisplay = new RunningGameDisplay(game);
-				
-				game.registerDisplay(activeGameDisplay);
-				activeGameDisplay.update();
-				
-				frame.setContentPane(activeGameDisplay.getContentPane());
+				frame.setContentPane(nextScreen.getContentPane());
 				SwingUtilities.updateComponentTreeUI(frame);
 			}
 		}
 
 		private boolean isInputValid() {
-			
+
 			try {
 				sizeComputerField = Integer.parseInt(sizeComputerFieldInput.getText());
 				sizePlayerField = Integer.parseInt(sizePlayerFieldInput.getText());
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(frame,
-						"Only numbers (0-9) are allowed in the text fields.");
+				JOptionPane.showMessageDialog(frame, "Only numbers (0-9) are allowed in the text fields.");
 				return false;
 			}
-			
+
 			boolean computerFieldOkay = sizeComputerField >= 6 && sizeComputerField <= 50;
 			boolean playerFieldOkay = sizePlayerField >= 6 && sizePlayerField <= 50;
-			
-			if(!playerFieldOkay || !computerFieldOkay) {
+
+			if (!playerFieldOkay || !computerFieldOkay) {
 				JOptionPane.showMessageDialog(frame,
-					"Computer and player fields should be between 6x6 and 50x50 squares big.");
+						"Computer and player fields should be between 6x6 and 50x50 squares big.");
 				return false;
 			}
 			return true;

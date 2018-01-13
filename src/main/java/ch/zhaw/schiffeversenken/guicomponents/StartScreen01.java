@@ -113,7 +113,7 @@ public class StartScreen01 {
 				
 				Game game = new Game(playerField, computerField, computerPlayer);
 
-				ActiveGameDisplay activeGameDisplay = new ActiveGameDisplay(game);
+				RunningGameDisplay activeGameDisplay = new RunningGameDisplay(game);
 				
 				game.registerDisplay(activeGameDisplay);
 				activeGameDisplay.update();

@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.guicomponents.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,7 +16,7 @@ public class Line extends Shape {
 	}
 
 	@Override
-	protected void draw(int playingFieldSize, Graphics2D g) {
+	public void draw(int playingFieldSize, Graphics2D g) {
 
 		int x1Position = (int) (playingFieldSize * (centerX / 100.0) - (width / 100.0) / 2 * playingFieldSize);
 		int y1Position = (int) (playingFieldSize * (centerY / 100.0) - (height / 100.0) / 2 * playingFieldSize);

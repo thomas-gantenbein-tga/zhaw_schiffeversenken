@@ -5,8 +5,8 @@ import java.util.List;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
+import ch.zhaw.schiffeversenken.guicomponents.RunningGameDisplay;
 import ch.zhaw.schiffeversenken.guicomponents.StartScreen01;
-import ch.zhaw.schiffeversenken.guicomponents.ActiveGameDisplay;
 import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 

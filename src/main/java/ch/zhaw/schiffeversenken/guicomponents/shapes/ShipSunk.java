@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.guicomponents.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,7 +15,7 @@ public class ShipSunk extends Shape {
 	}
 
 	@Override
-	protected void draw(int playingFieldSize, Graphics2D g) {
+	public void draw(int playingFieldSize, Graphics2D g) {
 
 		//draw outer circle of ship
 		int xPosition = (int) (playingFieldSize * centerX / 100.0 - this.width / 100.0 * playingFieldSize / 2);

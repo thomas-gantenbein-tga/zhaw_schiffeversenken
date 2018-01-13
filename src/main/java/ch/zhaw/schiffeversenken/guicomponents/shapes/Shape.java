@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.guicomponents.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -46,7 +46,7 @@ public abstract class Shape implements Comparable<Shape> {
 
 
 
-	protected abstract void draw(int playingFieldSize, Graphics2D g);
+	public abstract void draw(int playingFieldSize, Graphics2D g);
 
 	public int compareTo(Shape otherShape) {
 		return (int) (otherShape.width - this.width);

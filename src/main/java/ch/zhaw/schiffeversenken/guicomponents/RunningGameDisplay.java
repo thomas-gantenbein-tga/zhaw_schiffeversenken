@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
+import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
+import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 /**
@@ -31,7 +33,7 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
  * the Game object.
  *
  */
-public class ActiveGameDisplay implements Display {
+public class RunningGameDisplay implements Display {
 	private PlayingFieldPanel playerField;
 	private PlayingFieldPanel computerField;
 	private JPanel contentPane;
@@ -50,7 +52,7 @@ public class ActiveGameDisplay implements Display {
 	 * @param game
 	 *            The game that should be displayed by the GUI.
 	 */
-	public ActiveGameDisplay(Game game) {
+	public RunningGameDisplay(Game game) {
 		// TODO: comments for this class and breaking apart a little
 		this.game = game;
 		rowCountComputer = game.getComputerField().getRowCount();

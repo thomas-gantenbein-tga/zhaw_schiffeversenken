@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.guicomponents.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,7 +15,7 @@ public class HoverShape extends Shape {
 	}
 
 	@Override
-	protected void draw(int playingFieldSize, Graphics2D g) {
+	public void draw(int playingFieldSize, Graphics2D g) {
 		int xPosition = (int) (playingFieldSize*centerX/100.0 - this.width/100.0*playingFieldSize/2);
 		int yPosition = (int) (playingFieldSize*centerY/100.0 - this.height/100.0*playingFieldSize/2);
 		int width = (int) (playingFieldSize * this.width/100);

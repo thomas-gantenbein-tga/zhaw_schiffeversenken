@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
+
 /**
  * Graphical representation of a PlayField object. Has a given size and holds a
  * list of Shapes, which can represent intact parts of a ship, hit parts of a

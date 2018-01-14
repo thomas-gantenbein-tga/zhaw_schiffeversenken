@@ -36,9 +36,10 @@ public class Ship {
 	 * by default. The list of coordinates and the fields of the Coordinate
 	 * objects define the ship's status (intact, hit, sunk).
 	 * 
-	 * @param colCount,
-	 *            rowCount, shipSize The size of the PlayField and the size (=
-	 *            length) of the ship
+	 * @param colCount	Width of the PlayField
+	 * @param rowCount	Height of the PlayField
+	 * @param shipSize	Size (= length) of the ship
+	 * 
 	 * @author uelik
 	 */
 	public Ship(int colCount, int rowCount, int shipSize) {
@@ -177,7 +178,7 @@ public class Ship {
 	 * @param colCount,
 	 *            rowCount => the size of the PlayField
 	 * 
-	 * @return Returns true if the ship fits in the given PlayField. If it
+	 * @return true if the ship fits in the given PlayField. If it
 	 *         doesn't it returns false
 	 * @author uelik
 	 */
@@ -203,6 +204,7 @@ public class Ship {
 	 * 
 	 * @return Returns true if the two ships use same field(s), false if there
 	 *         is no collision
+	 *         
 	 * @author uelik
 	 */
 	public boolean isInCollision(List<Coordinate> shipPostionsCollision) {
@@ -216,7 +218,7 @@ public class Ship {
 	/**
 	 * Get wound positions
 	 * 
-	 * @return The hit positions of the ship, as coordinates. No Coordinate if
+	 * @return the hit positions of the ship, as a list of coordinates. Returns an empty list if
 	 *         the ship is not hit
 	 * @author uelik
 	 */
@@ -229,65 +231,33 @@ public class Ship {
 		return shipWoundPositions;
 	}
 
-	/**
-	 * Get the position of the first hit only
-	 * 
-	 * @return The first hit position of the ship, as coordinates if a ship is
-	 *         wounded only once. If it is hit more than once or fully intact
-	 *         return null
-	 * @author uelik
-	 */
-	public Coordinate getOnlyOneWoundPosition() {
-		int hitCounter = 0;
-		Coordinate coordinate = null;
-		for (Coordinate shipPosition : shipPositions) {
-			if (shipPosition.getIsHit()) {
-				hitCounter++;
-				coordinate = shipPosition;
-			}
-		}
-		if (hitCounter == 1)
-			return coordinate;
-		return null;
-	}
+//	/**
+//	 * Get the position of the first hit only
+//	 * 
+//	 * @return The first hit position of the ship, as coordinates if a ship is
+//	 *         wounded only once. If it is hit more than once or fully intact
+//	 *         return null
+//	 * @author uelik
+//	 */
+//	public Coordinate getOnlyOneWoundPosition() {
+//		int hitCounter = 0;
+//		Coordinate coordinate = null;
+//		for (Coordinate shipPosition : shipPositions) {
+//			if (shipPosition.getIsHit()) {
+//				hitCounter++;
+//				coordinate = shipPosition;
+//			}
+//		}
+//		if (hitCounter == 1)
+//			return coordinate;
+//		return null;
+//	}
+
 
 	/**
-	 * Get a random Position around a given position according to the four
-	 * Directions NORTH,SOUTH,EAST,WEST
+	 * Get direction of the hits in vertical (NORTH) or horizontal (WEST) direction
 	 * 
-	 * @return Retruns a Coordinate with the random position around the given
-	 *         one
-	 * @author uelik
-	 */
-	public Coordinate getRandomCoordinateAround4Directions(Coordinate firstHitPosition) {
-		Coordinate randomPositionAround1stHit = null;
-		switch (Directions.getRandom()) {
-		case NORTH:
-			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition(),
-					firstHitPosition.getyPosition() + 1, false, false);
-			break;
-		case SOUTH:
-			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition(),
-					firstHitPosition.getyPosition() - 1, false, false);
-			break;
-		case EAST:
-			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition() + 1,
-					firstHitPosition.getyPosition(), false, false);
-			break;
-		case WEST:
-			randomPositionAround1stHit = new Coordinate(firstHitPosition.getxPosition() - 1,
-					firstHitPosition.getyPosition(), false, false);
-			break;
-		default:
-			System.out.println("Richtung nicht programmiert!");
-		}
-		return randomPositionAround1stHit;
-	}
-
-	/**
-	 * Get direction of the hits
-	 * 
-	 * @return Retruns the direction of the hit points
+	 * @return the direction of the hit points
 	 * @author uelik
 	 */
 	public Directions getDirectionsOfHits() {

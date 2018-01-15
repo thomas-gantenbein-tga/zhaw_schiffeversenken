@@ -170,9 +170,12 @@ public class StartScreen02 implements Display {
 
 		public void actionPerformed(ActionEvent e) {
 			if (game.getPlayerField().getShips().size() > 0) {
-				game.getComputerField().addRandomShip(5);
-				game.getComputerField().addRandomShip(3);
-				game.getComputerField().addRandomShip(1);
+				for (Ship ship : game.getPlayerField().getShips()) {
+					game.getComputerField().addRandomShip(ship.getShipPositions().size());
+				}
+//				game.getComputerField().addRandomShip(5);
+//				game.getComputerField().addRandomShip(3);
+//				game.getComputerField().addRandomShip(1);
 				runningGameDisplay.update();
 				frame.repaint();
 				frame.setContentPane(runningGameDisplay.getContentPane());

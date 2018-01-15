@@ -43,7 +43,7 @@ public class ComputerPlayer {
 				//search around 1st hit position and check if the position was hit before
 				do {
 					//Generate new shootPosition if the first trial was a hitPosition
-					shootPosition = playerField.getpossibleShipPositionsionsAround1stHit(woundShip.getWoundPositions().get(1));
+					shootPosition = playerField.getpossibleShipPositionsionsAround1stHit(woundShip.getWoundPositions().get(0));
 				}
 				while (playerField.isShipOrFreeSeaCoordinateHit(shootPosition));
 				return shootPosition;
@@ -51,8 +51,8 @@ public class ComputerPlayer {
 			// check if a ship is hit more than once but not sunk
 			else {
 				do {
-					indexWoundShipPosition++;
 					shootPosition = playerField.getShipPositionsionsFurtherHits(woundShip.getWoundPositions().get(indexWoundShipPosition), woundShip);
+					indexWoundShipPosition++;
 				}
 				while (playerField.isShipOrFreeSeaCoordinateHit(shootPosition));
 				return shootPosition;

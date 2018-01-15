@@ -1,7 +1,5 @@
 package ch.zhaw.schiffeversenken.data;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -385,13 +383,15 @@ public class PlayField {
 		Directions directionShip = null;
 		directionShip = woundShip.getDirectionsOfHits();
 		shootPosition = getRandomCoordinateAround2Directions(hitPosition, directionShip);
-		if (!isShipOrFreeSeaCoordinateHit(shootPosition))
+		if (!isShipOrFreeSeaCoordinateHit(shootPosition)) {
 			if (shootPosition.isCoordinateInPlayField(this))
 				return shootPosition;
-		else
+		}
+		else {
 			shootPosition = getOppositCoordinateAround2Directions(hitPosition, shootPosition, directionShip);
 			if (shootPosition.isCoordinateInPlayField(this))
 				return shootPosition;
+		}
 		return null;
 	}
 	

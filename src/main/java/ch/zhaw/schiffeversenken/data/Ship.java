@@ -46,7 +46,7 @@ public class Ship {
 		shipPositions = new ArrayList<Coordinate>();
 		Coordinate[] coordinates = new Coordinate[shipSize];
 		// generate starting point of ship with random coordinates within the
-		// given playfield
+		// given PlayField
 		coordinates[0] = new Coordinate((int) (Math.random() * rowCount), (int) (Math.random() * colCount), false,
 				false);
 
@@ -57,11 +57,11 @@ public class Ship {
 			switch (direction) {
 			case NORTH:
 				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() + 1, false, false);
+						coordinates[i - 1].getyPosition() - 1, false, false);
 				break;
 			case SOUTH:
 				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() - 1, false, false);
+						coordinates[i - 1].getyPosition() + 1, false, false);
 				break;
 			case EAST:
 				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition() + 1,
@@ -106,11 +106,11 @@ public class Ship {
 			switch (direction) {
 			case NORTH:
 				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() + 1, false, false);
+						coordinates[i - 1].getyPosition() - 1, false, false);
 				break;
 			case SOUTH:
 				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() - 1, false, false);
+						coordinates[i - 1].getyPosition() + 1, false, false);
 				break;
 			case EAST:
 				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition() + 1,
@@ -230,29 +230,6 @@ public class Ship {
 		}
 		return shipWoundPositions;
 	}
-
-//	/**
-//	 * Get the position of the first hit only
-//	 * 
-//	 * @return The first hit position of the ship, as coordinates if a ship is
-//	 *         wounded only once. If it is hit more than once or fully intact
-//	 *         return null
-//	 * @author uelik
-//	 */
-//	public Coordinate getOnlyOneWoundPosition() {
-//		int hitCounter = 0;
-//		Coordinate coordinate = null;
-//		for (Coordinate shipPosition : shipPositions) {
-//			if (shipPosition.getIsHit()) {
-//				hitCounter++;
-//				coordinate = shipPosition;
-//			}
-//		}
-//		if (hitCounter == 1)
-//			return coordinate;
-//		return null;
-//	}
-
 
 	/**
 	 * Get direction of the hits in vertical (NORTH) or horizontal (WEST) direction

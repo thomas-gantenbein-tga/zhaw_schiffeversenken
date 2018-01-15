@@ -1,12 +1,9 @@
 package ch.zhaw.schiffeversenken.guicomponents;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -16,14 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
-import ch.zhaw.schiffeversenken.data.Game;
-import ch.zhaw.schiffeversenken.data.PlayField;
-import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 
 public class StartScreen01 {
 	private JFrame frame;

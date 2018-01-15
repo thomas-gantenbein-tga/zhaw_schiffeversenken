@@ -168,7 +168,6 @@ public class StartScreen02 implements Display {
 
 	private class StartButtonListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (game.getPlayerField().getShips().size() > 0) {
 				game.getComputerField().addRandomShip(5);
@@ -199,7 +198,6 @@ public class StartScreen02 implements Display {
 
 	private class AddShipButtonListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (isInputValid()) {
 				update();
@@ -239,7 +237,6 @@ public class StartScreen02 implements Display {
 		}
 	}
 
-	@Override
 	public void update() {
 		for (Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
 			Shape intactShip = ShapeFactory.createShipIntact(coordinate, sizePlayerField, sizePlayerField);

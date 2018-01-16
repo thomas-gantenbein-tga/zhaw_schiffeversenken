@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -39,8 +41,9 @@ public class StartScreen02 implements Display {
 	private PlayingFieldPanel playerPreview;
 	private Game game;
 	private Coordinate tailPositionNewShip;
-	private JComboBox shipOrientationDropDown;
+	private JComboBox<String> shipOrientationDropDown;
 	private JTextField shipSizeInput;
+	private List<Ship> addedShipsList = new ArrayList<Ship>();
 
 	public StartScreen02(int sizeComputerField, int sizePlayerField, JFrame frame) {
 		this.sizeComputerField = sizeComputerField;
@@ -68,7 +71,7 @@ public class StartScreen02 implements Display {
 
 		JLabel shipOrientationLabel = new JLabel("In which direction is your ship heading?");
 		shipOrientationLabel.setFont(settingsFontRegular);
-		shipOrientationDropDown = new JComboBox(new String[] { "North", "East", "South", "West" });
+		shipOrientationDropDown = new JComboBox<String>(new String[] { "North", "East", "South", "West" });
 
 		JButton addShipButton = new JButton("Add ship");
 		JButton startButton = new JButton("Start game");
@@ -170,10 +173,10 @@ public class StartScreen02 implements Display {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (game.getPlayerField().getShips().size() > 0) {
-				game.getComputerField().addRandomShip(5);
-				game.getComputerField().addRandomShip(3);
-				game.getComputerField().addRandomShip(1);
+			if (addedShipsList.size() > 0) {
+				for(Ship ship : addedShipsList) {
+					game.getComputerField().addRandomShip(ship.getShipPositions().size());
+				}
 				runningGameDisplay.update();
 				frame.repaint();
 				frame.setContentPane(runningGameDisplay.getContentPane());
@@ -232,9 +235,10 @@ public class StartScreen02 implements Display {
 			game.getPlayerField().addShip(ship);
 			if (game.getPlayerField().deleteLastAddedShipIfUnviable()) {
 				JOptionPane.showMessageDialog(frame,
-						"Sorry, your ship does not fit in the playing field or is intersecting with another ship. Try again.");
+						"Sorry, your ship does not fit in the playing field or is colliding with another ship. Try again.");
 				return false;
 			}
+			addedShipsList.add(ship);
 			return true;
 		}
 	}

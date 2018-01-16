@@ -172,10 +172,7 @@ public class StartScreen02 implements Display {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (game.getPlayerField().getShips().size() > 0) {
-					for (Ship ship : game.getPlayerField().getShips()) {
-						game.getComputerField().addRandomShip(ship.getShipPositions().size());
-					}
+				
 				if (game.getPlayerField().getShips().size() > 0) {
 					for (Ship ship : game.getPlayerField().getShips()) {
 						game.getComputerField().addRandomShip(ship.getShipPositions().size());
@@ -190,7 +187,7 @@ public class StartScreen02 implements Display {
 				}
 			}
 		}
-	}
+	
 
 	private class ShipPositioningListener extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {

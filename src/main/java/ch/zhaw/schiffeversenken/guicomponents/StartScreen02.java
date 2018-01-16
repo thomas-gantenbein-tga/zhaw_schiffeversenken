@@ -43,7 +43,6 @@ public class StartScreen02 implements Display {
 	private Coordinate tailPositionNewShip;
 	private JComboBox<String> shipOrientationDropDown;
 	private JTextField shipSizeInput;
-	private List<Ship> addedShipsList = new ArrayList<Ship>();
 
 	public StartScreen02(int sizeComputerField, int sizePlayerField, JFrame frame) {
 		this.sizeComputerField = sizeComputerField;
@@ -177,6 +176,13 @@ public class StartScreen02 implements Display {
 				for(Ship ship : addedShipsList) {
 					game.getComputerField().addRandomShip(ship.getShipPositions().size());
 				}
+			if (game.getPlayerField().getShips().size() > 0) {
+				for (Ship ship : game.getPlayerField().getShips()) {
+					game.getComputerField().addRandomShip(ship.getShipPositions().size());
+				}
+//				game.getComputerField().addRandomShip(5);
+//				game.getComputerField().addRandomShip(3);
+//				game.getComputerField().addRandomShip(1);
 				runningGameDisplay.update();
 				frame.repaint();
 				frame.setContentPane(runningGameDisplay.getContentPane());
@@ -238,7 +244,6 @@ public class StartScreen02 implements Display {
 						"Sorry, your ship does not fit in the playing field or is colliding with another ship. Try again.");
 				return false;
 			}
-			addedShipsList.add(ship);
 			return true;
 		}
 	}

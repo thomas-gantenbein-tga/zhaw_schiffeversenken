@@ -170,26 +170,24 @@ public class StartScreen02 implements Display {
 
 	private class StartButtonListener implements ActionListener {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (addedShipsList.size() > 0) {
-				for(Ship ship : addedShipsList) {
-					game.getComputerField().addRandomShip(ship.getShipPositions().size());
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (game.getPlayerField().getShips().size() > 0) {
+					for (Ship ship : game.getPlayerField().getShips()) {
+						game.getComputerField().addRandomShip(ship.getShipPositions().size());
+					}
+				if (game.getPlayerField().getShips().size() > 0) {
+					for (Ship ship : game.getPlayerField().getShips()) {
+						game.getComputerField().addRandomShip(ship.getShipPositions().size());
+					}
+					runningGameDisplay.update();
+					frame.repaint();
+					frame.setContentPane(runningGameDisplay.getContentPane());
+					frame.validate();
+				} else {
+					JOptionPane.showMessageDialog(frame,
+							"Funny. How about adding some ships so your enemy has something to shoot at?");
 				}
-			if (game.getPlayerField().getShips().size() > 0) {
-				for (Ship ship : game.getPlayerField().getShips()) {
-					game.getComputerField().addRandomShip(ship.getShipPositions().size());
-				}
-//				game.getComputerField().addRandomShip(5);
-//				game.getComputerField().addRandomShip(3);
-//				game.getComputerField().addRandomShip(1);
-				runningGameDisplay.update();
-				frame.repaint();
-				frame.setContentPane(runningGameDisplay.getContentPane());
-				frame.validate();
-			} else {
-				JOptionPane.showMessageDialog(frame,
-						"Funny. How about adding some ships so your enemy has something to shoot at?");
 			}
 		}
 	}
@@ -271,3 +269,5 @@ public class StartScreen02 implements Display {
 	}
 
 }
+
+

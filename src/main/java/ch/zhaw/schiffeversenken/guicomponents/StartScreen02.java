@@ -229,6 +229,7 @@ public class StartScreen02 implements Display {
 			if (tailPositionNewShip == null) {
 				JOptionPane.showMessageDialog(frame,
 						"Please click on the field below to pinpoint the tail of your ship.");
+				return false;
 			}
 
 			Directions direction = getDirectionFromDropdown();

@@ -205,15 +205,15 @@ public class PlayField {
 	}
 
 	/**
-	 * Delete the last ship on this PlayField and add the free coordinates to
-	 * freeSea.
+	 * Delete a ship on this PlayField and add the free coordinates to freeSea
+	 * (if they are within the playing field)
 	 * 
 	 * @author uelik
 	 * 
 	 */
-	public void deleteLastShip() {
-		List<Coordinate> coordinateList = ships.get(ships.size() - 1).shipPositions;
-		ships.remove(ships.size() - 1);
+	public void deleteShip(Ship ship) {
+		List<Coordinate> coordinateList = ship.shipPositions;
+		ships.remove(ship);
 
 		List<Coordinate> validCoordinateList = new ArrayList<Coordinate>();
 
@@ -225,7 +225,19 @@ public class PlayField {
 		}
 
 		freeSea.addAll(validCoordinateList);
+	}
 
+	/**
+	 * Deletes all ships on this playing field and adds the ship coordinates to
+	 * the list of free sea coordinates
+	 */
+
+	public void deleteAllShips() {
+		// copy of ship list to avoid concurrent modification
+		List<Ship> copyOfShipList = new ArrayList<Ship>(ships);
+		for (Ship ship : copyOfShipList) {
+			deleteShip(ship);
+		}
 	}
 
 	/**
@@ -240,14 +252,14 @@ public class PlayField {
 	public boolean deleteLastAddedShipIfUnviable() {
 		// Is the ship in the PlayField?
 		if (!getLastShip().isInPlayfield(columnCount, rowCount)) {
-			deleteLastShip();
+			deleteShip(ships.get(ships.size() - 1));
 			return true;
 		}
 
 		// Does the ship not cross an existing one?
 		for (int i = 0; i < getShips().size() - 1; i++) {
 			if (getLastShip().isInCollision(getShip(i).getShipPositions())) {
-				deleteLastShip();
+				deleteShip(ships.get(ships.size() - 1));
 				return true;
 			}
 		}

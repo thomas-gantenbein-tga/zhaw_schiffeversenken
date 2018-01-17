@@ -55,6 +55,10 @@ public class PlayingFieldPanel extends JPanel {
 	protected void addShape(Shape shape) {
 		shapes.add(shape);
 	}
+	
+	protected void removeShape(Shape shape) {
+		shapes.remove(shape);
+	}
 
 	protected int getSquareSize() {
 		return playingFieldSize;

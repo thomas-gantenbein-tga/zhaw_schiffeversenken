@@ -106,5 +106,19 @@ public class ShapeFactory {
 				100.0 / columnCount * 0.8, Color.BLACK);
 		return shipSunk;
 	}
+	
+	/**
+	 * Creates the shape to be drawn on the coordinate over which the human player's mouse hover.
+	 */
+	public static Shape createTailPreviewShape(Coordinate coordinate, int rowCount, int columnCount) {
+		int xCoordinate = coordinate.getxPosition();
+		int yCoordinate = coordinate.getyPosition();
+
+		Shape tailPreviewShape = new TailPreviewShape(xCoordinate * 100.0 / columnCount + 100.0 / columnCount / 2,
+				yCoordinate * 100.0 / rowCount + 100.0 / rowCount / 2, 100.0 / columnCount, 100.0 / columnCount,
+				Color.BLACK);
+		return tailPreviewShape;
+	}
+
 
 }

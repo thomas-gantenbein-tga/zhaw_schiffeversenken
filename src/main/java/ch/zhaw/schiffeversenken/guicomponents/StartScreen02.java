@@ -178,7 +178,12 @@ public class StartScreen02 implements Display {
 
 			if (game.getPlayerField().getShips().size() > 0) {
 				for (Ship ship : game.getPlayerField().getShips()) {
-					game.getComputerField().addRandomShip(ship.getShipPositions().size());
+					try {
+						game.getComputerField().addRandomShip(ship.getShipPositions().size());
+						} catch (IllegalStateException ex) {
+							JOptionPane.showMessageDialog(frame,
+									"Error: Computer ships could not be placed. Restart the application and either enlarge the computer field or reduce the number of computer ships.");
+						}
 				}
 				runningGameDisplay.update();
 				frame.repaint();

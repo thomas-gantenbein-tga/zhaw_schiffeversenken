@@ -136,23 +136,21 @@ public class PlayField {
 	// TODO: throw an exception if the ship cannot be added after some tries
 	// (let's say 50) or if shipSize is bigger than the PlayField
 	/**
-	 * Adds a ship to the PlayField at a random position.Removes the ship's
+	 * Adds a ship to the PlayField at a random position. Removes the ship's
 	 * coordinates from the list of coordinates of free sea.
 	 * 
 	 * @param ship
 	 *            the ship object to be placed on this PlayField
 	 */
-	public void addRandomShip(int shipSize) {
-		Ship ship = new Ship(columnCount, rowCount, shipSize);
-		ships.add(ship);
+	public void addRandomShip(int shipSize) throws IllegalStateException {
+		addShip(new Ship(columnCount, rowCount, shipSize));
+		int tries = 1;
 		while (deleteLastAddedShipIfUnviable()) {
 			addShip(new Ship(columnCount, rowCount, shipSize));
-		}
-		;
-		List<Coordinate> shipCoordinates = ship.getShipPositions();
-
-		for (Coordinate coordinate : shipCoordinates) {
-			freeSea.remove(coordinate);
+			tries++;
+			if (tries > 50) {
+				throw new IllegalStateException();
+			}
 		}
 	}
 
@@ -207,13 +205,17 @@ public class PlayField {
 	}
 
 	/**
-	 * Delete the last ship on this PlayField.
+	 * Delete the last ship on this PlayField and add the free coordinates to
+	 * freeSea.
 	 * 
 	 * @author uelik
 	 * 
 	 */
 	public void deleteLastShip() {
+		List<Coordinate> coordinateList = ships.get(ships.size()-1).shipPositions;
+		freeSea.addAll(coordinateList);
 		ships.remove(ships.size() - 1);
+		
 	}
 
 	/**
@@ -221,7 +223,7 @@ public class PlayField {
 	 * 
 	 * @return returns true if the last added ship is in part placed outside of
 	 *         the playField or if it collides with another ship
-	 *         
+	 * 
 	 * @author uelik
 	 * 
 	 */
@@ -246,11 +248,12 @@ public class PlayField {
 	 * Find the next ship position after the first hit. Only positions within
 	 * the playField will be returned.
 	 * 
-	 * @param coordinate1stHit Coordinate of the first hit
+	 * @param coordinate1stHit
+	 *            Coordinate of the first hit
 	 * 
 	 * @return The next possible ship position around the first hit. Return null
 	 *         if there is no ship with only one wound position
-	 *         
+	 * 
 	 * @author uelik
 	 * 
 	 */
@@ -268,7 +271,8 @@ public class PlayField {
 	 * Get a random Position around a given position according to the four
 	 * Directions NORTH,SOUTH,EAST,WEST
 	 * 
-	 * @param firstHitPosition Coordinate of the first hit
+	 * @param firstHitPosition
+	 *            Coordinate of the first hit
 	 * 
 	 * @return Returns a Coordinate with the random position around the given
 	 *         one
@@ -303,75 +307,88 @@ public class PlayField {
 	 * Get a random Position around a given position in a given direction
 	 * Directions NORTH,WEST
 	 * 
-	 * @param 	hitPosition Coordinate of a hit position
-	 * 			directionShip the direction of the ship (NORTH for vertical, WEST for horizontal)
+	 * @param hitPosition
+	 *            Coordinate of a hit position directionShip the direction of
+	 *            the ship (NORTH for vertical, WEST for horizontal)
 	 * 
-	 * @return Returns a Coordinate with the random position in a given direction
-	 *        
+	 * @return Returns a Coordinate with the random position in a given
+	 *         direction
+	 * 
 	 * @author uelik
 	 */
 	public Coordinate getRandomCoordinateAround2Directions(Coordinate hitPosition, Directions directionShip) {
 		Coordinate randomPositionAroundHit = null;
 		Random randomGenerator = new Random();
 		boolean randomBool = randomGenerator.nextBoolean();
-		
+
 		switch (directionShip) {
 		case NORTH:
 			if (randomBool)
-				randomPositionAroundHit = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() + 1, false, false);
-			randomPositionAroundHit = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() - 1, false, false);
+				randomPositionAroundHit = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() + 1,
+						false, false);
+			randomPositionAroundHit = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() - 1, false,
+					false);
 			break;
 		case WEST:
 			if (randomBool)
-				randomPositionAroundHit = new Coordinate(hitPosition.getxPosition() + 1, hitPosition.getyPosition(), false, false);
-			randomPositionAroundHit = new Coordinate(hitPosition.getxPosition() - 1, hitPosition.getyPosition(), false, false);			
+				randomPositionAroundHit = new Coordinate(hitPosition.getxPosition() + 1, hitPosition.getyPosition(),
+						false, false);
+			randomPositionAroundHit = new Coordinate(hitPosition.getxPosition() - 1, hitPosition.getyPosition(), false,
+					false);
 			break;
 		default:
 			System.out.println("Richtung nicht programmiert!");
 		}
 		return randomPositionAroundHit;
 	}
-	
+
 	/**
-	 * Get opposite position of a given position in a given direction
-	 * Directions NORTH,WEST
+	 * Get opposite position of a given position in a given direction Directions
+	 * NORTH,WEST
 	 * 
-	 * @param 	hitPosition Coordinate of a hit position
-	 * 			firstShot Coordinate of the first but unsuccessful shot in the given direction (NORTH for vertical, WEST for horizontal)
-	 * 			directionShip the direction of the ship (NORTH for vertical, WEST for horizontal)
+	 * @param hitPosition
+	 *            Coordinate of a hit position firstShot Coordinate of the first
+	 *            but unsuccessful shot in the given direction (NORTH for
+	 *            vertical, WEST for horizontal) directionShip the direction of
+	 *            the ship (NORTH for vertical, WEST for horizontal)
 	 * 
-	 * @return Returns a Coordinate with the random position in a given direction
-	 *        
+	 * @return Returns a Coordinate with the random position in a given
+	 *         direction
+	 * 
 	 * @author uelik
 	 */
-	public Coordinate getOppositCoordinateAround2Directions(Coordinate hitPosition, Coordinate firstShot, Directions directionShip) {
+	public Coordinate getOppositCoordinateAround2Directions(Coordinate hitPosition, Coordinate firstShot,
+			Directions directionShip) {
 		Coordinate shootPosition = null;
-		
+
 		switch (directionShip) {
 		case NORTH:
 			if (hitPosition.getyPosition() < firstShot.getyPosition())
-				shootPosition = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() - 1, false, false);
+				shootPosition = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() - 1, false,
+						false);
 			else
-				shootPosition = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() + 1, false, false);
+				shootPosition = new Coordinate(hitPosition.getxPosition(), hitPosition.getyPosition() + 1, false,
+						false);
 			break;
 		case WEST:
 			if (hitPosition.getxPosition() < firstShot.getxPosition())
-				shootPosition = new Coordinate(hitPosition.getxPosition() - 1, hitPosition.getyPosition(), false, false);
+				shootPosition = new Coordinate(hitPosition.getxPosition() - 1, hitPosition.getyPosition(), false,
+						false);
 			else
-				shootPosition = new Coordinate(hitPosition.getxPosition() + 1, hitPosition.getyPosition(), false, false);
+				shootPosition = new Coordinate(hitPosition.getxPosition() + 1, hitPosition.getyPosition(), false,
+						false);
 		default:
 			System.out.println("Richtung nicht programmiert!");
 		}
 		return shootPosition;
 	}
-	
 
 	/**
-	 * Find the next ship position after the second or more hit. The  Only positions within
-	 * the playField will be returned.
+	 * Find the next ship position after the second or more hit. The Only
+	 * positions within the playField will be returned.
 	 *
-	 * @param 	hitPosition Coordinate of a hit position
-	 * 			woundShip the wounded ship
+	 * @param hitPosition
+	 *            Coordinate of a hit position woundShip the wounded ship
 	 * 
 	 * @return The next possible ship position in the direction of the hits
 	 * 
@@ -386,15 +403,14 @@ public class PlayField {
 		if (!isShipOrFreeSeaCoordinateHit(shootPosition)) {
 			if (shootPosition.isCoordinateInPlayField(this))
 				return shootPosition;
-		}
-		else {
+		} else {
 			shootPosition = getOppositCoordinateAround2Directions(hitPosition, shootPosition, directionShip);
 			if (shootPosition.isCoordinateInPlayField(this))
 				return shootPosition;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Find a wound ship which is still swimming
 	 * 
@@ -403,11 +419,11 @@ public class PlayField {
 	 * @author uelik
 	 * 
 	 */
-	public Ship getWoundButSwimmingShip() {	
+	public Ship getWoundButSwimmingShip() {
 		for (Ship ship : ships) {
 			if (ship.getWoundPositions().size() < ship.getShipPositions().size())
 				if (ship.getWoundPositions().size() > 0)
-					return ship;					
+					return ship;
 		}
 		return null;
 	}
@@ -415,11 +431,12 @@ public class PlayField {
 	/**
 	 * Checks if a Coordinate is in freeSea
 	 * 
-	 * @param coordinateFreeSea Coordinate of free sea
+	 * @param coordinateFreeSea
+	 *            Coordinate of free sea
 	 * 
 	 * @return Return true when the Coordinate is in freeSea, otherwise return
 	 *         false
-	 *         
+	 * 
 	 * @author uelik
 	 * 
 	 */
@@ -433,11 +450,12 @@ public class PlayField {
 	/**
 	 * Checks if a Coordinate of Ships or freeSea is hit
 	 * 
-	 * @param shootPosition Coordinate of the shoot position
+	 * @param shootPosition
+	 *            Coordinate of the shoot position
 	 * 
 	 * @return Return true when the Coordinate of Ships or freeSea is hit,
 	 *         otherwise return false
-	 *         
+	 * 
 	 * @author uelik
 	 * 
 	 */

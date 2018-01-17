@@ -72,15 +72,19 @@ public class RunningGameDisplay implements Display {
 
 		playerField = new PlayingFieldPanel();
 		playerField.setBackground(Color.WHITE);
-		int preferredSizePlayer = rowCountPlayer * 20;
-		playerField.setPreferredSize(new Dimension(preferredSizePlayer, preferredSizePlayer));
+		int preferredSize;
+		if(rowCountPlayer > rowCountComputer) {
+			preferredSize = rowCountPlayer * 20;
+		} else {
+			preferredSize = rowCountComputer * 20;
+		}
+		playerField.setPreferredSize(new Dimension(preferredSize, preferredSize));
 		playerField.setMinimumSize(new Dimension(300,300));
 
 
 		computerField = new PlayingFieldPanel();
 		computerField.setBackground(Color.WHITE);
-		int preferredSizeComputer = rowCountComputer * 20;
-		computerField.setPreferredSize(new Dimension(preferredSizeComputer, preferredSizeComputer));
+		computerField.setPreferredSize(new Dimension(preferredSize, preferredSize));
 		computerField.setMinimumSize(new Dimension(300,300));
 
 		// set up layout for computer and player field

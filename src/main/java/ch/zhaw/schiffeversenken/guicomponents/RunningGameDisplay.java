@@ -61,8 +61,8 @@ public class RunningGameDisplay implements Display {
 
 		JLabel labelPlayer = new JLabel("Player");
 		JLabel labelComputer = new JLabel("Computer");
-		labelShipsPlayer = new JLabel("lkj");
-		labelShipsComputer = new JLabel("lkjsss");
+		labelShipsPlayer = new JLabel();
+		labelShipsComputer = new JLabel();
 
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
@@ -74,11 +74,14 @@ public class RunningGameDisplay implements Display {
 		playerField.setBackground(Color.WHITE);
 		int preferredSizePlayer = rowCountPlayer * 20;
 		playerField.setPreferredSize(new Dimension(preferredSizePlayer, preferredSizePlayer));
+		playerField.setMinimumSize(new Dimension(300,300));
+
 
 		computerField = new PlayingFieldPanel();
 		computerField.setBackground(Color.WHITE);
 		int preferredSizeComputer = rowCountComputer * 20;
 		computerField.setPreferredSize(new Dimension(preferredSizeComputer, preferredSizeComputer));
+		computerField.setMinimumSize(new Dimension(300,300));
 
 		// set up layout for computer and player field
 		LayoutManager gridBagLayout = new GridBagLayout();

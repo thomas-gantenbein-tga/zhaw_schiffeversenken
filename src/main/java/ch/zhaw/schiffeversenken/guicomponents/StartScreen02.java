@@ -79,6 +79,7 @@ public class StartScreen02 implements Display {
 		playerPreview = new PlayingFieldPanel();
 		int preferredSize = sizePlayerField * 20;
 		playerPreview.setPreferredSize(new Dimension(preferredSize, preferredSize));
+		playerPreview.setMinimumSize(new Dimension(300,300));
 		playerPreview.setBackground(Color.WHITE);
 		paintPlayerFieldPreview();
 
@@ -132,7 +133,9 @@ public class StartScreen02 implements Display {
 		gbConstraints.gridwidth = 2;
 		gbConstraints.gridy = 6;
 		contentPane.add(playerPreview, gbConstraints);
-		playerPreview.addMouseMotionListener(new HoverListener(playerPreview, sizePlayerField, sizePlayerField));
+		HoverListener hoverListener = new HoverListener(playerPreview, sizePlayerField, sizePlayerField);
+		playerPreview.addMouseMotionListener(hoverListener);
+		playerPreview.addMouseListener(hoverListener);
 		playerPreview.addMouseListener(new ShipPositioningListener());
 		addShipButton.addActionListener(new AddShipButtonListener());
 
@@ -185,6 +188,7 @@ public class StartScreen02 implements Display {
 				frame.setContentPane(runningGameDisplay.getContentPane());
 				frame.pack();
 				frame.setLocationRelativeTo(null);
+				frame.setTitle("Battleships");
 				frame.validate();
 			} else {
 				JOptionPane.showMessageDialog(frame,

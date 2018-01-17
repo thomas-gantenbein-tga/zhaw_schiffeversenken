@@ -1,6 +1,7 @@
 package ch.zhaw.schiffeversenken.guicomponents;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,9 +22,11 @@ public class StartScreen01 {
 	private JTextField sizePlayerFieldInput;
 	private int sizeComputerField;
 	private int sizePlayerField;
+	private final int MAX_FIELD_SIZE = 30;
+	private final int MIN_FIELD_SIZE = 6;
 
 	public StartScreen01() {
-		frame = new JFrame("Schiffe versenken: Start");
+		frame = new JFrame("Battleships: Create your playing fields");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container contentPane = frame.getContentPane();
 		Insets settingsInset = new Insets(2, 2, 2, 2);
@@ -100,7 +103,7 @@ public class StartScreen01 {
 				frame.validate();
 				frame.pack();
 				frame.setLocationRelativeTo(null);
-
+				frame.setTitle("Battleships: Ship creation and placement");
 			}
 		}
 
@@ -114,12 +117,12 @@ public class StartScreen01 {
 				return false;
 			}
 
-			boolean computerFieldOkay = sizeComputerField >= 6 && sizeComputerField <= 50;
-			boolean playerFieldOkay = sizePlayerField >= 6 && sizePlayerField <= 50;
+			boolean computerFieldOkay = sizeComputerField >= MIN_FIELD_SIZE && sizeComputerField <= MAX_FIELD_SIZE;
+			boolean playerFieldOkay = sizePlayerField >= MIN_FIELD_SIZE && sizePlayerField <= MAX_FIELD_SIZE;
 
 			if (!playerFieldOkay || !computerFieldOkay) {
 				JOptionPane.showMessageDialog(frame,
-						"Computer and player fields should be between 6x6 and 50x50 squares big.");
+						"Computer and player fields should be between " + MIN_FIELD_SIZE + "x" + MIN_FIELD_SIZE + " and " + MAX_FIELD_SIZE + "x" + MAX_FIELD_SIZE + " squares big.");
 				return false;
 			}
 			return true;

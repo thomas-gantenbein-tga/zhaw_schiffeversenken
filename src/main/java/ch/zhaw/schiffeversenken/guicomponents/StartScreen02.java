@@ -77,7 +77,8 @@ public class StartScreen02 implements Display {
 		JButton startButton = new JButton("Start game");
 
 		playerPreview = new PlayingFieldPanel();
-		playerPreview.setPreferredSize(new Dimension(300, 300));
+		int preferredSize = sizePlayerField * 20;
+		playerPreview.setPreferredSize(new Dimension(preferredSize, preferredSize));
 		playerPreview.setBackground(Color.WHITE);
 		paintPlayerFieldPreview();
 
@@ -85,7 +86,7 @@ public class StartScreen02 implements Display {
 		GridBagConstraints gbConstraints = new GridBagConstraints();
 		gbConstraints.fill = GridBagConstraints.NONE;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
-		gbConstraints.insets = new Insets(4, 4, 4, 4);
+		gbConstraints.insets = new Insets(15, 15, 5, 15);
 		contentPane.setLayout(gridBagLayout);
 
 		gbConstraints.gridx = 0;
@@ -98,6 +99,7 @@ public class StartScreen02 implements Display {
 		gbConstraints.gridwidth = 1;
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 1;
+		gbConstraints.insets = new Insets(5, 15, 5, 15);
 		contentPane.add(shipSizeLabel, gbConstraints);
 		gbConstraints.gridx = 1;
 		gbConstraints.gridy = 1;
@@ -123,6 +125,7 @@ public class StartScreen02 implements Display {
 
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 5;
+		gbConstraints.insets = new Insets(5, 15, 15, 15);
 		contentPane.add(startButton, gbConstraints);
 
 		gbConstraints.gridx = 0;
@@ -180,6 +183,8 @@ public class StartScreen02 implements Display {
 				runningGameDisplay.update();
 				frame.repaint();
 				frame.setContentPane(runningGameDisplay.getContentPane());
+				frame.pack();
+				frame.setLocationRelativeTo(null);
 				frame.validate();
 			} else {
 				JOptionPane.showMessageDialog(frame,

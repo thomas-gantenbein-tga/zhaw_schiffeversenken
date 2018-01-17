@@ -72,11 +72,13 @@ public class RunningGameDisplay implements Display {
 
 		playerField = new PlayingFieldPanel();
 		playerField.setBackground(Color.WHITE);
-		playerField.setPreferredSize(new Dimension(300, 300));
+		int preferredSizePlayer = rowCountPlayer * 20;
+		playerField.setPreferredSize(new Dimension(preferredSizePlayer, preferredSizePlayer));
 
 		computerField = new PlayingFieldPanel();
 		computerField.setBackground(Color.WHITE);
-		computerField.setPreferredSize(new Dimension(300, 300));
+		int preferredSizeComputer = rowCountComputer * 20;
+		computerField.setPreferredSize(new Dimension(preferredSizeComputer, preferredSizeComputer));
 
 		// set up layout for computer and player field
 		LayoutManager gridBagLayout = new GridBagLayout();

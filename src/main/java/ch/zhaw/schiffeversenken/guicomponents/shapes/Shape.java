@@ -1,7 +1,6 @@
 package ch.zhaw.schiffeversenken.guicomponents.shapes;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public abstract class Shape implements Comparable<Shape> {

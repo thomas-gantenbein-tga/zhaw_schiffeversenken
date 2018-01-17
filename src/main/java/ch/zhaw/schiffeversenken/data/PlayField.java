@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.helpers.Directions;
 
 /**
  * Contains the data / references to data with the main information of a

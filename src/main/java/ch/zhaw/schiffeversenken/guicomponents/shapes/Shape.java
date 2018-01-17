@@ -47,6 +47,9 @@ public abstract class Shape implements Comparable<Shape> {
 
 	public abstract void draw(int playingFieldSize, Graphics2D g);
 
+	/**
+	 * Compares the width of Shapes.
+	 */
 	public int compareTo(Shape otherShape) {
 		return (int) (otherShape.width - this.width);
 	}

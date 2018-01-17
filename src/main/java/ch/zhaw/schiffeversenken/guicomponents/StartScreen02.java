@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.zhaw.schiffeversenken.data.Directions;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
@@ -31,6 +30,7 @@ import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.ShipIntact;
 import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.helpers.Directions;
 
 public class StartScreen02 implements Display {
 	private JFrame frame;

@@ -43,6 +43,7 @@ public class StartScreen02 implements Display {
 	private Coordinate tailPositionNewShip;
 	private JComboBox<String> shipOrientationDropDown;
 	private JTextField shipSizeInput;
+	private Shape tailMarking;
 
 	public StartScreen02(int sizeComputerField, int sizePlayerField, JFrame frame) {
 		this.sizeComputerField = sizeComputerField;
@@ -79,7 +80,6 @@ public class StartScreen02 implements Display {
 		playerPreview.setPreferredSize(new Dimension(300, 300));
 		playerPreview.setBackground(Color.WHITE);
 		paintPlayerFieldPreview();
-		this.update();
 
 		LayoutManager gridBagLayout = new GridBagLayout();
 		GridBagConstraints gbConstraints = new GridBagConstraints();
@@ -170,24 +170,23 @@ public class StartScreen02 implements Display {
 
 	private class StartButtonListener implements ActionListener {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if (game.getPlayerField().getShips().size() > 0) {
-					for (Ship ship : game.getPlayerField().getShips()) {
-						game.getComputerField().addRandomShip(ship.getShipPositions().size());
-					}
-					runningGameDisplay.update();
-					frame.repaint();
-					frame.setContentPane(runningGameDisplay.getContentPane());
-					frame.validate();
-				} else {
-					JOptionPane.showMessageDialog(frame,
-							"Funny. How about adding some ships so your enemy has something to shoot at?");
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if (game.getPlayerField().getShips().size() > 0) {
+				for (Ship ship : game.getPlayerField().getShips()) {
+					game.getComputerField().addRandomShip(ship.getShipPositions().size());
 				}
+				runningGameDisplay.update();
+				frame.repaint();
+				frame.setContentPane(runningGameDisplay.getContentPane());
+				frame.validate();
+			} else {
+				JOptionPane.showMessageDialog(frame,
+						"Funny. How about adding some ships so your enemy has something to shoot at?");
 			}
 		}
-	
+	}
 
 	private class ShipPositioningListener extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
@@ -197,6 +196,13 @@ public class StartScreen02 implements Display {
 			if (posX <= sizePlayerField - 1 && posY <= sizePlayerField - 1) {
 				shipTailPositionInput.setText("x-Position: " + (posX + 1) + " | y-Position: " + (posY + 1));
 				tailPositionNewShip = new Coordinate(posX, posY, false, false);
+				if(tailMarking != null) {
+					playerPreview.removeShape(tailMarking);
+				}
+				tailMarking = ShapeFactory.createTailPreviewShape(tailPositionNewShip, sizePlayerField,
+						sizePlayerField);
+				playerPreview.addShape(tailMarking);
+				frame.repaint();
 			}
 		}
 	}
@@ -207,6 +213,7 @@ public class StartScreen02 implements Display {
 		public void actionPerformed(ActionEvent e) {
 			if (isInputValid()) {
 				update();
+				playerPreview.removeShape(tailMarking);
 				frame.repaint();
 			}
 		}
@@ -267,5 +274,3 @@ public class StartScreen02 implements Display {
 	}
 
 }
-
-

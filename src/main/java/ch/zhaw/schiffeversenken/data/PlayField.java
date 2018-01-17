@@ -148,7 +148,7 @@ public class PlayField {
 		while (deleteLastAddedShipIfUnviable()) {
 			addShip(new Ship(columnCount, rowCount, shipSize));
 			tries++;
-			if (tries > 50) {
+			if (tries > 100) {
 				throw new IllegalStateException();
 			}
 		}
@@ -212,10 +212,20 @@ public class PlayField {
 	 * 
 	 */
 	public void deleteLastShip() {
-		List<Coordinate> coordinateList = ships.get(ships.size()-1).shipPositions;
-		freeSea.addAll(coordinateList);
+		List<Coordinate> coordinateList = ships.get(ships.size() - 1).shipPositions;
 		ships.remove(ships.size() - 1);
-		
+
+		List<Coordinate> validCoordinateList = new ArrayList<Coordinate>();
+
+		for (Coordinate coordinate : coordinateList) {
+			if (coordinate.getxPosition() < rowCount && coordinate.getyPosition() < columnCount
+					&& !getShipsCoordinates().contains(coordinate)) {
+				validCoordinateList.add(coordinate);
+			}
+		}
+
+		freeSea.addAll(validCoordinateList);
+
 	}
 
 	/**

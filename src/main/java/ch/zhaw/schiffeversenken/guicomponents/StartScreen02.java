@@ -183,6 +183,8 @@ public class StartScreen02 implements Display {
 						} catch (IllegalStateException ex) {
 							JOptionPane.showMessageDialog(frame,
 									"Error: Computer ships could not be placed. Restart the application and either enlarge the computer field or reduce the number of computer ships.");
+							runningGameDisplay = initializeGame();
+							update();
 						}
 				}
 				runningGameDisplay.update();

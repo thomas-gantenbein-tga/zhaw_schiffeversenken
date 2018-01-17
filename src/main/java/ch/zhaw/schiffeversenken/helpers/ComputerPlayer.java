@@ -55,7 +55,18 @@ public class ComputerPlayer {
 					indexWoundShipPosition++;
 				}
 				while (playerField.isShipOrFreeSeaCoordinateHit(shootPosition));
-				return shootPosition;
+				// when the proposed shoot position is not within the PlayField shoot on the other end of the ship
+				if (shootPosition.isCoordinateInPlayField(playerField))
+					return shootPosition;
+				else {
+					indexWoundShipPosition = 1; //Don't begin at the first wound position because the ship can start at the borders of the playfield
+					do {
+						shootPosition = playerField.getShipPositionsionsFurtherHits(woundShip.getWoundPositions().get(indexWoundShipPosition), woundShip);
+						indexWoundShipPosition++;
+					}
+					while (playerField.isShipOrFreeSeaCoordinateHit(shootPosition));
+					return shootPosition;
+				}
 			}
 		}
 		// Generate new random shootPosition with a check if it was hit before

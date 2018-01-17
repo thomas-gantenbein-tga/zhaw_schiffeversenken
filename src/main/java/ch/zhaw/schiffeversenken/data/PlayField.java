@@ -367,13 +367,15 @@ public class PlayField {
 	
 
 	/**
-	 * Find the next ship position after the second or more hit. The  Only positions within
+	 * Find the next ship position after the second or more hit. Only positions within
 	 * the playField will be returned.
 	 *
 	 * @param 	hitPosition Coordinate of a hit position
 	 * 			woundShip the wounded ship
 	 * 
-	 * @return The next possible ship position in the direction of the hits
+	 * @return The next ship position in the direction of the hits. 
+	 * If one direction is hit return the other side. 
+	 * Return a hit field outside of the Playfield if the calculated Coordinate is not within the PlayField
 	 * 
 	 * @author uelik
 	 * 
@@ -392,7 +394,7 @@ public class PlayField {
 			if (shootPosition.isCoordinateInPlayField(this))
 				return shootPosition;
 		}
-		return null;
+		return new Coordinate(-1, -1, true, false);
 	}
 	
 	/**

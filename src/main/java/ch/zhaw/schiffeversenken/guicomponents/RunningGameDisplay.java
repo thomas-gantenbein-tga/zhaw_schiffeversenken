@@ -122,7 +122,9 @@ public class RunningGameDisplay implements Display {
 
 		mouseListener = new ShootListener();
 		computerField.addMouseListener(mouseListener);
-		computerField.addMouseMotionListener(new HoverListener(computerField, columnCountComputer, rowCountComputer));
+		HoverListener hoverListener = new HoverListener(computerField, columnCountComputer, rowCountComputer);
+		computerField.addMouseMotionListener(hoverListener);
+		computerField.addMouseListener(hoverListener);
 	}
 
 	private void drawPlayingFields() {

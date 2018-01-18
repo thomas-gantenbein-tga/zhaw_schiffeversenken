@@ -177,7 +177,7 @@ public class StartScreen02 implements Display {
 
 	private class StartButtonListener implements ActionListener {
 
-		@Override
+
 		public void actionPerformed(ActionEvent e) {
 
 			if (game.getPlayerField().getShips().size() > 0) {
@@ -230,7 +230,7 @@ public class StartScreen02 implements Display {
 
 	private class AddShipButtonListener implements ActionListener {
 
-		@Override
+
 		public void actionPerformed(ActionEvent e) {
 			if (isInputValid()) {
 				update();
@@ -261,7 +261,7 @@ public class StartScreen02 implements Display {
 			}
 
 			Directions direction = getDirectionFromDropdown();
-			Ship ship = new Ship(sizePlayerField, sizePlayerField, shipSize, direction, tailPositionNewShip);
+			Ship ship = new Ship(shipSize, direction, tailPositionNewShip);
 			game.getPlayerField().addShip(ship);
 			if (game.getPlayerField().deleteLastAddedShipIfUnviable()) {
 				JOptionPane.showMessageDialog(frame,
@@ -272,7 +272,7 @@ public class StartScreen02 implements Display {
 		}
 	}
 
-	@Override
+
 	public void update() {
 		//copy of list to avoid concurrent modification
 		List<Shape> shapeListCopy = new ArrayList<Shape>(playerPreview.getShapes());

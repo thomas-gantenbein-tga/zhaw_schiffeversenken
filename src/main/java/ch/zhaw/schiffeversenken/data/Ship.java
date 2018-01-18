@@ -13,6 +13,8 @@ import ch.zhaw.schiffeversenken.helpers.Directions;
  */
 public class Ship {
 	List<Coordinate> shipPositions;
+	int shipSize;
+	Directions direction;
 
 	/**
 	 * Creates a ship with the given coordinates. isHit and isSunk fields of the
@@ -45,41 +47,12 @@ public class Ship {
 	 */
 	public Ship(int colCount, int rowCount, int shipSize) {
 		shipPositions = new ArrayList<Coordinate>();
-		Coordinate[] coordinates = new Coordinate[shipSize];
-		// generate starting point of ship with random coordinates within the
-		// given PlayField
-		coordinates[0] = new Coordinate((int) (Math.random() * rowCount), (int) (Math.random() * colCount), false,
-				false);
+		this.shipSize = shipSize;
 
-		Directions direction = Directions.getRandom();
-
-		for (int i = 1; i < shipSize; i++) {
-			// orient the ship randomly within the directions in Enum Directions
-			switch (direction) {
-			case NORTH:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() - 1, false, false);
-				break;
-			case SOUTH:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() + 1, false, false);
-				break;
-			case EAST:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition() + 1,
-						coordinates[i - 1].getyPosition(), false, false);
-				break;
-			case WEST:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition() - 1,
-						coordinates[i - 1].getyPosition(), false, false);
-				break;
-			default:
-				System.out.println("Richtung nicht programmiert!");
-				break;
-			}
-		}
-		for (Coordinate coordinate : coordinates)
-			shipPositions.add(coordinate);
-
+		shipPositions.add(new Coordinate((int) (Math.random() * rowCount), (int) (Math.random() * colCount), false,	false));
+		direction = Directions.getRandom();
+		
+		setShipPositionsGivenDirectionStartingPoint();
 	}
 
 	/**
@@ -88,47 +61,52 @@ public class Ship {
 	 * set to false by default. The list of coordinates and the fields of the
 	 * Coordinate objects define the ship's status (intact, hit, sunk).
 	 * 
-	 * @param colCount	Width of the PlayField
-	 * @param rowCount	Height of the PlayField
 	 * @param shipSize	Size (= length) of the ship
 	 * @param direction	The direction where the ship is heading to
 	 * @param headPosition The position of the head of the ship
 	 */
-	public Ship(int colCount, int rowCount, int shipSize, Directions direction, Coordinate headPosition) {
+	public Ship(int shipSize, Directions direction, Coordinate headPosition) {
 		shipPositions = new ArrayList<Coordinate>();
-		Coordinate[] coordinates = new Coordinate[shipSize];
 		headPosition.setIsHit(false);
 		headPosition.setIsSunk(false);
 		
-		coordinates[0] = headPosition;
+		this.shipSize = shipSize;
+		this.direction = direction;
+	
+		shipPositions.add(headPosition);
+		
+		setShipPositionsGivenDirectionStartingPoint();
 
-		for (int i = 1; i < shipSize; i++) {
-			// orient the ship randomly within the directions in Enum Directions
+	}
+	
+	/**
+	 * Creates the rest of the ship from a given starting point with a given direction and a given size.
+	 * isHit and isSunk fields of the Coordinate objects are set to false by default.
+	 * 
+	 * @author uelik
+	 */	
+	private void setShipPositionsGivenDirectionStartingPoint (){
+
+		for (int i = 0; i < shipSize - 1; i++) {
+			// orient the ship in the given direction
 			switch (direction) {
 			case NORTH:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() - 1, false, false);
+				shipPositions.add(new Coordinate(shipPositions.get(i).getxPosition(),shipPositions.get(i).getyPosition() - 1, false, false));
 				break;
 			case SOUTH:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition(),
-						coordinates[i - 1].getyPosition() + 1, false, false);
+				shipPositions.add(new Coordinate(shipPositions.get(i).getxPosition(),shipPositions.get(i).getyPosition() + 1, false, false));
 				break;
 			case EAST:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition() + 1,
-						coordinates[i - 1].getyPosition(), false, false);
+				shipPositions.add(new Coordinate(shipPositions.get(i).getxPosition() + 1,shipPositions.get(i).getyPosition(), false, false));
 				break;
 			case WEST:
-				coordinates[i] = new Coordinate(coordinates[i - 1].getxPosition() - 1,
-						coordinates[i - 1].getyPosition(), false, false);
+				shipPositions.add(new Coordinate(shipPositions.get(i).getxPosition() -1 ,shipPositions.get(i).getyPosition(), false, false));
 				break;
 			default:
 				System.out.println("Richtung nicht programmiert!");
 				break;
 			}
 		}
-		for (Coordinate coordinate : coordinates)
-			shipPositions.add(coordinate);
-
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.helpers.Directions;
 
 /**
  * Simple Ship representation. Has only a position (list of coordinates). The

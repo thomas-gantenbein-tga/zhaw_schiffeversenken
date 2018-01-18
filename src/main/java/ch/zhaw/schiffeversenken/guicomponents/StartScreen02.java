@@ -22,14 +22,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.zhaw.schiffeversenken.data.Directions;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
+import ch.zhaw.schiffeversenken.guicomponents.shapes.ShipIntact;
 import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.helpers.Directions;
 
 public class StartScreen02 implements Display {
 	private JFrame frame;
@@ -181,7 +182,18 @@ public class StartScreen02 implements Display {
 
 			if (game.getPlayerField().getShips().size() > 0) {
 				for (Ship ship : game.getPlayerField().getShips()) {
-					game.getComputerField().addRandomShip(ship.getShipPositions().size());
+					try {
+						game.getComputerField().addRandomShip(ship.getShipPositions().size());
+						} catch (IllegalStateException ex) {
+							game.getComputerField().deleteAllShips();
+							game.getPlayerField().deleteAllShips();
+							JOptionPane.showMessageDialog(frame,
+									"Error: Computer ships could not be placed. You placed too many or too big ships on your playing field."
+									+ " Your ships have been deleted. Try again and place fewer or smaller ships.");
+							
+							update();
+							return;
+						}
 				}
 				runningGameDisplay.update();
 				frame.repaint();
@@ -262,6 +274,15 @@ public class StartScreen02 implements Display {
 
 	@Override
 	public void update() {
+		//copy of list to avoid concurrent modification
+		List<Shape> shapeListCopy = new ArrayList<Shape>(playerPreview.getShapes());
+		
+		for(Shape shape : shapeListCopy) {
+			if(shape instanceof ShipIntact) {
+				playerPreview.removeShape(shape);
+			}
+		}
+		
 		for (Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
 			Shape intactShip = ShapeFactory.createShipIntact(coordinate, sizePlayerField, sizePlayerField);
 			playerPreview.addShape(intactShip);

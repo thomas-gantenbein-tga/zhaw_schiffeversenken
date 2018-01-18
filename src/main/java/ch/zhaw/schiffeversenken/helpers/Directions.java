@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.data;
+package ch.zhaw.schiffeversenken.helpers;
 /**
  * List with directions
  * @author uelik

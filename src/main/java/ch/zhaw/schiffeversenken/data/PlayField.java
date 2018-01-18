@@ -407,13 +407,8 @@ public class PlayField {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Find the next ship position after the second or more hit. Only positions within
 	 * the playField will be returned.
-=======
-	 * Find the next ship position after the second or more hit. The Only
-	 * positions within the playField will be returned.
->>>>>>> branch 'develop' of https://github.com/thomas-gantenbein-tga/zhaw_schiffeversenken
 	 *
 	 * @param hitPosition
 	 *            Coordinate of a hit position woundShip the wounded ship

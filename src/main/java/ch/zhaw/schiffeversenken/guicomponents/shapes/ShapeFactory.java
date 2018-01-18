@@ -6,8 +6,8 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 /**
  * Convenience class to produce shape objects located at specific coordinates.
- * Eliminates the need to translate from the "coordinate" form on which the game
- * is based into the "number of pixels" form on which the GUI is based.
+ * Eliminates the need to translate the "coordinate" form (on which the game
+ * is based) into the "number of pixels" form (on which the GUI is based).
  *
  */
 public class ShapeFactory {

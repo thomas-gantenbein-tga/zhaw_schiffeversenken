@@ -19,14 +19,14 @@ import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
 public class PlayingFieldPanel extends JPanel {
 
 	private List<Shape> shapes = new ArrayList<Shape>();
-	private int playingFieldSize;
+	private int playingFieldPanelSize;
 
 	/**
 	 * All shapes held by this object are drawn when the window is resized or
-	 * the repaint method is called. To adjust the size of shapes to changing
-	 * window sizes, the width or the height (whatever is smaller) is given to
-	 * the Shape objects together with the Graphics object. The Shapes, then,
-	 * "draw" themselves by calling their "draw" method.
+	 * the repaint method is explicitly called. To adjust the size of shapes to
+	 * changing window sizes, the width or the height (whatever is smaller) is
+	 * given to the Shape objects together with the Graphics object. The Shapes,
+	 * then, "draw" themselves by calling their "draw" method.
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -35,13 +35,13 @@ public class PlayingFieldPanel extends JPanel {
 		g2.setStroke(new BasicStroke(2));
 
 		if (this.getWidth() > this.getHeight()) {
-			playingFieldSize = this.getHeight();
+			playingFieldPanelSize = this.getHeight();
 		} else {
-			playingFieldSize = this.getWidth();
+			playingFieldPanelSize = this.getWidth();
 		}
 
 		for (Shape shape : shapes) {
-			shape.draw(playingFieldSize, g2);
+			shape.draw(playingFieldPanelSize, g2);
 		}
 	}
 
@@ -55,15 +55,26 @@ public class PlayingFieldPanel extends JPanel {
 	protected void addShape(Shape shape) {
 		shapes.add(shape);
 	}
-	
+
+	/**
+	 * Removes a shape from the PlayingFieldPanel.
+	 * @param shape the shape to be removed
+	 */
 	protected void removeShape(Shape shape) {
 		shapes.remove(shape);
 	}
-
+	/**
+	 * Gets what is smaller: width or height of the PlayingFieldPanel
+	 * @return width if width<height; height if height<width
+	 */
 	protected int getSquareSize() {
-		return playingFieldSize;
+		return playingFieldPanelSize;
 	}
 
+	/**
+	 * Gets the shape objects held by this PlayingFieldPanel
+	 * @return the shapes of this PlayingFieldPanel
+	 */
 	protected List<Shape> getShapes() {
 		return shapes;
 	}

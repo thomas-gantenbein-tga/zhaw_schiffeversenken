@@ -26,8 +26,8 @@ import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 /**
- * GUI to interact with the Game object. Should be registered as an observer of
- * the Game object.
+ * GUI to interact with the Game object. Active when the game is set up and
+ * running. Should be registered as an observer of the Game object.
  *
  */
 public class RunningGameDisplay implements Display {
@@ -50,67 +50,59 @@ public class RunningGameDisplay implements Display {
 	 *            The game that should be displayed by the GUI.
 	 */
 	public RunningGameDisplay(Game game) {
-		// TODO: comments for this class and breaking apart a little
 		this.game = game;
-		rowCountComputer = game.getComputerField().getRowCount();
-		columnCountComputer = game.getComputerField().getColumnCount();
-		rowCountPlayer = game.getPlayerField().getRowCount();
-		columnCountPlayer = game.getPlayerField().getColumnCount();
+		initializeMainFields();
 
-		contentPane = new JPanel();
-
-		JLabel labelPlayer = new JLabel("Player");
-		JLabel labelComputer = new JLabel("Computer");
-		labelShipsPlayer = new JLabel();
-		labelShipsComputer = new JLabel();
-
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		JMenuItem fileMenuOpen = new JMenuItem("Open");
-		fileMenu.add(fileMenuOpen);
-		menuBar.add(fileMenu);
-
-		playerField = new PlayingFieldPanel();
+		// set up player's field
 		playerField.setBackground(Color.WHITE);
 		int preferredSize;
-		if(rowCountPlayer > rowCountComputer) {
+		if (rowCountPlayer > rowCountComputer) {
 			preferredSize = rowCountPlayer * 20;
 		} else {
 			preferredSize = rowCountComputer * 20;
 		}
 		playerField.setPreferredSize(new Dimension(preferredSize, preferredSize));
-		playerField.setMinimumSize(new Dimension(300,300));
+		playerField.setMinimumSize(new Dimension(300, 300));
 
-
-		computerField = new PlayingFieldPanel();
+		// set up computer's field
 		computerField.setBackground(Color.WHITE);
 		computerField.setPreferredSize(new Dimension(preferredSize, preferredSize));
-		computerField.setMinimumSize(new Dimension(300,300));
+		computerField.setMinimumSize(new Dimension(300, 300));
 
-		// set up layout for computer and player field
+		// adding components to the content pane
 		LayoutManager gridBagLayout = new GridBagLayout();
+		contentPane.setLayout(gridBagLayout);
+
 		GridBagConstraints gbConstraints = new GridBagConstraints();
 		gbConstraints.fill = GridBagConstraints.NONE;
 		gbConstraints.gridx = 0;
 		gbConstraints.weightx = 1;
 		gbConstraints.weighty = 0;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
-		contentPane.setLayout(gridBagLayout);
 
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem fileMenuOpen = new JMenuItem("Open");
+		fileMenu.add(fileMenuOpen);
+		menuBar.add(fileMenu);
 		contentPane.add(menuBar, gbConstraints);
+
+		JLabel labelPlayer = new JLabel("Player");
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 1;
 		gbConstraints.insets = new Insets(10, 10, 0, 10);
 		contentPane.add(labelPlayer, gbConstraints);
+
+		JLabel labelComputer = new JLabel("Computer");
 		gbConstraints.gridx = 1;
 		contentPane.add(labelComputer, gbConstraints);
 
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 2;
 		gbConstraints.weighty = 1;
-
 		gbConstraints.fill = GridBagConstraints.BOTH;
 		contentPane.add(playerField, gbConstraints);
+
 		gbConstraints.gridx = 1;
 		contentPane.add(computerField, gbConstraints);
 
@@ -118,20 +110,36 @@ public class RunningGameDisplay implements Display {
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 3;
 		contentPane.add(labelShipsPlayer, gbConstraints);
+
 		gbConstraints.gridx = 1;
 		contentPane.add(labelShipsComputer, gbConstraints);
 
-		drawPlayingFields();
-		
+		drawPlayingFieldsGrid();
 
-		mouseListener = new ShootListener();
 		computerField.addMouseListener(mouseListener);
 		HoverListener hoverListener = new HoverListener(computerField, columnCountComputer, rowCountComputer);
 		computerField.addMouseMotionListener(hoverListener);
 		computerField.addMouseListener(hoverListener);
 	}
 
-	private void drawPlayingFields() {
+	private void initializeMainFields() {
+		rowCountComputer = game.getComputerField().getRowCount();
+		columnCountComputer = game.getComputerField().getColumnCount();
+		rowCountPlayer = game.getPlayerField().getRowCount();
+		columnCountPlayer = game.getPlayerField().getColumnCount();
+
+		contentPane = new JPanel();
+
+		labelShipsPlayer = new JLabel();
+		labelShipsComputer = new JLabel();
+
+		playerField = new PlayingFieldPanel();
+		computerField = new PlayingFieldPanel();
+		mouseListener = new ShootListener();
+
+	}
+
+	private void drawPlayingFieldsGrid() {
 		// draw lines for player field
 		// first loop: horizontal lines
 		for (int i = 0; i <= rowCountPlayer; i++) {
@@ -156,20 +164,14 @@ public class RunningGameDisplay implements Display {
 		for (int i = 0; i <= columnCountComputer; i++) {
 			Shape line = ShapeFactory.createGridLine(i, rowCountComputer, columnCountComputer, 0, 100);
 			computerField.addShape(line);
-		}		
-	}
-
-	public PlayingFieldPanel getPlayerField() {
-		return playerField;
-	}
-
-	public PlayingFieldPanel getComputerField() {
-		return computerField;
+		}
 	}
 
 	/**
-	 * Does accept shots at coordinates that have been shot at before. The Game
-	 * object is responsible for dealing with such a double shot.
+	 * Makes a "shot" at teh computer field when the mouse button is pressed.
+	 * Checks whether the press happens in the playing field. Does accept shots
+	 * at coordinates that have been shot at before. The Game object is
+	 * responsible for dealing with such a double shot.
 	 *
 	 */
 	private class ShootListener extends MouseAdapter {
@@ -185,13 +187,11 @@ public class RunningGameDisplay implements Display {
 		}
 	}
 
-	
-
 	/**
-	 * Is called after a shot was made and processed by the Game object. Gets
-	 * the status of the PlayField of both computer and human player,
-	 * re-computes and redraws their graphical representation and any other
-	 * objects on the GUI related to their status.
+	 * Is called by the Game object after a shot was made and processed by the
+	 * Game object. Gets the status of the PlayField of both computer and human
+	 * player, re-computes and redraws their graphical representation and any
+	 * other objects on the GUI related to their status.
 	 */
 	public void update() {
 		// update computer field
@@ -202,8 +202,9 @@ public class RunningGameDisplay implements Display {
 			} else if (coordinate.getIsHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitShip);
-			} 
-			//TODO: just for testing; remove this else-Block to hide computer ships again
+			}
+			// TODO: just for testing; remove this else-Block to hide computer
+			// ships again
 			else {
 				Shape intactShip = ShapeFactory.createShipIntact(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(intactShip);
@@ -240,16 +241,17 @@ public class RunningGameDisplay implements Display {
 		}
 		playerField.repaint();
 
-		// update labels
+		// update labels and quit game if either player or computer have no more
+		// ships
 		int remainingShips = getSwimmingShips(game.getComputerField());
-		if(remainingShips == 0) {
+		if (remainingShips == 0) {
 			showVictory();
 			computerField.removeMouseListener(mouseListener);
 		}
 		labelShipsComputer.setText("Remaining ships: " + remainingShips);
 
 		remainingShips = getSwimmingShips(game.getPlayerField());
-		if(remainingShips == 0) {
+		if (remainingShips == 0) {
 			showDefeat();
 			computerField.removeMouseListener(mouseListener);
 		}
@@ -266,20 +268,23 @@ public class RunningGameDisplay implements Display {
 		}
 		return remainingShips;
 	}
-	
+
 	private void showVictory() {
 		JOptionPane.showMessageDialog(this.contentPane, "You won!", "Victory", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	private void showDefeat() {
 		JOptionPane.showMessageDialog(this.contentPane, "You lost!", "Defeat", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	/**
+	 * Gets the game object of this object. Used by one of the StartingScreens
+	 * to switch the contentPane of the frame.
+	 * 
+	 * @return the Game object of this RunningGameDisplay
+	 */
 	public JPanel getContentPane() {
 		return contentPane;
 	}
 
-	public Game getGame() {
-		return game;
-	}
 }

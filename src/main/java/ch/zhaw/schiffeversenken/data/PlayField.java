@@ -9,7 +9,7 @@ import ch.zhaw.schiffeversenken.helpers.Directions;
 
 /**
  * Contains the data / references to data with the main information of a
- * player's field: ships and size.
+ * player's field: ships, size of the field and locations with free sea.
  * <p>
  * The location of the ships is stored in the Ship objects themselves.
  * <p>
@@ -30,7 +30,9 @@ public class PlayField {
 	 * freeSea list of this object.
 	 * 
 	 * @param columnCount
+	 *            vertical size of the PlayField
 	 * @param rowCount
+	 *            horizontal size of the PlayField
 	 */
 	public PlayField(int columnCount, int rowCount) {
 		this.columnCount = columnCount;
@@ -46,17 +48,24 @@ public class PlayField {
 		}
 	}
 
-	// TODO: maybe completely move this method to game level
 	/**
+	 * Method called by the Game object. Handles the "shot" by manipulating the
+	 * data of this object, e.g. setting the "isHit" field of a coordinate of a
+	 * ship to "true".
+	 * <p>
 	 * Returns false if this field has already been hit. If false is returned,
 	 * the Game object knows how to deal with this event.
 	 * 
 	 * @param coordinate
-	 * @return
+	 * @return false if the shot did not change anything in the state of the
+	 *         PlayField, e.g. because a particular coordinate had already been
+	 *         hit.
 	 */
 
 	public boolean processShot(Coordinate coordinate) {
 		// checks for a shot in the sea first
+		// Coordinate are considered equal if their x- and y-coordinates are
+		// equal.
 		if (freeSea.contains(coordinate)) {
 			int indexOfHit = freeSea.indexOf(coordinate);
 
@@ -96,29 +105,6 @@ public class PlayField {
 	}
 
 	/**
-	 * Gets the list of coordinates of all ships, regardless of their status
-	 * (hit, sunk, intact).
-	 * 
-	 * @return The list of coordinates where ships are placed in this field.
-	 */
-	public List<Coordinate> getShipsCoordinates() {
-		List<Coordinate> coordinates = new ArrayList<Coordinate>();
-		for (Ship ship : ships) {
-			coordinates.addAll(ship.getShipPositions());
-		}
-		return coordinates;
-	}
-
-	/**
-	 * Gets the list of all coordinates that are no occupied by ships.
-	 * 
-	 * @return coordinates with no ships on them
-	 */
-	public List<Coordinate> getFreeSea() {
-		return freeSea;
-	}
-
-	/**
 	 * Adds a ship to the PlayField. Removes the ship's coordinates from the
 	 * list of coordinates of free sea.
 	 * 
@@ -134,14 +120,16 @@ public class PlayField {
 		}
 	}
 
-	// TODO: throw an exception if the ship cannot be added after some tries
-	// (let's say 50) or if shipSize is bigger than the PlayField
 	/**
 	 * Adds a ship to the PlayField at a random position. Removes the ship's
 	 * coordinates from the list of coordinates of free sea.
 	 * 
-	 * @param ship
-	 *            the ship object to be placed on this PlayField
+	 * @param shipSize
+	 *            the size of the Ship to be created
+	 * @throws IllegalStateException
+	 *             if the ship cannot be placed at a valid position after 100
+	 *             tries (e.g. because the PlayField is already too full to
+	 *             accomodate another Ship object).
 	 */
 	public void addRandomShip(int shipSize) throws IllegalStateException {
 		addShip(new Ship(columnCount, rowCount, shipSize));
@@ -153,6 +141,31 @@ public class PlayField {
 				throw new IllegalStateException();
 			}
 		}
+	}
+
+	/**
+	 * Gets the list of coordinates of all ships, regardless of their status
+	 * (hit, sunk, intact). Useful for objects implementing the Display
+	 * interface, since they only have to "know" how to handle Coordinate
+	 * objects, not also Ship objects.
+	 * 
+	 * @return The list of coordinates where ships are placed in this field.
+	 */
+	public List<Coordinate> getShipsCoordinates() {
+		List<Coordinate> coordinates = new ArrayList<Coordinate>();
+		for (Ship ship : ships) {
+			coordinates.addAll(ship.getShipPositions());
+		}
+		return coordinates;
+	}
+
+	/**
+	 * Gets the list of all coordinates that are not occupied by ships.
+	 * 
+	 * @return coordinates with no ships on them
+	 */
+	public List<Coordinate> getFreeSea() {
+		return freeSea;
 	}
 
 	/**
@@ -196,7 +209,7 @@ public class PlayField {
 
 	/**
 	 * Gets the last ship on this PlayField. Used for different checks of the
-	 * lastly added ship
+	 * lastly added ship.
 	 * 
 	 * @return the last ship in the List<Ship>
 	 * @author uelik
@@ -207,7 +220,7 @@ public class PlayField {
 
 	/**
 	 * Delete a ship on this PlayField and add the free coordinates to freeSea
-	 * (if they are within the playing field)
+	 * (if they are within the playing field).
 	 * 
 	 * @author uelik
 	 * 
@@ -242,10 +255,11 @@ public class PlayField {
 	}
 
 	/**
-	 * Plausibility tests of a new ship. If a ship fails it will be deleted.
+	 * Plausibility tests of a newly added ship. If a ship fails it will be
+	 * deleted.
 	 * 
-	 * @return returns true if the last added ship is in part placed outside of
-	 *         the playField or if it collides with another ship
+	 * @return true if the last added ship is in part placed outside of the
+	 *         playField or if it collides with another ship
 	 * 
 	 * @author uelik
 	 * 
@@ -370,10 +384,13 @@ public class PlayField {
 	 * NORTH,WEST
 	 * 
 	 * @param hitPosition
-	 *            Coordinate of a hit position firstShot Coordinate of the first
-	 *            but unsuccessful shot in the given direction (NORTH for
-	 *            vertical, WEST for horizontal) directionShip the direction of
-	 *            the ship (NORTH for vertical, WEST for horizontal)
+	 *            Coordinate of a hit position
+	 * @param firstShot
+	 *            Coordinate of the first but unsuccessful shot in the given
+	 *            direction (NORTH for vertical, WEST for horizontal)
+	 * @param directionShip
+	 *            the direction of the ship (NORTH for vertical, WEST for
+	 *            horizontal)
 	 * 
 	 * @return Returns a Coordinate with the random position in a given
 	 *         direction
@@ -407,15 +424,16 @@ public class PlayField {
 	}
 
 	/**
-	 * Find the next ship position after the second or more hit. Only positions within
-	 * the playField will be returned.
+	 * Find the next ship position after the second or more hit. Only positions
+	 * within the playField will be returned.
 	 *
 	 * @param hitPosition
 	 *            Coordinate of a hit position woundShip the wounded ship
 	 * 
-	 * @return The next ship position in the direction of the hits. 
-	 * If one direction is hit return the other side. 
-	 * Return a hit field outside of the Playfield if the calculated Coordinate is not within the PlayField
+	 * @return The next ship position in the direction of the hits. If one
+	 *         direction is hit return the other side. Return a hit field
+	 *         outside of the Playfield if the calculated Coordinate is not
+	 *         within the PlayField
 	 * 
 	 * @author uelik
 	 * 
@@ -439,7 +457,7 @@ public class PlayField {
 	/**
 	 * Find a wound ship which is still swimming
 	 * 
-	 * @return the wound ship if there is any return null
+	 * @return the wound ship if there is any; null if there is no wound ship
 	 * 
 	 * @author uelik
 	 * 
@@ -459,8 +477,7 @@ public class PlayField {
 	 * @param coordinateFreeSea
 	 *            Coordinate of free sea
 	 * 
-	 * @return Return true when the Coordinate is in freeSea, otherwise return
-	 *         false
+	 * @return true when the Coordinate is in freeSea, otherwise false
 	 * 
 	 * @author uelik
 	 * 

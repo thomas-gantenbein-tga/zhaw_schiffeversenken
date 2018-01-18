@@ -32,6 +32,10 @@ import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 import ch.zhaw.schiffeversenken.helpers.Directions;
 
+/**
+ * Second screen shown to users. Let's them position their ships.
+ *
+ */
 public class StartScreen02 implements Display {
 	private JFrame frame;
 	private JPanel contentPane;
@@ -39,11 +43,14 @@ public class StartScreen02 implements Display {
 	private int sizeComputerField;
 	private int sizePlayerField;
 	private JTextField shipTailPositionInput;
+
+	// preview of how the player field will look
 	private PlayingFieldPanel playerPreview;
 	private Game game;
 	private Coordinate tailPositionNewShip;
 	private JComboBox<String> shipOrientationDropDown;
 	private JTextField shipSizeInput;
+	// marks the location where the user wants to place the "tail" of the ship
 	private Shape tailMarking;
 
 	public StartScreen02(int sizeComputerField, int sizePlayerField, JFrame frame) {
@@ -53,7 +60,7 @@ public class StartScreen02 implements Display {
 
 		runningGameDisplay = initializeGame();
 
-		contentPane = new JPanel();
+		// styling components
 		JLabel welcomeTextLabel = new JLabel(
 				"Add your ships here. The same number and size of ships will be added to the computer field.");
 		Font settingsFontBold = new Font("Sans Serif", Font.BOLD, welcomeTextLabel.getFont().getSize());
@@ -74,23 +81,22 @@ public class StartScreen02 implements Display {
 		shipOrientationLabel.setFont(settingsFontRegular);
 		shipOrientationDropDown = new JComboBox<String>(new String[] { "North", "East", "South", "West" });
 
-		JButton addShipButton = new JButton("Add ship");
-		JButton startButton = new JButton("Start game");
-
 		playerPreview = new PlayingFieldPanel();
 		int preferredSize = sizePlayerField * 20;
 		playerPreview.setPreferredSize(new Dimension(preferredSize, preferredSize));
-		playerPreview.setMinimumSize(new Dimension(300,300));
+		playerPreview.setMinimumSize(new Dimension(300, 300));
 		playerPreview.setBackground(Color.WHITE);
-		paintPlayerFieldPreview();
+		paintPlayerFieldPreviewGrid();
 
+		// adding components to layout
 		LayoutManager gridBagLayout = new GridBagLayout();
+		contentPane = new JPanel();
+		contentPane.setLayout(gridBagLayout);
+
 		GridBagConstraints gbConstraints = new GridBagConstraints();
 		gbConstraints.fill = GridBagConstraints.NONE;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		gbConstraints.insets = new Insets(15, 15, 5, 15);
-		contentPane.setLayout(gridBagLayout);
-
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 0;
 		gbConstraints.gridwidth = 2;
@@ -121,10 +127,12 @@ public class StartScreen02 implements Display {
 		gbConstraints.gridy = 3;
 		contentPane.add(shipOrientationDropDown, gbConstraints);
 
+		JButton addShipButton = new JButton("Add ship");
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 4;
 		contentPane.add(addShipButton, gbConstraints);
 
+		JButton startButton = new JButton("Start game");
 		gbConstraints.gridx = 0;
 		gbConstraints.gridy = 5;
 		gbConstraints.insets = new Insets(5, 15, 15, 15);
@@ -134,15 +142,21 @@ public class StartScreen02 implements Display {
 		gbConstraints.gridwidth = 2;
 		gbConstraints.gridy = 6;
 		contentPane.add(playerPreview, gbConstraints);
+
 		HoverListener hoverListener = new HoverListener(playerPreview, sizePlayerField, sizePlayerField);
 		playerPreview.addMouseMotionListener(hoverListener);
 		playerPreview.addMouseListener(hoverListener);
 		playerPreview.addMouseListener(new ShipPositioningListener());
 		addShipButton.addActionListener(new AddShipButtonListener());
-
 		startButton.addActionListener(new StartButtonListener());
 	}
 
+	/**
+	 * Gets this screen's content pane. Used by the previous screen to switch
+	 * content pane of the frame.
+	 * 
+	 * @return
+	 */
 	public JPanel getContentPane() {
 		return contentPane;
 	}
@@ -153,16 +167,18 @@ public class StartScreen02 implements Display {
 
 		ComputerPlayer computerPlayer = new ComputerPlayer(sizePlayerField, sizePlayerField);
 
+		// the Game object holds the data
 		game = new Game(playerField, computerField, computerPlayer);
 
+		// the display displays the data of the game and is registered as an
+		// observer of the game object
 		RunningGameDisplay runningGameDisplay = new RunningGameDisplay(game);
-
 		game.registerDisplay(runningGameDisplay);
 
 		return runningGameDisplay;
 	}
 
-	private void paintPlayerFieldPreview() {
+	private void paintPlayerFieldPreviewGrid() {
 		for (int i = 0; i <= sizePlayerField; i++) {
 			Shape line = ShapeFactory.createGridLine(i, sizePlayerField, sizePlayerField, 100, 0);
 			playerPreview.addShape(line);
@@ -175,30 +191,39 @@ public class StartScreen02 implements Display {
 		}
 	}
 
+	/*
+	 * Checks if everything is ready to start the game. If so, it starts the
+	 * game by switching the content pane of this frame with the content pane of
+	 * the RunningGameDisplay which should be registered now as an observer of a
+	 * completely set up Game object.
+	 */
 	private class StartButtonListener implements ActionListener {
-
 
 		public void actionPerformed(ActionEvent e) {
 
 			if (game.getPlayerField().getShips().size() > 0) {
 				for (Ship ship : game.getPlayerField().getShips()) {
+					// addRandomShip explicitly throws an exception if the ship
+					// cannot be place on the computer field, e.g. because it is
+					// already full.
 					try {
 						game.getComputerField().addRandomShip(ship.getShipPositions().size());
-						} catch (IllegalStateException ex) {
-							game.getComputerField().deleteAllShips();
-							game.getPlayerField().deleteAllShips();
-							JOptionPane.showMessageDialog(frame,
-									"Error: Computer ships could not be placed. You placed too many or too big ships on your playing field."
-									+ " Your ships have been deleted. Try again and place fewer or smaller ships.");
-							
-							update();
-							return;
-						}
+					} catch (IllegalStateException ex) {
+						game.getComputerField().deleteAllShips();
+						game.getPlayerField().deleteAllShips();
+						JOptionPane.showMessageDialog(frame,
+								"Error: Computer ships could not be placed. You placed too many or too big ships on your playing field."
+										+ " Your ships have been deleted. Try again and place fewer or smaller ships.");
+
+						update();
+						return;
+					}
 				}
 				runningGameDisplay.update();
 				frame.repaint();
 				frame.setContentPane(runningGameDisplay.getContentPane());
 				frame.pack();
+				//if null is given, frame is centered on the screen
 				frame.setLocationRelativeTo(null);
 				frame.setTitle("Battleships");
 				frame.validate();
@@ -209,6 +234,9 @@ public class StartScreen02 implements Display {
 		}
 	}
 
+	/*
+	 * Adds a shape to the spot where the user seems to want place his/her new ship
+	 */
 	private class ShipPositioningListener extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
 			int size = playerPreview.getSquareSize();
@@ -217,7 +245,7 @@ public class StartScreen02 implements Display {
 			if (posX <= sizePlayerField - 1 && posY <= sizePlayerField - 1) {
 				shipTailPositionInput.setText("x-Position: " + (posX + 1) + " | y-Position: " + (posY + 1));
 				tailPositionNewShip = new Coordinate(posX, posY, false, false);
-				if(tailMarking != null) {
+				if (tailMarking != null) {
 					playerPreview.removeShape(tailMarking);
 				}
 				tailMarking = ShapeFactory.createTailPreviewShape(tailPositionNewShip, sizePlayerField,
@@ -229,7 +257,6 @@ public class StartScreen02 implements Display {
 	}
 
 	private class AddShipButtonListener implements ActionListener {
-
 
 		public void actionPerformed(ActionEvent e) {
 			if (isInputValid()) {
@@ -272,17 +299,16 @@ public class StartScreen02 implements Display {
 		}
 	}
 
-
 	public void update() {
-		//copy of list to avoid concurrent modification
+		// copy of list to avoid concurrent modification
 		List<Shape> shapeListCopy = new ArrayList<Shape>(playerPreview.getShapes());
-		
-		for(Shape shape : shapeListCopy) {
-			if(shape instanceof ShipIntact) {
+
+		for (Shape shape : shapeListCopy) {
+			if (shape instanceof ShipIntact) {
 				playerPreview.removeShape(shape);
 			}
 		}
-		
+
 		for (Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
 			Shape intactShip = ShapeFactory.createShipIntact(coordinate, sizePlayerField, sizePlayerField);
 			playerPreview.addShape(intactShip);

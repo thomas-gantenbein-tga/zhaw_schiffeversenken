@@ -49,9 +49,11 @@ public class Ship {
 		shipPositions = new ArrayList<Coordinate>();
 		this.shipSize = shipSize;
 
+		//sets the starting point of the ship
 		shipPositions.add(new Coordinate((int) (Math.random() * rowCount), (int) (Math.random() * colCount), false,	false));
 		direction = Directions.getRandom();
 		
+		//constructs the rest of the ship
 		setShipPositionsGivenDirectionStartingPoint();
 	}
 
@@ -61,9 +63,9 @@ public class Ship {
 	 * set to false by default. The list of coordinates and the fields of the
 	 * Coordinate objects define the ship's status (intact, hit, sunk).
 	 * 
-	 * @param shipSize	Size (= length) of the ship
-	 * @param direction	The direction where the ship is heading to
-	 * @param headPosition The position of the head of the ship
+	 * @param shipSize	size (= length) of the ship
+	 * @param direction	the direction where the ship is heading to
+	 * @param headPosition the position of the head of the ship
 	 */
 	public Ship(int shipSize, Directions direction, Coordinate headPosition) {
 		shipPositions = new ArrayList<Coordinate>();
@@ -73,8 +75,10 @@ public class Ship {
 		this.shipSize = shipSize;
 		this.direction = direction;
 	
+		//sets the starting point of the ship
 		shipPositions.add(headPosition);
 		
+		//constructs the rest of the ship
 		setShipPositionsGivenDirectionStartingPoint();
 
 	}
@@ -152,13 +156,13 @@ public class Ship {
 	}
 
 	/**
-	 * checks if the ship in the given PlayField
+	 * Checks if the ship in the given PlayField
 	 * 
 	 * @param colCount,
 	 *            rowCount => the size of the PlayField
 	 * 
 	 * @return true if the ship fits in the given PlayField. If it
-	 *         doesn't it returns false
+	 *         doesn't, it returns false
 	 * @author uelik
 	 */
 	public boolean isInPlayfield(int columnCount, int rowCount) {
@@ -176,7 +180,7 @@ public class Ship {
 	}
 
 	/**
-	 * checks if the ship does not cross the one in the parameter
+	 * Checks if the ship does not cross the one in the parameter
 	 * 
 	 * @param shipPositionsCollision,
 	 *            the ship to test the collision with

@@ -82,9 +82,8 @@ public class StartScreen02 implements Display {
 		shipOrientationDropDown = new JComboBox<String>(new String[] { "North", "East", "South", "West" });
 
 		playerPreview = new PlayingFieldPanel();
-		int preferredSize = sizePlayerField * 20;
+		int preferredSize = getPreferredSize(); 
 		playerPreview.setPreferredSize(new Dimension(preferredSize, preferredSize));
-		playerPreview.setMinimumSize(new Dimension(300, 300));
 		playerPreview.setBackground(Color.WHITE);
 		paintPlayerFieldPreviewGrid();
 
@@ -149,6 +148,14 @@ public class StartScreen02 implements Display {
 		playerPreview.addMouseListener(new ShipPositioningListener());
 		addShipButton.addActionListener(new AddShipButtonListener());
 		startButton.addActionListener(new StartButtonListener());
+	}
+
+	private int getPreferredSize() {
+		if(sizePlayerField < 15) {
+			return 300;
+		} else {
+			return sizePlayerField * 20;
+		}
 	}
 
 	/**

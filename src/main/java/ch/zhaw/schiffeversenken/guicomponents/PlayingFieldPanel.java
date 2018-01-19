@@ -73,9 +73,10 @@ public class PlayingFieldPanel extends JPanel {
 
 	/**
 	 * Gets the shape objects held by this PlayingFieldPanel
+	 * Used by Display objects and JUnit test
 	 * @return the shapes of this PlayingFieldPanel
 	 */
-	protected List<Shape> getShapes() {
+	public List<Shape> getShapes() {
 		return shapes;
 	}
 

@@ -182,7 +182,7 @@ public class RunningGameDisplay implements Display {
 			int posY = (int) ((double) e.getY() / size * rowCountComputer);
 			if (posX <= columnCountComputer - 1 && posY <= rowCountComputer - 1) {
 				Coordinate coordinate = new Coordinate(posX, posY, null, null);
-				game.processShot(game.getComputerField(), coordinate);
+				game.processPlayersShot(coordinate);
 			}
 		}
 	}
@@ -285,6 +285,22 @@ public class RunningGameDisplay implements Display {
 	 */
 	public JPanel getContentPane() {
 		return contentPane;
+	}
+
+	/**
+	 * Used for JUnit test, to test the "update" method.
+	 * @return
+	 */
+	public PlayingFieldPanel getPlayerField() {
+		return playerField;
+	}
+	
+	/**
+	 * Used for JUnit test, to test the "update" method.
+	 * @return
+	 */
+	public PlayingFieldPanel getComputerField() {
+		return computerField;
 	}
 
 }

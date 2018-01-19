@@ -40,10 +40,10 @@ public class Game {
 	}
 
 	/**
-	 * Accepts and handles a "shot" (parameter coordinate), i.e. a coordinate
+	 * Accepts and handles a "shot", made by the player, i.e. a coordinate
 	 * with a given target (parameter playField).
 	 * <p>
-	 * Delegates the treatment of the shot to the PlayField concerned. If the
+	 * Delegates the treatment of the shot to the PlayField object. If the
 	 * shot was valid (i.e. the player did not already shoot at the same
 	 * coordinate), the computer player is asked to make its turn. Finally, the
 	 * registered observers are alerted.
@@ -60,8 +60,8 @@ public class Game {
 	 *            The coordinates of the shot. "isHit" and "isSunk" fields of
 	 *            coordinate object can be null.
 	 */
-	public void processShot(PlayField playField, Coordinate shotCoordinate) {
-		if (playField.processShot(shotCoordinate)) {
+	public void processPlayersShot(Coordinate shotCoordinate) {
+		if (computerField.processShot(shotCoordinate)) {
 			if (getSwimmingShips(computerField) != 0) {
 				playerField.processShot(computerPlayer.makeLogicShot(playerField));
 			}

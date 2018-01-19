@@ -58,9 +58,9 @@ public class RunningGameDisplay implements Display {
 		playerField.setBackground(Color.WHITE);
 		int preferredSize;
 		if (rowCountPlayer > rowCountComputer) {
-			preferredSize = rowCountPlayer * 20;
+			preferredSize = getPreferredSize(rowCountPlayer);
 		} else {
-			preferredSize = rowCountComputer * 20;
+			preferredSize = getPreferredSize(rowCountComputer);
 		}
 		playerField.setPreferredSize(new Dimension(preferredSize, preferredSize));
 		playerField.setMinimumSize(new Dimension(300, 300));
@@ -138,6 +138,14 @@ public class RunningGameDisplay implements Display {
 		computerField = new PlayingFieldPanel();
 		mouseListener = new ShootListener();
 
+	}
+	
+	private int getPreferredSize(int size) {
+		if(size < 15) {
+			return 300;
+		} else {
+			return size * 20;
+		}
 	}
 
 	private void drawPlayingFieldsGrid() {

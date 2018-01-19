@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import ch.zhaw.schiffeversenken.guicomponents.shapes.Line;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
 
 /**
@@ -62,6 +63,15 @@ public class PlayingFieldPanel extends JPanel {
 	 */
 	protected void removeShape(Shape shape) {
 		shapes.remove(shape);
+	}
+	
+	protected void removeAllShapesButLines() {
+		List<Shape> copyOfShapes = new ArrayList<Shape>(shapes);
+		for(Shape shape : copyOfShapes) {
+			if(!(shape instanceof Line)) {
+				shapes.remove(shape);
+			}
+		}
 	}
 	/**
 	 * Gets what is smaller: width or height of the PlayingFieldPanel

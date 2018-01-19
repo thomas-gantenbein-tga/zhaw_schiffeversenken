@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
+import ch.zhaw.schiffeversenken.guicomponents.shapes.Line;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
@@ -194,6 +195,9 @@ public class RunningGameDisplay implements Display {
 	 * other objects on the GUI related to their status.
 	 */
 	public void update() {
+		computerField.removeAllShapesButLines();
+		playerField.removeAllShapesButLines();
+		
 		// update computer field
 		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
 			if (coordinate.getIsSunk()) {

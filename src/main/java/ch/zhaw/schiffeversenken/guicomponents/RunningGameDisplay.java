@@ -214,12 +214,6 @@ public class RunningGameDisplay implements Display {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitShip);
 			}
-			// TODO: just for testing; remove this else-Block to hide computer
-			// ships again
-			else {
-				Shape intactShip = ShapeFactory.createShipIntact(coordinate, rowCountComputer, columnCountComputer);
-				computerField.addShape(intactShip);
-			}
 		}
 
 		for (Coordinate coordinate : game.getComputerField().getFreeSea()) {

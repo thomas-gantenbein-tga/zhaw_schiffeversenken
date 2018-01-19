@@ -294,7 +294,7 @@ public class PlayField {
 	 * @author uelik
 	 * 
 	 */
-	public Coordinate getpossibleShipPositionsionsAround1stHit(Coordinate coordinate1stHit) {
+	public Coordinate getPossibleShipPositionsionsAround1stHit(Coordinate coordinate1stHit) {
 		Coordinate coordinateShootPosition = null;
 		// generate coordinates around first hit until it is within the
 		// playField

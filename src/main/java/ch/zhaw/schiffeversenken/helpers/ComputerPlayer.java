@@ -48,7 +48,7 @@ public class ComputerPlayer {
 					// Generate new shootPosition if the first trial was a
 					// hitPosition
 					shootPosition = playerField
-							.getpossibleShipPositionsionsAround1stHit(woundShip.getWoundPositions().get(0));
+							.getPossibleShipPositionsionsAround1stHit(woundShip.getWoundPositions().get(0));
 				} while (playerField.isShipOrFreeSeaCoordinateHit(shootPosition));
 				return shootPosition;
 			}

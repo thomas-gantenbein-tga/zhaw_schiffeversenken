@@ -106,9 +106,6 @@ public class Ship {
 			case WEST:
 				shipPositions.add(new Coordinate(shipPositions.get(i).getxPosition() -1 ,shipPositions.get(i).getyPosition(), false, false));
 				break;
-			default:
-				System.out.println("Richtung nicht programmiert!");
-				break;
 			}
 		}
 	}

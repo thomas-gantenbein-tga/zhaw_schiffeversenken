@@ -1,5 +1,7 @@
 package ch.zhaw.schiffeversenken.data;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,5 +82,12 @@ public class PlayFieldTest {
 		Assert.assertTrue("when all positions have been hit, getIsSunk() should be true",
 				playField.getShips().get(0).isSunk());
 
+	}
+	@Test
+	public void	testGetPossibleShipPositionsionsAround1stHit() {
+		Coordinate testCoordinate0_0 = new Coordinate(0, 0, false, false);
+		Coordinate testCoordinate0_0East = new Coordinate(1, 0, false, false);
+		Coordinate testCoordinate0_0South = new Coordinate(0, 1, false, false);
+		assertTrue("Second shot positon after a corner shot not good",playField.getPossibleShipPositionsionsAround1stHit(testCoordinate0_0).equals(testCoordinate0_0South));
 	}
 }

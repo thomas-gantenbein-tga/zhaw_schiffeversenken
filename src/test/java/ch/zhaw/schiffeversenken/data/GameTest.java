@@ -115,6 +115,7 @@ public class GameTest {
 	 */
 	@Test
 	public void testRegisterDisplay() {
+		// Ship is added to player field to suppress the message "you lost".
 		Ship ship = new Ship(3, Directions.EAST, new Coordinate(0, 0, null, null));
 		playerField.addShip(ship);
 		RunningGameDisplay gameDisplay = new RunningGameDisplay(game);
@@ -124,7 +125,9 @@ public class GameTest {
 		int numberOfShapesBeforeShot = gameDisplay.getComputerField().getShapes().size();
 		game.processPlayersShot(shot);
 		int numberOfShapesAfterShot = gameDisplay.getComputerField().getShapes().size();
-		Assert.assertTrue(numberOfShapesBeforeShot == numberOfShapesAfterShot);
+		Assert.assertTrue(
+				"Display was not registered as observer of game. Thus no shapes should be added after a shot.",
+				numberOfShapesBeforeShot == numberOfShapesAfterShot);
 
 		gameDisplay.update();
 		game.registerDisplay(gameDisplay);
@@ -133,10 +136,10 @@ public class GameTest {
 		shot = new Coordinate(13, 13, null, null);
 		game.processPlayersShot(shot);
 		numberOfShapesAfterShot = gameDisplay.getComputerField().getShapes().size();
-		Assert.assertTrue(numberOfShapesBeforeShot + 1 == numberOfShapesAfterShot);
+		Assert.assertTrue("Display registered, then a shot was made. One shape should have been added to the panel.",
+				numberOfShapesBeforeShot + 1 == numberOfShapesAfterShot);
 
 	}
-
 
 	@Test
 	public void testGetPlayerField() {

@@ -11,9 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -27,7 +24,6 @@ import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.ShipIntact;
 import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;
 import ch.zhaw.schiffeversenken.helpers.Directions;

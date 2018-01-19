@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import ch.zhaw.schiffeversenken.data.Game;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Line;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
 import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
 import ch.zhaw.schiffeversenken.helpers.Coordinate;

@@ -198,7 +198,7 @@ public class StartScreen02 implements Display {
 	 * completely set up Game object.
 	 */
 	private class StartButtonListener implements ActionListener {
-
+		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			if (game.getPlayerField().getShips().size() > 0) {
@@ -298,7 +298,7 @@ public class StartScreen02 implements Display {
 			return true;
 		}
 	}
-
+	@Override
 	public void update() {
 		// copy of list to avoid concurrent modification
 		List<Shape> shapeListCopy = new ArrayList<Shape>(playerPreview.getShapes());

@@ -137,5 +137,12 @@ public class GameTest {
 	public void testGetComputerField() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testmakeRandomShot() {
+		Coordinate testCoordinate = computerPlayer.makeRandomShot();
+		assertTrue("Random Coordiante is not within the Playfield, Coordinate is too big", testCoordinate.getxPosition() > playerField.getColumnCount() & testCoordinate.getyPosition() > playerField.getRowCount());
+		assertTrue("Random Coordiante is not within the Playfield, Coordinate is too small", testCoordinate.getxPosition() < 0 & testCoordinate.getyPosition() < 0);
+	}
 
 }

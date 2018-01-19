@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.guicomponents.shapes;
 
 import java.awt.Color;
 
@@ -6,8 +6,8 @@ import ch.zhaw.schiffeversenken.helpers.Coordinate;
 
 /**
  * Convenience class to produce shape objects located at specific coordinates.
- * Eliminates the need to translate from the "coordinate" form on which the game
- * is based into the "number of pixels" form on which the GUI is based.
+ * Eliminates the need to translate the "coordinate" form (on which the game
+ * is based) into the "number of pixels" form (on which the GUI is based).
  *
  */
 public class ShapeFactory {
@@ -27,7 +27,7 @@ public class ShapeFactory {
 	 *            in percent of the size of the playing field
 	 * @return line Shape
 	 */
-	protected static Shape createGridLine(int index, int rowCount, int columnCount, int width, int height) {
+	public static Shape createGridLine(int index, int rowCount, int columnCount, int width, int height) {
 		double xPosition;
 		double yPosition;
 
@@ -45,7 +45,7 @@ public class ShapeFactory {
 	/**
 	 * Creates the symbol for an intact position of a ship.
 	 */
-	protected static Shape createShipIntact(Coordinate coordinate, int rowCount, int columnCount) {
+	public static Shape createShipIntact(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 
@@ -58,7 +58,7 @@ public class ShapeFactory {
 	/**
 	 * Creates the symbol for a hit position of a ship.
 	 */
-	protected static Shape createShipHit(Coordinate coordinate, int rowCount, int columnCount) {
+	public static Shape createShipHit(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 
@@ -71,7 +71,7 @@ public class ShapeFactory {
 	/**
 	 * Creates the symbol for a hit position of the sea.
 	 */
-	protected static Shape createSeaHit(Coordinate coordinate, int rowCount, int columnCount) {
+	public static Shape createSeaHit(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 
@@ -84,7 +84,7 @@ public class ShapeFactory {
 	/**
 	 * Creates the shape to be drawn on the coordinate over which the human player's mouse hover.
 	 */
-	protected static Shape createHoverShape(Coordinate coordinate, int rowCount, int columnCount) {
+	public static Shape createHoverShape(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 
@@ -97,7 +97,7 @@ public class ShapeFactory {
 	/**
 	 * Creates the symbol for a position of a fully destroyed ship.
 	 */
-	protected static Shape createShipSunk(Coordinate coordinate, int rowCount, int columnCount) {
+	public static Shape createShipSunk(Coordinate coordinate, int rowCount, int columnCount) {
 		int xCoordinate = coordinate.getxPosition();
 		int yCoordinate = coordinate.getyPosition();
 
@@ -106,5 +106,19 @@ public class ShapeFactory {
 				100.0 / columnCount * 0.8, Color.BLACK);
 		return shipSunk;
 	}
+	
+	/**
+	 * Creates the shape to be drawn on the coordinate over which the human player's mouse hover.
+	 */
+	public static Shape createTailPreviewShape(Coordinate coordinate, int rowCount, int columnCount) {
+		int xCoordinate = coordinate.getxPosition();
+		int yCoordinate = coordinate.getyPosition();
+
+		Shape tailPreviewShape = new TailPreviewShape(xCoordinate * 100.0 / columnCount + 100.0 / columnCount / 2,
+				yCoordinate * 100.0 / rowCount + 100.0 / rowCount / 2, 100.0 / columnCount, 100.0 / columnCount,
+				Color.BLACK);
+		return tailPreviewShape;
+	}
+
 
 }

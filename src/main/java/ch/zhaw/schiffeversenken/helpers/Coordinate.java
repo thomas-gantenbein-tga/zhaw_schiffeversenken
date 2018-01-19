@@ -5,7 +5,7 @@ import ch.zhaw.schiffeversenken.data.PlayField;
 /**
  * Represents positions on a x- and y-axis and also holds other information: Was
  * this position shot at before and does this position contain a fully destroyed
- * ship. Could later be used to also contain "bonuses" such as triple shot for
+ * ship? Could later be used to also contain "bonuses" such as triple shot for
  * the player.
  *
  */

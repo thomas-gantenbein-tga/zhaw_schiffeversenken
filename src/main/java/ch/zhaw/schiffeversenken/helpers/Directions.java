@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.data;
+package ch.zhaw.schiffeversenken.helpers;
 /**
  * List with directions
  * @author uelik
@@ -17,4 +17,5 @@ public enum Directions{
 	  public static Directions getRandom() {	
 	      return values()[(int) (Math.random() * values().length)];
 	  }
+	  
 }

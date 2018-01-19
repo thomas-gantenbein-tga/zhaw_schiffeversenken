@@ -36,6 +36,12 @@ public class GameTest {
 
 	}
 
+	/**
+	 * Makes three shots. First is valid, second is aimed at the same
+	 * coordinate, third is valid again. Then shoots at all coordinates of the
+	 * computer field. Checks whether status of PlayingFields changes
+	 * accordingly.
+	 */
 	@Test
 	public void testProcessPlayersShot() {
 		Coordinate shot = new Coordinate(14, 14, null, null);
@@ -46,9 +52,8 @@ public class GameTest {
 				game.getComputerField().getFreeSea().get(shotIndex).getIsHit());
 
 		int numberOfHits = getNumberOfHits(game.getPlayerField());
-		Assert.assertTrue(
-				"After player's shot, the computer should shoot, too. Number of hits on player's field should be == 1",
-				numberOfHits == 1);
+		Assert.assertTrue("After player's shot, the computer should shoot, too. "
+				+ "Number of hits on player's field should be == 1", numberOfHits == 1);
 
 		game.processPlayersShot(shot);
 		numberOfHits = getNumberOfHits(game.getPlayerField());
@@ -62,7 +67,7 @@ public class GameTest {
 				+ "Number of hits on player's field should be == 2", numberOfHits == 2);
 
 		numberOfHits = getNumberOfHits(game.getComputerField());
-		Assert.assertTrue("Made two shots at computer field." + "Number of hits on computers's field should be == 2",
+		Assert.assertTrue("Made two shots at computer field. Number of hits on computers's field should be == 2",
 				numberOfHits == 2);
 
 		List<Coordinate> allCoordinates = getAllCoordinatesPlayerField();
@@ -72,7 +77,7 @@ public class GameTest {
 		}
 
 		numberOfHits = getNumberOfHits(game.getComputerField());
-		Assert.assertTrue("Shot at all positions on computer field. " + "Number of hits on playing field should be 225",
+		Assert.assertTrue("Shot at all positions on computer field. Number of hits on playing field should be 225",
 				numberOfHits == 225);
 	}
 
@@ -103,39 +108,48 @@ public class GameTest {
 		return numberOfHits;
 	}
 
+	/**
+	 * Makes a shot at PlayingField before a Display is registered. Then
+	 * registers the Display, makes a shot and checks whether the Display now
+	 * contains one more shape.
+	 */
 	@Test
 	public void testRegisterDisplay() {
 		Ship ship = new Ship(3, Directions.EAST, new Coordinate(0, 0, null, null));
 		playerField.addShip(ship);
 		RunningGameDisplay gameDisplay = new RunningGameDisplay(game);
+		gameDisplay.update();
+
 		Coordinate shot = new Coordinate(14, 14, null, null);
 		int numberOfShapesBeforeShot = gameDisplay.getComputerField().getShapes().size();
 		game.processPlayersShot(shot);
 		int numberOfShapesAfterShot = gameDisplay.getComputerField().getShapes().size();
-
 		Assert.assertTrue(numberOfShapesBeforeShot == numberOfShapesAfterShot);
 
+		gameDisplay.update();
 		game.registerDisplay(gameDisplay);
-		game.processPlayersShot(shot);
-		
+
 		numberOfShapesBeforeShot = gameDisplay.getComputerField().getShapes().size();
 		shot = new Coordinate(13, 13, null, null);
 		game.processPlayersShot(shot);
 		numberOfShapesAfterShot = gameDisplay.getComputerField().getShapes().size();
-		
 		Assert.assertTrue(numberOfShapesBeforeShot + 1 == numberOfShapesAfterShot);
 
-		// gameDisplay.
 	}
+
 
 	@Test
 	public void testGetPlayerField() {
-		fail("Not yet implemented");
+		PlayField playerField = game.getPlayerField();
+		Assert.assertNotNull(playerField);
+		Assert.assertTrue(playerField.getFreeSea().size() == 225);
 	}
 
 	@Test
 	public void testGetComputerField() {
-		fail("Not yet implemented");
+		PlayField computerField = game.getComputerField();
+		Assert.assertNotNull(computerField);
+		Assert.assertTrue(computerField.getFreeSea().size() == 897);
 	}
 
 }

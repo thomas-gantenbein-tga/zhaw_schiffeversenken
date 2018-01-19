@@ -301,13 +301,7 @@ public class StartScreen02 implements Display {
 
 	public void update() {
 		// copy of list to avoid concurrent modification
-		List<Shape> shapeListCopy = new ArrayList<Shape>(playerPreview.getShapes());
-
-		for (Shape shape : shapeListCopy) {
-			if (shape instanceof ShipIntact) {
-				playerPreview.removeShape(shape);
-			}
-		}
+		playerPreview.removeAllShapesButLines();
 
 		for (Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
 			Shape intactShip = ShapeFactory.createShipIntact(coordinate, sizePlayerField, sizePlayerField);

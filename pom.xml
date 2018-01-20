@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ch.zhaw.mas11.projektarbeit</groupId>
   <artifactId>schiffeversenken</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Schiffeversenken</name>
   <description>Einfaches Schifferversenken-Spiel</description>
   
@@ -39,4 +39,7 @@
   		<scope>test</scope>
   	</dependency>
   </dependencies>
+  <scm>
+  	<url>https://github.com/thomas-gantenbein-tga/zhaw_schiffeversenken</url>
+  </scm>
 </project>

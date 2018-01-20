@@ -417,6 +417,7 @@ public class PlayField {
 			else
 				shootPosition = new Coordinate(hitPosition.getxPosition() + 1, hitPosition.getyPosition(), false,
 						false);
+			break;
 		default:
 			System.out.println("Richtung nicht programmiert!");
 		}

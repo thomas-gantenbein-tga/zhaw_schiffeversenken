@@ -62,7 +62,7 @@ public class PlayField {
 	 *         hit.
 	 */
 
-	public boolean processShot(Coordinate coordinate) {
+	protected boolean processShot(Coordinate coordinate) {
 		// checks for a shot in the sea first
 		// Coordinate are considered equal if their x- and y-coordinates are
 		// equal.

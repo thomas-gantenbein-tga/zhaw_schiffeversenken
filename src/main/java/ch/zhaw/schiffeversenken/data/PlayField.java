@@ -217,6 +217,16 @@ public class PlayField {
 	public Ship getLastShip() {
 		return ships.get(ships.size() - 1);
 	}
+	
+	protected int getSwimmingShips() {
+		int remainingShips = 0;
+		for (Ship ship : ships) {
+			if (!ship.isSunk()) {
+				remainingShips++;
+			}
+		}
+		return remainingShips;
+	}
 
 	/**
 	 * Delete a ship on this PlayField and add the free coordinates to freeSea

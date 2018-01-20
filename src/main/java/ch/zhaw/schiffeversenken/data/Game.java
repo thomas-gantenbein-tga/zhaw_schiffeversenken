@@ -107,14 +107,7 @@ public class Game {
 	}
 
 	private int getSwimmingShips(PlayField playField) {
-		int remainingShips = 0;
-		List<Ship> ships = playField.getShips();
-		for (Ship ship : ships) {
-			if (!ship.isSunk()) {
-				remainingShips++;
-			}
-		}
-		return remainingShips;
+		return playField.getSwimmingShips();
 	}
 
 }

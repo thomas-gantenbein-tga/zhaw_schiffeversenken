@@ -107,6 +107,15 @@ public class Coordinate {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + xPosition;
+		result = prime * result + yPosition;
+		return result;
+	}
 
 	/**
 	 * Checks if the Coordinate is in the PlayField

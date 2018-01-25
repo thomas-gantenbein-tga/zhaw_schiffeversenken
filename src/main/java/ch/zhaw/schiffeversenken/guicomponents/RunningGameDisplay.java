@@ -80,12 +80,12 @@ public class RunningGameDisplay implements Display {
 		gbConstraints.weighty = 0;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		JMenuItem fileMenuOpen = new JMenuItem("Open");
-		fileMenu.add(fileMenuOpen);
-		menuBar.add(fileMenu);
-		contentPane.add(menuBar, gbConstraints);
+//		JMenuBar menuBar = new JMenuBar();
+//		JMenu fileMenu = new JMenu("File");
+//		JMenuItem fileMenuOpen = new JMenuItem("Open");
+//		fileMenu.add(fileMenuOpen);
+//		menuBar.add(fileMenu);
+//		contentPane.add(menuBar, gbConstraints);
 
 		JLabel labelPlayer = new JLabel("Player");
 		gbConstraints.gridx = 0;

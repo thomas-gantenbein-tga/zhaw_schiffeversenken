@@ -258,9 +258,20 @@ public class RunningGameDisplay implements Display {
 		remainingShips = getSwimmingShips(game.getPlayerField());
 		if (remainingShips == 0) {
 			showDefeat();
+			showRemainingComputerShips();
 			computerField.removeMouseListener(mouseListener);
 		}
 		labelShipsPlayer.setText("Remaining ships: " + remainingShips);
+	}
+
+	private void showRemainingComputerShips() {
+		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
+			if (!coordinate.getIsHit()) {
+				Shape intactShip = ShapeFactory.createShipIntact(coordinate, rowCountComputer, columnCountComputer);
+				computerField.addShape(intactShip);
+				computerField.repaint();
+			}
+		}
 	}
 
 	private int getSwimmingShips(PlayField playField) {

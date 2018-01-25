@@ -19,6 +19,12 @@ public class ComputerPlayer {
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
 	}
+	
+	/**
+	 * A random Coordinate within the player's field will be generated and returned
+	 * 
+	 * @return a random Coordiante within the player's field
+	 */	
 
 	public Coordinate makeRandomShot() {
 		int xCoordinate = randomGenerator.nextInt(rowCount);
@@ -28,8 +34,16 @@ public class ComputerPlayer {
 	}
 
 	/**
+	 * Calculates the next possible shoot Coordinate on the player's field with a human like logic
+	 * 1st it looks if a ship is hit only once and does random shoths around it
+	 * 2nd it will check the direction of the hits and will shoot on a random end of the ship.
+	 * If the random end is hit it will shoot at the other end.
+	 * When there is no wound ship it will make a random shot at the player's field
 	 * 
-	 * 
+	 *  @param playerField
+	 *  		the field to shoot at
+	 *  
+	 *  @author uelik
 	 */
 	public Coordinate makeLogicShot(PlayField playerField) {
 		Coordinate shootPosition = null;
@@ -38,7 +52,6 @@ public class ComputerPlayer {
 
 		woundShip = playerField.getWoundButSwimmingShip();
 		// check if a ship is wound
-		// shootPosition = playerField.possibleShipPositionsionsAround1stHit();
 		if (woundShip != null) {
 			// check it the wound ship is hit only once
 			if (woundShip.getWoundPositions().size() <= 1) {

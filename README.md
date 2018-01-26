@@ -5,8 +5,8 @@ Team: Thomas Gantenbein, Ueli Krapf
 ## Ausgangslage und Ziel 
 Das Entwicklerteam hat keine Erfahrung in Java-Programmierung und hat sich deshalb eine gut eingrenzbare, konkrete Aufgabe gestellt: Entwickelt werden sollte eine Java-Version des Spiels Schiffeversenken. Das Programm soll lokal ausgeführt werden können, ein Mensch soll gegen einen Computergegner spielen können, der Computerspieler soll eine gewisse Intelligenz aufweisen und das Spielfeld soll flexibel gestaltet werden können (Grösse der Felder, Anzahl und Grösse der Schiffe). 
 
-## Realisierung
-ShapeNach einem Doppelklick auf das JAR öffnet sich ein erstes Fenster. Darauf können die Grössen der Spielfelder eingegeben werden. 
+## Spielanleitung
+Nach einem Doppelklick auf das JAR öffnet sich ein erstes Fenster. Darauf können die Grössen der Spielfelder eingegeben werden. 
 
 Als Nächstes können die Schiffe auf dem eigenen Spielfeld platziert werden. Mit Klick auf das angezeigte Spielfeld kann das Heck des Schiffs platziert werden. Als Richtung kann aus den vier Himmelsrichtungen ausgewählt werden. Die Grösse des Schiffs wird als Zahl eingegeben. 
 

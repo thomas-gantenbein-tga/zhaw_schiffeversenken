@@ -1,12 +1,12 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
 
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.data.Coordinate;
+import ch.zhaw.schiffeversenken.view.shapes.Shape;
+import ch.zhaw.schiffeversenken.view.shapes.ShapeFactory;
 
 /**
  * Draws a rectangular at the current position of the mouse over the computer

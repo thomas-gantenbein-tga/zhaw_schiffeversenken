@@ -3,8 +3,7 @@ package ch.zhaw.schiffeversenken.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
-import ch.zhaw.schiffeversenken.helpers.Directions;
+import ch.zhaw.schiffeversenken.model.Directions;
 
 /**
  * Simple Ship representation. Has only a position (list of coordinates). The
@@ -105,9 +104,6 @@ public class Ship {
 				break;
 			case WEST:
 				shipPositions.add(new Coordinate(shipPositions.get(i).getxPosition() -1 ,shipPositions.get(i).getyPosition(), false, false));
-				break;
-			default:
-				System.out.println("Richtung nicht programmiert!");
 				break;
 			}
 		}

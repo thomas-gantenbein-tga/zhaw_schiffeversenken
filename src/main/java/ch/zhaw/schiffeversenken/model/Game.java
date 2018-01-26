@@ -1,11 +1,11 @@
-package ch.zhaw.schiffeversenken.data;
+package ch.zhaw.schiffeversenken.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zhaw.schiffeversenken.guicomponents.Display;
-import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.data.Coordinate;
+import ch.zhaw.schiffeversenken.data.PlayField;
+import ch.zhaw.schiffeversenken.view.Display;
 
 /**
  * Handles the logic of the game. Also acts as the main interface with the GUI
@@ -40,10 +40,10 @@ public class Game {
 	}
 
 	/**
-	 * Accepts and handles a "shot" (parameter coordinate), i.e. a coordinate
+	 * Accepts and handles a "shot", made by the player, i.e. a coordinate
 	 * with a given target (parameter playField).
 	 * <p>
-	 * Delegates the treatment of the shot to the PlayField concerned. If the
+	 * Delegates the treatment of the shot to the PlayField object. If the
 	 * shot was valid (i.e. the player did not already shoot at the same
 	 * coordinate), the computer player is asked to make its turn. Finally, the
 	 * registered observers are alerted.
@@ -60,8 +60,8 @@ public class Game {
 	 *            The coordinates of the shot. "isHit" and "isSunk" fields of
 	 *            coordinate object can be null.
 	 */
-	public void processShot(PlayField playField, Coordinate shotCoordinate) {
-		if (playField.processShot(shotCoordinate)) {
+	public void processPlayersShot(Coordinate shotCoordinate) {
+		if (computerField.processShot(shotCoordinate)) {
 			if (getSwimmingShips(computerField) != 0) {
 				playerField.processShot(computerPlayer.makeLogicShot(playerField));
 			}
@@ -107,14 +107,7 @@ public class Game {
 	}
 
 	private int getSwimmingShips(PlayField playField) {
-		int remainingShips = 0;
-		List<Ship> ships = playField.getShips();
-		for (Ship ship : ships) {
-			if (!ship.isSunk()) {
-				remainingShips++;
-			}
-		}
-		return remainingShips;
+		return playField.getSwimmingShips();
 	}
 
 }

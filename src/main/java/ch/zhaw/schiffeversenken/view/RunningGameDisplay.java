@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,12 +18,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import ch.zhaw.schiffeversenken.data.Game;
+import ch.zhaw.schiffeversenken.data.Coordinate;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.model.Game;
+import ch.zhaw.schiffeversenken.view.shapes.Shape;
+import ch.zhaw.schiffeversenken.view.shapes.ShapeFactory;
 
 /**
  * GUI to interact with the Game object. Active when the game is set up and
@@ -57,9 +57,9 @@ public class RunningGameDisplay implements Display {
 		playerField.setBackground(Color.WHITE);
 		int preferredSize;
 		if (rowCountPlayer > rowCountComputer) {
-			preferredSize = rowCountPlayer * 20;
+			preferredSize = getPreferredSize(rowCountPlayer);
 		} else {
-			preferredSize = rowCountComputer * 20;
+			preferredSize = getPreferredSize(rowCountComputer);
 		}
 		playerField.setPreferredSize(new Dimension(preferredSize, preferredSize));
 		playerField.setMinimumSize(new Dimension(300, 300));
@@ -80,12 +80,12 @@ public class RunningGameDisplay implements Display {
 		gbConstraints.weighty = 0;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		JMenuItem fileMenuOpen = new JMenuItem("Open");
-		fileMenu.add(fileMenuOpen);
-		menuBar.add(fileMenu);
-		contentPane.add(menuBar, gbConstraints);
+//		JMenuBar menuBar = new JMenuBar();
+//		JMenu fileMenu = new JMenu("File");
+//		JMenuItem fileMenuOpen = new JMenuItem("Open");
+//		fileMenu.add(fileMenuOpen);
+//		menuBar.add(fileMenu);
+//		contentPane.add(menuBar, gbConstraints);
 
 		JLabel labelPlayer = new JLabel("Player");
 		gbConstraints.gridx = 0;
@@ -138,6 +138,14 @@ public class RunningGameDisplay implements Display {
 		mouseListener = new ShootListener();
 
 	}
+	
+	private int getPreferredSize(int size) {
+		if(size < 15) {
+			return 300;
+		} else {
+			return size * 20;
+		}
+	}
 
 	private void drawPlayingFieldsGrid() {
 		// draw lines for player field
@@ -182,7 +190,7 @@ public class RunningGameDisplay implements Display {
 			int posY = (int) ((double) e.getY() / size * rowCountComputer);
 			if (posX <= columnCountComputer - 1 && posY <= rowCountComputer - 1) {
 				Coordinate coordinate = new Coordinate(posX, posY, null, null);
-				game.processShot(game.getComputerField(), coordinate);
+				game.processPlayersShot(coordinate);
 			}
 		}
 	}
@@ -194,6 +202,9 @@ public class RunningGameDisplay implements Display {
 	 * other objects on the GUI related to their status.
 	 */
 	public void update() {
+		computerField.removeAllShapesButLines();
+		playerField.removeAllShapesButLines();
+		
 		// update computer field
 		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
 			if (coordinate.getIsSunk()) {
@@ -202,12 +213,6 @@ public class RunningGameDisplay implements Display {
 			} else if (coordinate.getIsHit()) {
 				Shape hitShip = ShapeFactory.createShipHit(coordinate, rowCountComputer, columnCountComputer);
 				computerField.addShape(hitShip);
-			}
-			// TODO: just for testing; remove this else-Block to hide computer
-			// ships again
-			else {
-				Shape intactShip = ShapeFactory.createShipIntact(coordinate, rowCountComputer, columnCountComputer);
-				computerField.addShape(intactShip);
 			}
 		}
 
@@ -253,9 +258,20 @@ public class RunningGameDisplay implements Display {
 		remainingShips = getSwimmingShips(game.getPlayerField());
 		if (remainingShips == 0) {
 			showDefeat();
+			showRemainingComputerShips();
 			computerField.removeMouseListener(mouseListener);
 		}
 		labelShipsPlayer.setText("Remaining ships: " + remainingShips);
+	}
+
+	private void showRemainingComputerShips() {
+		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
+			if (!coordinate.getIsHit()) {
+				Shape intactShip = ShapeFactory.createShipIntact(coordinate, rowCountComputer, columnCountComputer);
+				computerField.addShape(intactShip);
+				computerField.repaint();
+			}
+		}
 	}
 
 	private int getSwimmingShips(PlayField playField) {
@@ -285,6 +301,22 @@ public class RunningGameDisplay implements Display {
 	 */
 	public JPanel getContentPane() {
 		return contentPane;
+	}
+
+	/**
+	 * Used for JUnit test, to test the "update" method.
+	 * @return
+	 */
+	public PlayingFieldPanel getPlayerField() {
+		return playerField;
+	}
+	
+	/**
+	 * Used for JUnit test, to test the "update" method.
+	 * @return
+	 */
+	public PlayingFieldPanel getComputerField() {
+		return computerField;
 	}
 
 }

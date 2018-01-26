@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics;
@@ -8,7 +8,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
+import ch.zhaw.schiffeversenken.view.shapes.Line;
+import ch.zhaw.schiffeversenken.view.shapes.Shape;
 
 /**
  * Graphical representation of a PlayField object. Has a given size and holds a
@@ -63,6 +64,15 @@ public class PlayingFieldPanel extends JPanel {
 	protected void removeShape(Shape shape) {
 		shapes.remove(shape);
 	}
+	
+	protected void removeAllShapesButLines() {
+		List<Shape> copyOfShapes = new ArrayList<Shape>(shapes);
+		for(Shape shape : copyOfShapes) {
+			if(!(shape instanceof Line)) {
+				shapes.remove(shape);
+			}
+		}
+	}
 	/**
 	 * Gets what is smaller: width or height of the PlayingFieldPanel
 	 * @return width if width<height; height if height<width
@@ -73,9 +83,10 @@ public class PlayingFieldPanel extends JPanel {
 
 	/**
 	 * Gets the shape objects held by this PlayingFieldPanel
+	 * Used by Display objects and JUnit test
 	 * @return the shapes of this PlayingFieldPanel
 	 */
-	protected List<Shape> getShapes() {
+	public List<Shape> getShapes() {
 		return shapes;
 	}
 

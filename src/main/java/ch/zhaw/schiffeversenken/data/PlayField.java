@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
-import ch.zhaw.schiffeversenken.helpers.Directions;
+import ch.zhaw.schiffeversenken.model.Directions;
 
 /**
  * Contains the data / references to data with the main information of a
@@ -217,6 +216,16 @@ public class PlayField {
 	public Ship getLastShip() {
 		return ships.get(ships.size() - 1);
 	}
+	
+	public int getSwimmingShips() {
+		int remainingShips = 0;
+		for (Ship ship : ships) {
+			if (!ship.isSunk()) {
+				remainingShips++;
+			}
+		}
+		return remainingShips;
+	}
 
 	/**
 	 * Delete a ship on this PlayField and add the free coordinates to freeSea
@@ -294,7 +303,7 @@ public class PlayField {
 	 * @author uelik
 	 * 
 	 */
-	public Coordinate getpossibleShipPositionsionsAround1stHit(Coordinate coordinate1stHit) {
+	public Coordinate getPossibleShipPositionsionsAround1stHit(Coordinate coordinate1stHit) {
 		Coordinate coordinateShootPosition = null;
 		// generate coordinates around first hit until it is within the
 		// playField
@@ -417,6 +426,7 @@ public class PlayField {
 			else
 				shootPosition = new Coordinate(hitPosition.getxPosition() + 1, hitPosition.getyPosition(), false,
 						false);
+			break;
 		default:
 			System.out.println("Richtung nicht programmiert!");
 		}

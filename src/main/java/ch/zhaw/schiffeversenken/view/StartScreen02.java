@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,9 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -22,15 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.zhaw.schiffeversenken.data.Game;
+import ch.zhaw.schiffeversenken.data.Coordinate;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.ShipIntact;
-import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
-import ch.zhaw.schiffeversenken.helpers.Directions;
+import ch.zhaw.schiffeversenken.model.ComputerPlayer;
+import ch.zhaw.schiffeversenken.model.Directions;
+import ch.zhaw.schiffeversenken.model.Game;
+import ch.zhaw.schiffeversenken.view.shapes.Shape;
+import ch.zhaw.schiffeversenken.view.shapes.ShapeFactory;
 
 /**
  * Second screen shown to users. Let's them position their ships.
@@ -82,9 +78,8 @@ public class StartScreen02 implements Display {
 		shipOrientationDropDown = new JComboBox<String>(new String[] { "North", "East", "South", "West" });
 
 		playerPreview = new PlayingFieldPanel();
-		int preferredSize = sizePlayerField * 20;
+		int preferredSize = getPreferredSize(); 
 		playerPreview.setPreferredSize(new Dimension(preferredSize, preferredSize));
-		playerPreview.setMinimumSize(new Dimension(300, 300));
 		playerPreview.setBackground(Color.WHITE);
 		paintPlayerFieldPreviewGrid();
 
@@ -151,6 +146,14 @@ public class StartScreen02 implements Display {
 		startButton.addActionListener(new StartButtonListener());
 	}
 
+	private int getPreferredSize() {
+		if(sizePlayerField < 15) {
+			return 300;
+		} else {
+			return sizePlayerField * 20;
+		}
+	}
+
 	/**
 	 * Gets this screen's content pane. Used by the previous screen to switch
 	 * content pane of the frame.
@@ -198,7 +201,7 @@ public class StartScreen02 implements Display {
 	 * completely set up Game object.
 	 */
 	private class StartButtonListener implements ActionListener {
-
+		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			if (game.getPlayerField().getShips().size() > 0) {
@@ -216,6 +219,7 @@ public class StartScreen02 implements Display {
 										+ " Your ships have been deleted. Try again and place fewer or smaller ships.");
 
 						update();
+						frame.repaint();
 						return;
 					}
 				}
@@ -298,16 +302,10 @@ public class StartScreen02 implements Display {
 			return true;
 		}
 	}
-
+	@Override
 	public void update() {
 		// copy of list to avoid concurrent modification
-		List<Shape> shapeListCopy = new ArrayList<Shape>(playerPreview.getShapes());
-
-		for (Shape shape : shapeListCopy) {
-			if (shape instanceof ShipIntact) {
-				playerPreview.removeShape(shape);
-			}
-		}
+		playerPreview.removeAllShapesButLines();
 
 		for (Coordinate coordinate : game.getPlayerField().getShipsCoordinates()) {
 			Shape intactShip = ShapeFactory.createShipIntact(coordinate, sizePlayerField, sizePlayerField);

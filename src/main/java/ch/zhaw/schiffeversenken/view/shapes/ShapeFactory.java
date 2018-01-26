@@ -1,8 +1,8 @@
-package ch.zhaw.schiffeversenken.guicomponents.shapes;
+package ch.zhaw.schiffeversenken.view.shapes;
 
 import java.awt.Color;
 
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.data.Coordinate;
 
 /**
  * Convenience class to produce shape objects located at specific coordinates.

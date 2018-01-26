@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.Container;
 import java.awt.Font;

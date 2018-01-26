@@ -1,6 +1,4 @@
-package ch.zhaw.schiffeversenken.helpers;
-
-import ch.zhaw.schiffeversenken.data.PlayField;
+package ch.zhaw.schiffeversenken.data;
 
 /**
  * Represents positions on a x- and y-axis and also holds other information: Was
@@ -106,6 +104,15 @@ public class Coordinate {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + xPosition;
+		result = prime * result + yPosition;
+		return result;
 	}
 
 	/**

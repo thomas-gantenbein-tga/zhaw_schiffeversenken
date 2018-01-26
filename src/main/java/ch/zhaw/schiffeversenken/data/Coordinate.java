@@ -1,6 +1,4 @@
-package ch.zhaw.schiffeversenken.helpers;
-
-import ch.zhaw.schiffeversenken.data.PlayField;
+package ch.zhaw.schiffeversenken.data;
 
 /**
  * Represents positions on a x- and y-axis and also holds other information: Was

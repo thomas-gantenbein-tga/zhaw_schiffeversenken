@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.data;
+package ch.zhaw.schiffeversenken.model;
 
 import static org.junit.Assert.*;
 
@@ -8,8 +8,9 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.data.Coordinate;
+import ch.zhaw.schiffeversenken.data.PlayField;
+import ch.zhaw.schiffeversenken.model.ComputerPlayer;
 
 public class ComputerPlayerTest {
 	private ComputerPlayer computerPlayer;

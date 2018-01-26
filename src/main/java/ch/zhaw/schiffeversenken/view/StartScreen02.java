@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,14 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import ch.zhaw.schiffeversenken.data.Game;
+import ch.zhaw.schiffeversenken.data.Coordinate;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
-import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
-import ch.zhaw.schiffeversenken.helpers.Directions;
+import ch.zhaw.schiffeversenken.model.ComputerPlayer;
+import ch.zhaw.schiffeversenken.model.Directions;
+import ch.zhaw.schiffeversenken.model.Game;
+import ch.zhaw.schiffeversenken.view.shapes.Shape;
+import ch.zhaw.schiffeversenken.view.shapes.ShapeFactory;
 
 /**
  * Second screen shown to users. Let's them position their ships.

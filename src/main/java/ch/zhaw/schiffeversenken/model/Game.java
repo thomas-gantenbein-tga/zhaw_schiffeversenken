@@ -1,11 +1,11 @@
-package ch.zhaw.schiffeversenken.data;
+package ch.zhaw.schiffeversenken.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zhaw.schiffeversenken.guicomponents.Display;
-import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.data.Coordinate;
+import ch.zhaw.schiffeversenken.data.PlayField;
+import ch.zhaw.schiffeversenken.view.Display;
 
 /**
  * Handles the logic of the game. Also acts as the main interface with the GUI

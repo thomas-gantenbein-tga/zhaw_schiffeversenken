@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,12 +18,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import ch.zhaw.schiffeversenken.data.Game;
+import ch.zhaw.schiffeversenken.data.Coordinate;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.ShapeFactory;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
+import ch.zhaw.schiffeversenken.model.Game;
+import ch.zhaw.schiffeversenken.view.shapes.Shape;
+import ch.zhaw.schiffeversenken.view.shapes.ShapeFactory;
 
 /**
  * GUI to interact with the Game object. Active when the game is set up and

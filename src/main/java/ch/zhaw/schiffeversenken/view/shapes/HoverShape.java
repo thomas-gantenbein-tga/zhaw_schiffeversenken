@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents.shapes;
+package ch.zhaw.schiffeversenken.view.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

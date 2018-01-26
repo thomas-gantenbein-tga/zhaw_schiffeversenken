@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
-import ch.zhaw.schiffeversenken.helpers.Directions;
+import ch.zhaw.schiffeversenken.model.Directions;
 
 /**
  * Contains the data / references to data with the main information of a
@@ -62,7 +61,7 @@ public class PlayField {
 	 *         hit.
 	 */
 
-	protected boolean processShot(Coordinate coordinate) {
+	public boolean processShot(Coordinate coordinate) {
 		// checks for a shot in the sea first
 		// Coordinate are considered equal if their x- and y-coordinates are
 		// equal.
@@ -218,7 +217,7 @@ public class PlayField {
 		return ships.get(ships.size() - 1);
 	}
 	
-	protected int getSwimmingShips() {
+	public int getSwimmingShips() {
 		int remainingShips = 0;
 		for (Ship ship : ships) {
 			if (!ship.isSunk()) {

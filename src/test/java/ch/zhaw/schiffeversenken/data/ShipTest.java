@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
-
 public class ShipTest {
 	List<Coordinate> coordinates;
 	Coordinate noShipCoordinate;

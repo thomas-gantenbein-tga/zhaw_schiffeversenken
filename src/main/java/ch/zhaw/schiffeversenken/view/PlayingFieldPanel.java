@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Line;
-import ch.zhaw.schiffeversenken.guicomponents.shapes.Shape;
+import ch.zhaw.schiffeversenken.view.shapes.Line;
+import ch.zhaw.schiffeversenken.view.shapes.Shape;
 
 /**
  * Graphical representation of a PlayField object. Has a given size and holds a

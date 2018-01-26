@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.guicomponents;
+package ch.zhaw.schiffeversenken.view;
 /**
  * Interface used by the Game object to alert any graphical representation of the game.
  * Could be used by other display classes, e.g. for the web.

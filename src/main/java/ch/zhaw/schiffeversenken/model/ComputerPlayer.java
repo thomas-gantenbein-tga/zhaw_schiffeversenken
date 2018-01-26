@@ -1,7 +1,8 @@
-package ch.zhaw.schiffeversenken.helpers;
+package ch.zhaw.schiffeversenken.model;
 
 import java.util.Random;
 
+import ch.zhaw.schiffeversenken.data.Coordinate;
 import ch.zhaw.schiffeversenken.data.PlayField;
 import ch.zhaw.schiffeversenken.data.Ship;
 

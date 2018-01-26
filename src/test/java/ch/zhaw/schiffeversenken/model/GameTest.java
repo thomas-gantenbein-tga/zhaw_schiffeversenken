@@ -1,4 +1,4 @@
-package ch.zhaw.schiffeversenken.data;
+package ch.zhaw.schiffeversenken.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.zhaw.schiffeversenken.guicomponents.RunningGameDisplay;
-import ch.zhaw.schiffeversenken.helpers.ComputerPlayer;
-import ch.zhaw.schiffeversenken.helpers.Coordinate;
-import ch.zhaw.schiffeversenken.helpers.Directions;
+import ch.zhaw.schiffeversenken.data.Coordinate;
+import ch.zhaw.schiffeversenken.data.PlayField;
+import ch.zhaw.schiffeversenken.data.Ship;
+import ch.zhaw.schiffeversenken.model.ComputerPlayer;
+import ch.zhaw.schiffeversenken.model.Directions;
+import ch.zhaw.schiffeversenken.model.Game;
+import ch.zhaw.schiffeversenken.view.RunningGameDisplay;
 
 public class GameTest {
 

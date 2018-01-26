@@ -219,6 +219,7 @@ public class StartScreen02 implements Display {
 										+ " Your ships have been deleted. Try again and place fewer or smaller ships.");
 
 						update();
+						frame.repaint();
 						return;
 					}
 				}

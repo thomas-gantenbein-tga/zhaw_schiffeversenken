@@ -1,5 +1,6 @@
 package ch.zhaw.schiffeversenken.model;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import ch.zhaw.schiffeversenken.data.Coordinate;
@@ -11,7 +12,7 @@ import ch.zhaw.schiffeversenken.data.Ship;
  * like a (smart enough) human player would when a ship is hit.
  *
  */
-public class ComputerPlayer {
+public class ComputerPlayer implements Serializable {
 	private Random randomGenerator = new Random();
 	private int rowCount;
 	private int columnCount;

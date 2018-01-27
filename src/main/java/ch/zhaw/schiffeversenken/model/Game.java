@@ -1,5 +1,6 @@
 package ch.zhaw.schiffeversenken.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +16,11 @@ import ch.zhaw.schiffeversenken.view.Display;
  * A Game object can register and alert observers. Observers have to implement
  * the Display interface.
  */
-public class Game {
+public class Game implements Serializable{
 	private PlayField playerField;
 	private PlayField computerField;
 	private ComputerPlayer computerPlayer;
-	private List<Display> displayList;
+	private transient List<Display> displayList;
 
 	/**
 	 * Constructor expects the main components making up a game: two PlayField
@@ -77,7 +78,11 @@ public class Game {
 	 *            Any object implementing the Display interface.
 	 */
 	public void registerDisplay(Display display) {
-		displayList.add(display);
+		// needed in case the game object has been deserialized before
+		if (displayList == null) {
+			displayList = new ArrayList<Display>();
+		}
+			displayList.add(display);
 	}
 
 	private void alertDisplays() {

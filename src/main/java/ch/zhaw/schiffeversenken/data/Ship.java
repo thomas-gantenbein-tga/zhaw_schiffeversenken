@@ -1,5 +1,6 @@
 package ch.zhaw.schiffeversenken.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import ch.zhaw.schiffeversenken.model.Directions;
  * other properties isHit and isSunk are based on these coordinates and thus
  * evaluated by methods, not stored in fields.
  */
-public class Ship {
+public class Ship implements Serializable {
 	List<Coordinate> shipPositions;
 	int shipSize;
 	Directions direction;

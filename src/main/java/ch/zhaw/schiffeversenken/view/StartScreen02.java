@@ -175,7 +175,7 @@ public class StartScreen02 implements Display {
 
 		// the display displays the data of the game and is registered as an
 		// observer of the game object
-		RunningGameDisplay runningGameDisplay = new RunningGameDisplay(game);
+		RunningGameDisplay runningGameDisplay = new RunningGameDisplay(game, frame);
 		game.registerDisplay(runningGameDisplay);
 
 		return runningGameDisplay;

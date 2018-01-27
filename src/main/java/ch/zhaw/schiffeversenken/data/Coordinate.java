@@ -1,5 +1,7 @@
 package ch.zhaw.schiffeversenken.data;
 
+import java.io.Serializable;
+
 /**
  * Represents positions on a x- and y-axis and also holds other information: Was
  * this position shot at before and does this position contain a fully destroyed
@@ -7,7 +9,7 @@ package ch.zhaw.schiffeversenken.data;
  * the player.
  *
  */
-public class Coordinate {
+public class Coordinate implements Serializable {
 	private int xPosition;
 	private int yPosition;
 	private Boolean isHit;

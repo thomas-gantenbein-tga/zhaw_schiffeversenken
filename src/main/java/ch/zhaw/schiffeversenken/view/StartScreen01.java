@@ -12,8 +12,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import ch.zhaw.schiffeversenken.model.Game;
 
 /**
  * First screen shown to users. Let's them select the size of the playing fields
@@ -39,6 +44,12 @@ public class StartScreen01 {
 		sizeComputerFieldInput = new JTextField(4);
 		sizePlayerFieldInput = new JTextField(4);
 
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem fileMenuLoad = new JMenuItem("Load");
+		fileMenu.add(fileMenuLoad);
+		menuBar.add(fileMenu);		
+		
 		// Styling components
 		JLabel welcomeTextLabel = new JLabel(
 				"How big would you like your playing field? And how big should the field of the computer enemy be?");
@@ -66,13 +77,22 @@ public class StartScreen01 {
 		gbConstraints.gridwidth = 2;
 		gbConstraints.weightx = 0;
 		gbConstraints.weighty = 0;
+		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+
+		contentPane.add(menuBar, gbConstraints);
+		
+		gbConstraints.gridx = 0;
+		gbConstraints.gridy = 1;
+		gbConstraints.gridwidth = 2;
+		gbConstraints.weightx = 0;
+		gbConstraints.weighty = 0;
 		gbConstraints.insets = new Insets(15, 15, 5, 15);
 		gbConstraints.fill = GridBagConstraints.NONE;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		contentPane.add(welcomeTextLabel, gbConstraints);
 
 		gbConstraints.gridx = 0;
-		gbConstraints.gridy = 1;
+		gbConstraints.gridy = 2;
 		gbConstraints.gridwidth = 1;
 		gbConstraints.anchor = GridBagConstraints.WEST;
 		gbConstraints.insets = new Insets(5, 15, 5, 15);
@@ -82,7 +102,7 @@ public class StartScreen01 {
 		contentPane.add(sizeComputerFieldInput, gbConstraints);
 
 		gbConstraints.gridx = 0;
-		gbConstraints.gridy = 2;
+		gbConstraints.gridy = 3;
 		contentPane.add(sizePlayerFieldLabel, gbConstraints);
 
 		gbConstraints.gridx = 1;
@@ -90,11 +110,27 @@ public class StartScreen01 {
 
 		JButton nextButton = new JButton("Next: Create and place your ships");
 		gbConstraints.gridx = 0;
-		gbConstraints.gridy = 3;
+		gbConstraints.gridy = 4;
 		gbConstraints.insets = new Insets(5, 15, 15, 15);
 		contentPane.add(nextButton, gbConstraints);
 
 		nextButton.addActionListener(new NextButtonListener());
+		
+		fileMenuLoad.addActionListener(e -> {
+			LoaderSaver ls = new LoaderSaver();
+			Game loadedGame = ls.load();
+			if (loadedGame != null) {
+				RunningGameDisplay newGameDisplay = new RunningGameDisplay(loadedGame, frame);
+				loadedGame.registerDisplay(newGameDisplay);
+				newGameDisplay.update();
+				frame.setTitle("Battleships");
+				frame.setContentPane(newGameDisplay.getContentPane());
+				frame.validate();
+				frame.pack();
+				//if null is given, frame is centered on the screen
+				frame.setLocationRelativeTo(null);
+			}
+		});
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);

@@ -116,7 +116,7 @@ public class GameTest {
 		// Ship is added to player field to suppress the message "you lost".
 		Ship ship = new Ship(3, Directions.EAST, new Coordinate(0, 0, null, null));
 		playerField.addShip(ship);
-		RunningGameDisplay gameDisplay = new RunningGameDisplay(game);
+		RunningGameDisplay gameDisplay = new RunningGameDisplay(game, null);
 		gameDisplay.update();
 
 		Coordinate shot = new Coordinate(14, 14, null, null);

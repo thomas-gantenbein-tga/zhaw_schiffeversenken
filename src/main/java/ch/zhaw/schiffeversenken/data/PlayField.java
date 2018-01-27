@@ -1,5 +1,6 @@
 package ch.zhaw.schiffeversenken.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +18,7 @@ import ch.zhaw.schiffeversenken.model.Directions;
  * the list of free sea coordinates.
  *
  */
-public class PlayField {
+public class PlayField implements Serializable{
 	private List<Ship> ships;
 	private List<Coordinate> freeSea;
 	private int columnCount;

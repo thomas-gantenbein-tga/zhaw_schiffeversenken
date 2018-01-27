@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -49,7 +50,7 @@ public class RunningGameDisplay implements Display {
 	 * @param game
 	 *            The game that should be displayed by the GUI.
 	 */
-	public RunningGameDisplay(Game game) {
+	public RunningGameDisplay(Game game, JFrame frame) {
 		this.game = game;
 		initializeMainFields();
 
@@ -80,12 +81,14 @@ public class RunningGameDisplay implements Display {
 		gbConstraints.weighty = 0;
 		gbConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 
-//		JMenuBar menuBar = new JMenuBar();
-//		JMenu fileMenu = new JMenu("File");
-//		JMenuItem fileMenuOpen = new JMenuItem("Open");
-//		fileMenu.add(fileMenuOpen);
-//		menuBar.add(fileMenu);
-//		contentPane.add(menuBar, gbConstraints);
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem fileMenuLoad = new JMenuItem("Load");
+		JMenuItem fileMenuSave = new JMenuItem("Save");
+		fileMenu.add(fileMenuLoad);
+		fileMenu.add(fileMenuSave);
+		menuBar.add(fileMenu);
+		contentPane.add(menuBar, gbConstraints);
 
 		JLabel labelPlayer = new JLabel("Player");
 		gbConstraints.gridx = 0;
@@ -117,6 +120,24 @@ public class RunningGameDisplay implements Display {
 		drawPlayingFieldsGrid();
 
 		computerField.addMouseListener(mouseListener);
+
+		LoaderSaver ls = new LoaderSaver();
+		fileMenuLoad.addActionListener(e -> {
+			Game loadedGame = ls.load();
+			if (loadedGame != null) {
+				RunningGameDisplay newGameDisplay = new RunningGameDisplay(loadedGame, frame);
+				loadedGame.registerDisplay(newGameDisplay);
+				newGameDisplay.update();
+				frame.setContentPane(newGameDisplay.getContentPane());
+				frame.validate();
+				frame.pack();
+				//if null is given, frame is centered on the screen
+				frame.setLocationRelativeTo(null);
+			}
+		});
+		fileMenuSave.addActionListener(e -> {
+			ls.save(this.game);
+		});
 		HoverListener hoverListener = new HoverListener(computerField, columnCountComputer, rowCountComputer);
 		computerField.addMouseMotionListener(hoverListener);
 		computerField.addMouseListener(hoverListener);
@@ -138,9 +159,9 @@ public class RunningGameDisplay implements Display {
 		mouseListener = new ShootListener();
 
 	}
-	
+
 	private int getPreferredSize(int size) {
-		if(size < 15) {
+		if (size < 15) {
 			return 300;
 		} else {
 			return size * 20;
@@ -176,7 +197,7 @@ public class RunningGameDisplay implements Display {
 	}
 
 	/**
-	 * Makes a "shot" at teh computer field when the mouse button is pressed.
+	 * Makes a "shot" at the computer field when the mouse button is pressed.
 	 * Checks whether the press happens in the playing field. Does accept shots
 	 * at coordinates that have been shot at before. The Game object is
 	 * responsible for dealing with such a double shot.
@@ -204,7 +225,7 @@ public class RunningGameDisplay implements Display {
 	public void update() {
 		computerField.removeAllShapesButLines();
 		playerField.removeAllShapesButLines();
-		
+
 		// update computer field
 		for (Coordinate coordinate : game.getComputerField().getShipsCoordinates()) {
 			if (coordinate.getIsSunk()) {
@@ -305,14 +326,16 @@ public class RunningGameDisplay implements Display {
 
 	/**
 	 * Used for JUnit test, to test the "update" method.
+	 * 
 	 * @return
 	 */
 	public PlayingFieldPanel getPlayerField() {
 		return playerField;
 	}
-	
+
 	/**
 	 * Used for JUnit test, to test the "update" method.
+	 * 
 	 * @return
 	 */
 	public PlayingFieldPanel getComputerField() {
